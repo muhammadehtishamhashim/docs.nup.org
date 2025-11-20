@@ -11,11 +11,11 @@ export const metadata = {
 const banner = <Banner storageKey="some-key">Offfical National University of Pakistan Documentation 🎉</Banner>
 const navbar = (
   <Navbar
-    logo={<b>Nextra</b>}
+    logo={<b>NUP BS Computer Science</b>}
     // ... Your additional navbar options
   />
 )
-const footer = <Footer>MIT {new Date().getFullYear()} © Nextra.</Footer>
+const footer = <Footer>MIT {new Date().getFullYear()} © NUP (BS Computer Science). All rights reserved.</Footer>
  
 export default async function RootLayout({ children }) {
   return (
