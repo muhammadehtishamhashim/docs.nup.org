@@ -8,3 +8,24 @@
 :is(.dark .nextra-mobile-nav) {
   background-color: #111 !important;
 }
+
+/* Custom Search Highlight for Light Mode */
+:root:not(.dark) mark {
+  background-color: #bbf7d0 !important; /* Light green (Tailwind green-200) */
+  color: black !important;
+}
+
+/* Ensure dark mode keeps its default or looks good */
+.dark mark {
+  background-color: rgba(37, 99, 235, 0.5); /* Keep default blue-ish or similar if needed, or let Nextra handle it */
+  color: white;
+}
+
+/* Fix search result text color on hover in light mode */
+:root:not(.dark) .nextra-search-results a[data-focus] {
+  color: black !important;
+}
+
+:root:not(.dark) .nextra-search-results a[data-focus] > div {
+  color: black !important;
+}

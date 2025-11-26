@@ -1,4 +1,8 @@
 export default {
+  index: {
+    title: "BS Urdu",
+    display: "hidden"
+  },
   "semester-1": "Semester 1",
   "semester-2": "Semester 2",
   "semester-3": "Semester 3",
