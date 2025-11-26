@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+/* Fix mobile sidebar background */
+.nextra-mobile-nav {
+  background-color: white !important;
+}
+
+:is(.dark .nextra-mobile-nav) {
+  background-color: #111 !important;
+}
