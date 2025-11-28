@@ -1,5 +1,5 @@
 import { Footer, Layout, Navbar } from 'nextra-theme-docs'
-import { Banner, Head } from 'nextra/components'
+import { Banner, Head, Search } from 'nextra/components'
 import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-docs/style.css'
 
@@ -12,7 +12,9 @@ const banner = <Banner storageKey="nup-law">BS Law Documentation 🎓</Banner>
 const navbar = (
   <Navbar
     logo={<b>NUP - Law</b>}
-  />
+  >
+    <Search searchOptions={{ filters: { major: "bs-law" } }} />
+  </Navbar>
 )
 const footer = <Footer>© {new Date().getFullYear()} National University of Pakistan. All rights reserved.</Footer>
 
@@ -34,8 +36,11 @@ export default async function LawLayout({ children }) {
       pageMap={filteredPageMap}
       docsRepositoryBase="https://github.com/your-repo"
       footer={footer}
+      search={null}
     >
-      {children}
+      <div data-pagefind-filter="major: bs-law">
+        {children}
+      </div>
     </Layout>
   )
 }

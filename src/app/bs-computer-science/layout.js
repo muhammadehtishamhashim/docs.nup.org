@@ -1,5 +1,5 @@
 import { Footer, Layout, Navbar } from 'nextra-theme-docs'
-import { Banner, Head } from 'nextra/components'
+import { Banner, Head, Search } from 'nextra/components'
 import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-docs/style.css'
 
@@ -12,7 +12,9 @@ const banner = <Banner storageKey="nup-cs">BS Computer Science Documentation ðŸŽ
 const navbar = (
   <Navbar
     logo={<b>NUP - Computer Science</b>}
-  />
+  >
+    <Search searchOptions={{ filters: { major: "bs-computer-science" } }} />
+  </Navbar>
 )
 const footer = <Footer>Â© {new Date().getFullYear()} National University of Pakistan. All rights reserved.</Footer>
 
@@ -35,8 +37,11 @@ export default async function CSLayout({ children }) {
       pageMap={filteredPageMap}
       docsRepositoryBase="https://github.com/your-repo"
       footer={footer}
+      search={null}
     >
-      {children}
+      <div data-pagefind-filter="major: bs-computer-science">
+        {children}
+      </div>
     </Layout>
   )
 }

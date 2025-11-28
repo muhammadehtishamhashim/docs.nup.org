@@ -1,5 +1,5 @@
 import { Footer, Layout, Navbar } from 'nextra-theme-docs'
-import { Banner, Head } from 'nextra/components'
+import { Banner, Head, Search } from 'nextra/components'
 import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-docs/style.css'
 
@@ -12,7 +12,9 @@ const banner = <Banner storageKey="nup-english">BS English Documentation 🎓</B
 const navbar = (
   <Navbar
     logo={<b>NUP - English</b>}
-  />
+  >
+    <Search searchOptions={{ filters: { major: "bs-english" } }} />
+  </Navbar>
 )
 const footer = <Footer>© {new Date().getFullYear()} National University of Pakistan. All rights reserved.</Footer>
 
@@ -34,8 +36,11 @@ export default async function EnglishLayout({ children }) {
       pageMap={filteredPageMap}
       docsRepositoryBase="https://github.com/your-repo"
       footer={footer}
+      search={null}
     >
-      {children}
+      <div data-pagefind-filter="major: bs-english">
+        {children}
+      </div>
     </Layout>
   )
 }
