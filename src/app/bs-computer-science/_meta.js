@@ -1,7 +1,7 @@
 export default {
-  index: {
-    title: "BS Computer Science",
-    display: "hidden" // Hide the index page from sidebar
+  index: "Introduction",
+  "---": {
+    type: "separator"
   },
   "semester-1": "Semester 1",
   "semester-2": "Semester 2",

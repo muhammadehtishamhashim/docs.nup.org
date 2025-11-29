@@ -21,19 +21,14 @@ const footer = <Footer>© {new Date().getFullYear()} National University of Paki
 export default async function MathematicsLayout({ children }) {
   const fullPageMap = await getPageMap()
   
-  // Filter pageMap to show only bs-mathematics pages
-  const filteredPageMap = fullPageMap.filter(item => {
-    if (item.route === '/bs-mathematics' || item.route?.startsWith('/bs-mathematics/')) {
-      return true
-    }
-    return false
-  })
+  const mathsItem = fullPageMap.find(item => item.route === '/bs-mathematics')
+  const flattenedPageMap = mathsItem?.children || []
   
   return (
     <Layout
       banner={banner}
       navbar={navbar}
-      pageMap={filteredPageMap}
+      pageMap={flattenedPageMap}
       docsRepositoryBase="https://github.com/your-repo"
       footer={footer}
       search={null}

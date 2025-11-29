@@ -21,19 +21,14 @@ const footer = <Footer>© {new Date().getFullYear()} National University of Paki
 export default async function EnglishLayout({ children }) {
   const fullPageMap = await getPageMap()
   
-  // Filter pageMap to show only bs-english pages
-  const filteredPageMap = fullPageMap.filter(item => {
-    if (item.route === '/bs-english' || item.route?.startsWith('/bs-english/')) {
-      return true
-    }
-    return false
-  })
+  const englishItem = fullPageMap.find(item => item.route === '/bs-english')
+  const flattenedPageMap = englishItem?.children || []
   
   return (
     <Layout
       banner={banner}
       navbar={navbar}
-      pageMap={filteredPageMap}
+      pageMap={flattenedPageMap}
       docsRepositoryBase="https://github.com/your-repo"
       footer={footer}
       search={null}

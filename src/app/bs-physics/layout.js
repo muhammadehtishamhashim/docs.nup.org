@@ -21,19 +21,14 @@ const footer = <Footer>© {new Date().getFullYear()} National University of Paki
 export default async function PhysicsLayout({ children }) {
   const fullPageMap = await getPageMap()
   
-  // Filter pageMap to show only bs-physics pages
-  const filteredPageMap = fullPageMap.filter(item => {
-    if (item.route === '/bs-physics' || item.route?.startsWith('/bs-physics/')) {
-      return true
-    }
-    return false
-  })
+  const physicsItem = fullPageMap.find(item => item.route === '/bs-physics')
+  const flattenedPageMap = physicsItem?.children || []
   
   return (
     <Layout
       banner={banner}
       navbar={navbar}
-      pageMap={filteredPageMap}
+      pageMap={flattenedPageMap}
       docsRepositoryBase="https://github.com/your-repo"
       footer={footer}
       search={null}

@@ -21,20 +21,18 @@ const footer = <Footer>© {new Date().getFullYear()} National University of Paki
 export default async function CSLayout({ children }) {
   const fullPageMap = await getPageMap()
   
-  // Filter pageMap to show only bs-computer-science pages
-  const filteredPageMap = fullPageMap.filter(item => {
-    // Keep the current page and its children
-    if (item.route === '/bs-computer-science' || item.route?.startsWith('/bs-computer-science/')) {
-      return true
-    }
-    return false
-  })
+  // Find the bs-computer-science item by route
+  const csItem = fullPageMap.find(item => item.route === '/bs-computer-science')
+  
+  // Use its children as the pageMap to flatten the sidebar
+  // We default to [] if not found to prevent errors, though it should exist
+  const flattenedPageMap = csItem?.children || []
   
   return (
     <Layout
       banner={banner}
       navbar={navbar}
-      pageMap={filteredPageMap}
+      pageMap={flattenedPageMap}
       docsRepositoryBase="https://github.com/your-repo"
       footer={footer}
       search={null}

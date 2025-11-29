@@ -21,19 +21,14 @@ const footer = <Footer>© {new Date().getFullYear()} National University of Paki
 export default async function LawLayout({ children }) {
   const fullPageMap = await getPageMap()
   
-  // Filter pageMap to show only bs-law pages
-  const filteredPageMap = fullPageMap.filter(item => {
-    if (item.route === '/bs-law' || item.route?.startsWith('/bs-law/')) {
-      return true
-    }
-    return false
-  })
+  const lawItem = fullPageMap.find(item => item.route === '/bs-law')
+  const flattenedPageMap = lawItem?.children || []
   
   return (
     <Layout
       banner={banner}
       navbar={navbar}
-      pageMap={filteredPageMap}
+      pageMap={flattenedPageMap}
       docsRepositoryBase="https://github.com/your-repo"
       footer={footer}
       search={null}
