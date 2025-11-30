@@ -13,7 +13,9 @@ const navbar = (
   <Navbar
     logo={<b>NUP - English</b>}
   >
-    <Search searchOptions={{ filters: { major: "bs-english" } }} />
+    {/* <div className="max-md:hidden">
+      <Search searchOptions={{ filters: { major: "bs-english" } }} />
+    </div> */}
   </Navbar>
 )
 const footer = <Footer>© {new Date().getFullYear()} National University of Pakistan. All rights reserved.</Footer>
@@ -31,7 +33,7 @@ export default async function EnglishLayout({ children }) {
       pageMap={flattenedPageMap}
       docsRepositoryBase="https://github.com/your-repo"
       footer={footer}
-      search={null}
+      search={<Search searchOptions={{ filters: { major: "bs-english" } }} />}
     >
       <div data-pagefind-filter="major: bs-english">
         {children}

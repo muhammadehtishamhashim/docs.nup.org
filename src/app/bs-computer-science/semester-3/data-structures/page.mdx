@@ -1,0 +1,186 @@
+# Data Structures
+
+## 1. Introduction to Data Structures
+
+### Definition and Importance
+A **Data Structure** is a specialized format for organizing, processing, and retrieving data. If a variable is a box that holds a value, a data structure is a shelving system that determines how those boxes are arranged so they can be accessed efficiently.
+
+**Why are they important?**
+* **Efficiency:** Proper structures reduce the time it takes to find or sort data (Time Complexity) and the memory required to store it (Space Complexity).
+* **Abstraction:** They allow programmers to handle large datasets conceptually without worrying about the underlying memory layout.
+
+### Abstract Data Types (ADTs)
+An **Abstract Data Type** defines *what* the data structure does, not *how* it is implemented. It is a logical description.
+* **Example:** A "Stack" is an ADT. Its behavior is "Last In, First Out."
+* **Implementation:** We can build a Stack using an Array or a Linked List (the physical implementation).
+
+### Real-World Applications
+| Data Structure | Real-World Application |
+| :--- | :--- |
+| **Stack** | Web browser "Back" button; Undo/Redo features in text editors. |
+| **Queue** | Printer job scheduling; CPU task scheduling. |
+| **Graph** | Social networks (Facebook friends); GPS Navigation (Google Maps). |
+| **Tree** | File systems on your computer; HTML Document Object Model (DOM). |
+
+---
+
+## 2. Complexity Analysis & Big O Notation
+
+To measure the efficiency of an algorithm, we don't use seconds (because different computers run at different speeds). We use **Big O Notation**, which describes how the execution time grows as the input size ($n$) grows.
+
+### Common Big O Complexities
+1.  **$O(1)$ - Constant Time:** The operation takes the same time regardless of input size (e.g., accessing an array index).
+2.  **$O(\log n)$ - Logarithmic Time:** The problem is cut in half each step (e.g., Binary Search).
+3.  **$O(n)$ - Linear Time:** The time grows directly with the input (e.g., reading a book page by page).
+4.  **$O(n^2)$ - Quadratic Time:** Nested loops; performance degrades quickly as $n$ increases (e.g., simple sorting algorithms).
+
+$$
+T(n) \approx c \cdot n^2 \quad (\text{Quadratic growth})
+$$
+
+
+
+[Image of Big O Complexity Chart]
+
+
+---
+
+## 3. Arrays and Searching
+
+An **Array** is a collection of elements identified by index or key, stored in **contiguous memory locations**.
+
+### Operations on Arrays
+* **Access:** Instantaneous ($O(1)$) because the computer can calculate the address:
+    $$ \text{Address} = \text{Base\_Address} + (\text{Index} \times \text{Size\_of\_Element}) $$
+* **Insertion/Deletion:** Slow ($O(n)$) because elements must be shifted to fill or create gaps.
+
+### Searching Algorithms
+
+#### A. Linear Search (Unsorted Array)
+This is the "brute force" method. You check every element from the start until you find the target or reach the end.
+* **Best Case:** $O(1)$ (First item).
+* **Worst Case:** $O(n)$ (Last item or not found).
+
+#### B. Binary Search (Sorted Array Only)
+This is a **Divide and Conquer** approach. Because the array is sorted, we can check the middle element.
+1.  If Middle == Target: Stop.
+2.  If Target < Middle: Discard the right half. Look in the left.
+3.  If Target > Middle: Discard the left half. Look in the right.
+
+* **Complexity:** $O(\log n)$.
+
+
+
+[Image of Binary Search visualization]
+
+
+---
+
+## 4. Linked Lists
+
+A **Linked List** is a linear collection of data elements (nodes) where the order is not given by their physical placement in memory. Instead, each element points to the next.
+
+### Types of Linked Lists
+
+#### 1. Singly Linked List
+Each node contains **Data** and a **Next Pointer**. You can only traverse forward.
+> `[Data | Next] -> [Data | Next] -> NULL`
+
+#### 2. Doubly Linked List
+Each node contains **Data**, a **Next Pointer**, and a **Previous Pointer**. You can traverse forward and backward.
+> `NULL <- [Prev | Data | Next] <-> [Prev | Data | Next] -> NULL`
+
+#### 3. Sorted Linked List
+A list where nodes are inserted in a specific order (e.g., ascending).
+* **Insertion:** requires traversing the list to find the correct spot ($O(n)$), unlike a standard unsorted list where you can just add to the head ($O(1)$).
+
+
+
+---
+
+## 5. Stacks
+
+A **Stack** follows the **LIFO** (Last In, First Out) principle. Imagine a stack of plates; you can only add or remove the top plate.
+
+### Core Operations
+* **Push:** Add an item to the top.
+* **Pop:** Remove the item from the top.
+* **Peek:** Look at the top item without removing it.
+
+### Implementations
+
+#### Array Implementation
+* Uses a fixed-size array.
+* A variable `top` tracks the index of the top element.
+* **Pros:** Memory efficient (no pointers).
+* **Cons:** Fixed size (can overflow).
+
+#### Linked List Implementation
+* Dynamic size.
+* The `head` of the list acts as the top of the stack.
+* **Push:** Add new node at `head`.
+* **Pop:** Delete node at `head`.
+
+
+
+[Image of Stack Push and Pop operations]
+
+
+---
+
+## 6. Recursion and Divide & Conquer
+
+### Recursion
+Recursion occurs when a function calls itself to solve a smaller instance of the problem. Every recursive function needs two parts:
+1.  **Base Case:** The condition to stop recursion (prevents infinite loops).
+2.  **Recursive Step:** The logic where the function calls itself.
+
+**Analyzing Recursive Algorithms:**
+We use recurrence relations. For example, calculating a factorial:
+$$ T(n) = T(n-1) + O(1) $$
+This results in $O(n)$ complexity.
+
+### Divide and Conquer
+This is an algorithm design paradigm:
+1.  **Divide:** Break the problem into smaller sub-problems.
+2.  **Conquer:** Solve the sub-problems recursively.
+3.  **Combine:** Merge the solutions to solve the original problem.
+
+*Example:* Merge Sort and Binary Search.
+
+---
+
+## 7. Sorting Algorithms
+
+Sorting is the process of arranging data in a particular order (usually ascending).
+
+### A. Selection Sort
+* **Logic:** Repeatedly find the minimum element from the unsorted part and put it at the beginning.
+* **Steps:** Scan array, pick smallest, swap with index 0. Scan remaining, pick smallest, swap with index 1.
+* **Complexity:** $O(n^2)$.
+
+### B. Insertion Sort
+* **Logic:** Build the sorted array one item at a time. Similar to sorting playing cards in your hand.
+* **Steps:** Take an element, compare it with the previous elements, and shift them until the correct position is found.
+* **Complexity:** $O(n^2)$ (but very fast for small or nearly sorted datasets).
+
+### C. Merge Sort
+* **Logic:** A classic Divide and Conquer algorithm.
+* **Steps:**
+    1.  Divide the array into two halves.
+    2.  Recursively sort both halves.
+    3.  **Merge** the two sorted halves into one complete sorted array.
+* **Complexity:** $O(n \log n)$ (Much faster than Selection or Insertion sort for large datasets).
+
+
+
+[Image of Merge Sort process diagram]
+
+
+### Comparison Table
+
+| Algorithm | Best Time | Average Time | Worst Time | Space Complexity |
+| :--- | :--- | :--- | :--- | :--- |
+| **Selection Sort** | $O(n^2)$ | $O(n^2)$ | $O(n^2)$ | $O(1)$ |
+| **Insertion Sort** | $O(n)$ | $O(n^2)$ | $O(n^2)$ | $O(1)$ |
+| **Merge Sort** | $O(n \log n)$ | $O(n \log n)$ | $O(n \log n)$ | $O(n)$ |

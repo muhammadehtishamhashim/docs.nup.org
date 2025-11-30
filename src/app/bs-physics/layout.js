@@ -13,7 +13,9 @@ const navbar = (
   <Navbar
     logo={<b>NUP - Physics</b>}
   >
-    <Search searchOptions={{ filters: { major: "bs-physics" } }} />
+    {/* <div className="max-md:hidden">
+      <Search searchOptions={{ filters: { major: "bs-physics" } }} />
+    </div> */}
   </Navbar>
 )
 const footer = <Footer>© {new Date().getFullYear()} National University of Pakistan. All rights reserved.</Footer>
@@ -31,7 +33,7 @@ export default async function PhysicsLayout({ children }) {
       pageMap={flattenedPageMap}
       docsRepositoryBase="https://github.com/your-repo"
       footer={footer}
-      search={null}
+      search={<Search searchOptions={{ filters: { major: "bs-physics" } }} />}
     >
       <div data-pagefind-filter="major: bs-physics">
         {children}
