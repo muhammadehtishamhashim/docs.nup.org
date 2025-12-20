@@ -1,10 +1,10 @@
 import Link from 'next/link'
 
 const programs = [
-  { id: 'bs-computer-science', name: 'BS Computer Science', icon: '💻', color: 'from-blue-500 to-cyan-500' },
-  { id: 'bs-physics', name: 'BS Physics', icon: '⚛️', color: 'from-purple-500 to-pink-500' },
-  { id: 'bs-mathematics', name: 'BS Mathematics', icon: '📐', color: 'from-green-500 to-emerald-500' },
-  { id: 'bs-english', name: 'BS English', icon: '📚', color: 'from-orange-500 to-red-500' },
+  { id: 'bs-cs', name: 'BS Computer Science', icon: '💻', color: 'from-blue-500 to-cyan-500' },
+  { id: 'bs-phy', name: 'BS Physics', icon: '⚛️', color: 'from-purple-500 to-pink-500' },
+  { id: 'bs-math', name: 'BS Mathematics', icon: '📐', color: 'from-green-500 to-emerald-500' },
+  { id: 'bs-eng', name: 'BS English', icon: '📚', color: 'from-orange-500 to-red-500' },
   { id: 'bs-urdu', name: 'BS Urdu', icon: '📖', color: 'from-yellow-500 to-amber-500' },
   { id: 'bs-law', name: 'BS Law', icon: '⚖️', color: 'from-indigo-500 to-blue-500' },
 ]

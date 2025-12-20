@@ -13,9 +13,7 @@ const navbar = (
   <Navbar
     logo={<b>NUP - Physics</b>}
   >
-    {/* <div className="max-md:hidden">
-      <Search searchOptions={{ filters: { major: "bs-physics" } }} />
-    </div> */}
+    
   </Navbar>
 )
 const footer = <Footer>© {new Date().getFullYear()} National University of Pakistan. All rights reserved.</Footer>
@@ -23,7 +21,7 @@ const footer = <Footer>© {new Date().getFullYear()} National University of Paki
 export default async function PhysicsLayout({ children }) {
   const fullPageMap = await getPageMap()
   
-  const physicsItem = fullPageMap.find(item => item.route === '/bs-physics')
+  const physicsItem = fullPageMap.find(item => item.route === '/bs-phy')
   const flattenedPageMap = physicsItem?.children || []
   
   return (
@@ -33,9 +31,9 @@ export default async function PhysicsLayout({ children }) {
       pageMap={flattenedPageMap}
       docsRepositoryBase="https://github.com/your-repo"
       footer={footer}
-      search={<Search searchOptions={{ filters: { major: "bs-physics" } }} />}
+      search={<Search searchOptions={{ filters: { major: "bs-phy" } }} />}
     >
-      <div data-pagefind-filter="major: bs-physics">
+      <div data-pagefind-filter="major: bs-phy">
         {children}
       </div>
     </Layout>

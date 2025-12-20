@@ -13,9 +13,7 @@ const navbar = (
   <Navbar
     logo={<b>NUP - Urdu</b>}
   >
-    {/* <div className="max-md:hidden">
-      <Search searchOptions={{ filters: { major: "bs-urdu" } }} />
-    </div> */}
+    
   </Navbar>
 )
 const footer = <Footer>© {new Date().getFullYear()} National University of Pakistan. All rights reserved.</Footer>

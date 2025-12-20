@@ -13,9 +13,7 @@ const navbar = (
   <Navbar
     logo={<b>NUP - Computer Science</b>}
   >
-    {/* <div className="max-md:hidden">
-      <Search searchOptions={{ filters: { major: "bs-computer-science" } }} />
-    </div> */}
+    
   </Navbar>
 )
 const footer = <Footer>© {new Date().getFullYear()} National University of Pakistan. All rights reserved.</Footer>
@@ -24,7 +22,7 @@ export default async function CSLayout({ children }) {
   const fullPageMap = await getPageMap()
   
   // Find the bs-computer-science item by route
-  const csItem = fullPageMap.find(item => item.route === '/bs-computer-science')
+  const csItem = fullPageMap.find(item => item.route === '/bs-cs')
   
   // Use its children as the pageMap to flatten the sidebar
   // We default to [] if not found to prevent errors, though it should exist
@@ -37,9 +35,9 @@ export default async function CSLayout({ children }) {
       pageMap={flattenedPageMap}
       docsRepositoryBase="https://github.com/your-repo"
       footer={footer}
-      search={<Search searchOptions={{ filters: { major: "bs-computer-science" } }} />}
+      search={<Search searchOptions={{ filters: { major: "bs-cs" } }} />}
     >
-      <div data-pagefind-filter="major: bs-computer-science">
+      <div data-pagefind-filter="major: bs-cs">
         {children}
       </div>
     </Layout>
