@@ -32,7 +32,7 @@ export default async function SemesterLayout({ children }) {
   
   return (
     <Layout
-      banner={banner}
+      banner={false}
       navbar={navbar}
       pageMap={flattenedPageMap}
       docsRepositoryBase="https://github.com/your-repo"
