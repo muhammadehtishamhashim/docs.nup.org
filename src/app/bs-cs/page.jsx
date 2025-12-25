@@ -11,7 +11,7 @@ const semesters = [
   { id: 8, name: 'Semester 8' },
 ];
 
-const activeSemesters = [1, 3];
+const activeSemesters = [3];
 
 export default function BSCSPage() {
   return (
