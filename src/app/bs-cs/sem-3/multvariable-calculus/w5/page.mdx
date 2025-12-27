@@ -1,1 +1,546 @@
-## Coming Soon
+# Line and Surface Integrals
+
+## 1. Line Integral of Vector Field
+
+---
+
+### Definition
+
+Let $\mathbf{F}$ be a continuous vector field defined on a smooth curve $C$ given by a vector function $\mathbf{r}(t)$, $a \le t \le b$. Then the **line integral of $\mathbf{F}$ along $C$** is
+
+$$
+\int_C \mathbf{F} \cdot d\mathbf{r} = \int_a^b \mathbf{F}(\mathbf{r}(t)) \cdot \mathbf{r}'(t) \, dt = \int_C \mathbf{F} \cdot \mathbf{T} \, ds
+$$
+
+### Explanation (Work)
+
+Recall that the work done by a variable force $f(x)$ in moving a particle from $a$ to $b$ along the $x$-axis is $W = \int_a^b f(x) dx$. Then in Section 12.3 we found that the work done by a constant force $\mathbf{F}$ in moving an object from a point $P$ to another point $Q$ in space is $W = \mathbf{F} \cdot \mathbf{D}$, where $\mathbf{D} = \vec{PQ}$ is the displacement vector.
+
+Now suppose that $\mathbf{F} = P \mathbf{i} + Q \mathbf{j} + R \mathbf{k}$ is a continuous force field on $\mathbb{R}^3$. We wish to compute the work done by this force in moving a particle along a smooth curve $C$.
+
+The work $W$ done by the force field $\mathbf{F}$ is the limit of the Riemann sums:
+
+$$
+W = \int_C \mathbf{F}(x, y, z) \cdot \mathbf{T}(x, y, z) \, ds = \int_C \mathbf{F} \cdot \mathbf{T} \, ds
+$$
+
+Equation 12 says that work is the line integral with respect to arc length of the tangential component of the force.
+
+---
+
+### Solved Examples from the Book
+
+**Example 7:** Find the work done by the force field $\mathbf{F}(x, y) = x^2 \mathbf{i} - xy \mathbf{j}$ in moving a particle along the quarter-circle $\mathbf{r}(t) = \cos t \mathbf{i} + \sin t \mathbf{j}$, $0 \le t \le \pi/2$.
+
+**Solution:**
+Since $x = \cos t$ and $y = \sin t$, we have
+$$
+\mathbf{F}(\mathbf{r}(t)) = \cos^2 t \mathbf{i} - \cos t \sin t \mathbf{j}
+$$
+and
+$$
+\mathbf{r}'(t) = -\sin t \mathbf{i} + \cos t \mathbf{j}
+$$
+Therefore the work done is
+$$
+\begin{aligned}
+\int_C \mathbf{F} \cdot d\mathbf{r} &= \int_0^{\pi/2} \mathbf{F}(\mathbf{r}(t)) \cdot \mathbf{r}'(t) \, dt \\
+&= \int_0^{\pi/2} (\cos^2 t \mathbf{i} - \cos t \sin t \mathbf{j}) \cdot (-\sin t \mathbf{i} + \cos t \mathbf{j}) \, dt \\
+&= \int_0^{\pi/2} (-\cos^2 t \sin t - \cos^2 t \sin t) \, dt \\
+&= \int_0^{\pi/2} (-2 \cos^2 t \sin t) \, dt \\
+&= 2 \left[ \frac{\cos^3 t}{3} \right]_0^{\pi/2} \\
+&= 2 \left( 0 - \frac{1}{3} \right) \\
+&= -\frac{2}{3}
+\end{aligned}
+$$
+
+<br />
+
+**Example 8:** Evaluate $\int_C \mathbf{F} \cdot d\mathbf{r}$, where $\mathbf{F}(x, y, z) = xy \mathbf{i} + yz \mathbf{j} + zx \mathbf{k}$ and $C$ is the twisted cubic given by
+$$
+x = t \quad y = t^2 \quad z = t^3 \quad 0 \le t \le 1
+$$
+
+**Solution:**
+We have
+$$
+\mathbf{r}(t) = t \mathbf{i} + t^2 \mathbf{j} + t^3 \mathbf{k}
+$$
+$$
+\mathbf{r}'(t) = \mathbf{i} + 2t \mathbf{j} + 3t^2 \mathbf{k}
+$$
+$$
+\mathbf{F}(\mathbf{r}(t)) = (t)(t^2) \mathbf{i} + (t^2)(t^3) \mathbf{j} + (t^3)(t) \mathbf{k} = t^3 \mathbf{i} + t^5 \mathbf{j} + t^4 \mathbf{k}
+$$
+Thus
+$$
+\begin{aligned}
+\int_C \mathbf{F} \cdot d\mathbf{r} &= \int_0^1 \mathbf{F}(\mathbf{r}(t)) \cdot \mathbf{r}'(t) \, dt \\
+&= \int_0^1 (t^3 \mathbf{i} + t^5 \mathbf{j} + t^4 \mathbf{k}) \cdot (\mathbf{i} + 2t \mathbf{j} + 3t^2 \mathbf{k}) \, dt \\
+&= \int_0^1 (t^3(1) + t^5(2t) + t^4(3t^2)) \, dt \\
+&= \int_0^1 (t^3 + 2t^6 + 3t^6) \, dt \\
+&= \int_0^1 (t^3 + 5t^6) \, dt \\
+&= \left[ \frac{t^4}{4} + \frac{5t^7}{7} \right]_0^1 \\
+&= \frac{1}{4} + \frac{5}{7} \\
+&= \frac{27}{28}
+\end{aligned}
+$$
+
+---
+
+### Exercise 16.2 Solutions
+
+**19.** Let $\mathbf{F}$ be the vector field shown in the figure.
+(a) If $C_1$ is the vertical line segment from $(-3, -3)$ to $(-3, 3)$, determine whether $\int_{C_1} \mathbf{F} \cdot d\mathbf{r}$ is positive, negative, or zero.
+(b) If $C_2$ is the counterclockwise-oriented circle with radius 3 and center the origin, determine whether $\int_{C_2} \mathbf{F} \cdot d\mathbf{r}$ is positive, negative, or zero.
+
+**Solution:**
+**(a)** On the line segment $C_1$ (vertical line on the left), the vectors of the field $\mathbf{F}$ point generally to the right (positive $x$-direction). The curve $C_1$ is directed upward (positive $y$-direction). The angle between the field vectors and the tangent vectors is approximately $90^\circ$ or slightly less than $90^\circ$ in some places, but looking at the dot product $\mathbf{F} \cdot \mathbf{T}$: The vectors appear to have very small or zero vertical components, or point slightly upward. However, looking closely at the provided figure (Figure 13.1.11 equivalent in text context), the vectors along $x=-3$ point generally away from the origin. The tangent vector is $\mathbf{j}$. The dot product depends on the vertical component. By visual inspection, the field points away from the origin, so at $(-3, y)$, the vectors point left and maybe slightly up/down depending on $y$. The angle is obtuse?
+*Text Solution Verification:* (a) Positive. (b) Negative.
+*Reasoning based on visual:* Along $C_1$, the vectors of $\mathbf{F}$ have positive $y$-components (pointing somewhat in the direction of the path) for the top half and negative for the bottom? No, let's look at the dot product. The integral is $\int \mathbf{F} \cdot \mathbf{T} ds$. If the field makes an acute angle with the path, the integral is positive.
+
+**(b)** For the circle $C_2$ (counterclockwise), the tangent vector $\mathbf{T}$ points counterclockwise. The field vectors $\mathbf{F}$ point outward (away from the origin). Thus, the angle between $\mathbf{F}$ and $\mathbf{T}$ is obtuse (approx $90^\circ$ or pushing back against the motion? Actually, if they point radially out and the path is tangential, the dot product is 0. But if they spiral, we check the angle).
+*Text Answer:* Negative. This implies the field points somewhat "against" the counterclockwise movement (clockwise tendency).
+
+<br />
+
+**21.** Evaluate the line integral $\int_C \mathbf{F} \cdot d\mathbf{r}$, where $C$ is given by the vector function $\mathbf{r}(t)$.
+$$
+\mathbf{F}(x, y) = xy^2 \mathbf{i} - x^2 \mathbf{j}, \quad \mathbf{r}(t) = t^3 \mathbf{i} + t^2 \mathbf{j}, \quad 0 \le t \le 1
+$$
+
+**Solution:**
+Substitute $x = t^3$ and $y = t^2$:
+$$
+\mathbf{F}(\mathbf{r}(t)) = (t^3)(t^2)^2 \mathbf{i} - (t^3)^2 \mathbf{j} = t^7 \mathbf{i} - t^6 \mathbf{j}
+$$
+Find $d\mathbf{r}$:
+$$
+\mathbf{r}'(t) = 3t^2 \mathbf{i} + 2t \mathbf{j} \implies d\mathbf{r} = (3t^2 \mathbf{i} + 2t \mathbf{j}) \, dt
+$$
+Compute the dot product:
+$$
+\begin{aligned}
+\mathbf{F} \cdot d\mathbf{r} &= (t^7 \mathbf{i} - t^6 \mathbf{j}) \cdot (3t^2 \mathbf{i} + 2t \mathbf{j}) \, dt \\
+&= (3t^9 - 2t^7) \, dt
+\end{aligned}
+$$
+Evaluate the integral:
+$$
+\begin{aligned}
+\int_0^1 (3t^9 - 2t^7) \, dt &= \left[ \frac{3t^{10}}{10} - \frac{2t^8}{8} \right]_0^1 \\
+&= \left( \frac{3}{10} - \frac{1}{4} \right) - 0 \\
+&= \frac{6}{20} - \frac{5}{20} \\
+&= \frac{1}{20}
+\end{aligned}
+$$
+**Answer:** $1/20$
+
+<br />
+
+**22.** Evaluate the line integral $\int_C \mathbf{F} \cdot d\mathbf{r}$.
+$$
+\mathbf{F}(x, y, z) = (x + y^2) \mathbf{i} + xz \mathbf{j} + (y + z) \mathbf{k}
+$$
+$$
+\mathbf{r}(t) = t^2 \mathbf{i} + t^3 \mathbf{j} - 2t \mathbf{k}, \quad 0 \le t \le 2
+$$
+
+**Solution:**
+Identify components:
+$$
+x = t^2, \quad y = t^3, \quad z = -2t
+$$
+Substitute into $\mathbf{F}$:
+$$
+\begin{aligned}
+\mathbf{F}(\mathbf{r}(t)) &= (t^2 + (t^3)^2) \mathbf{i} + (t^2)(-2t) \mathbf{j} + (t^3 - 2t) \mathbf{k} \\
+&= (t^2 + t^6) \mathbf{i} - 2t^3 \mathbf{j} + (t^3 - 2t) \mathbf{k}
+\end{aligned}
+$$
+Find $d\mathbf{r}$:
+$$
+\mathbf{r}'(t) = 2t \mathbf{i} + 3t^2 \mathbf{j} - 2 \mathbf{k}
+$$
+Compute dot product $\mathbf{F} \cdot \mathbf{r}'$:
+$$
+\begin{aligned}
+\mathbf{F} \cdot \mathbf{r}' &= (t^2 + t^6)(2t) + (-2t^3)(3t^2) + (t^3 - 2t)(-2) \\
+&= 2t^3 + 2t^7 - 6t^5 - 2t^3 + 4t \\
+&= 2t^7 - 6t^5 + 4t
+\end{aligned}
+$$
+Evaluate integral:
+$$
+\begin{aligned}
+\int_0^2 (2t^7 - 6t^5 + 4t) \, dt &= \left[ \frac{2t^8}{8} - \frac{6t^6}{6} + \frac{4t^2}{2} \right]_0^2 \\
+&= \left[ \frac{t^8}{4} - t^6 + 2t^2 \right]_0^2 \\
+&= \left( \frac{256}{4} - 64 + 2(4) \right) - 0 \\
+&= 64 - 64 + 8 \\
+&= 8
+\end{aligned}
+$$
+**Answer:** $8$
+
+<br />
+
+**23.** Evaluate the line integral $\int_C \mathbf{F} \cdot d\mathbf{r}$.
+$$
+\mathbf{F}(x, y, z) = \sin x \mathbf{i} + \cos y \mathbf{j} + xz \mathbf{k}
+$$
+$$
+\mathbf{r}(t) = t^3 \mathbf{i} - t^2 \mathbf{j} + t \mathbf{k}, \quad 0 \le t \le 1
+$$
+
+**Solution:**
+$$
+x = t^3, \quad y = -t^2, \quad z = t
+$$
+$$
+\mathbf{F} = \langle \sin(t^3), \cos(-t^2), t^4 \rangle
+$$
+$$
+d\mathbf{r} = \langle 3t^2, -2t, 1 \rangle \, dt
+$$
+$$
+\begin{aligned}
+\int_C \mathbf{F} \cdot d\mathbf{r} &= \int_0^1 (3t^2 \sin(t^3) - 2t \cos(t^2) + t^4) \, dt \\
+&= \int_0^1 3t^2 \sin(t^3) \, dt - \int_0^1 2t \cos(t^2) \, dt + \int_0^1 t^4 \, dt
+\end{aligned}
+$$
+Integrate term by term:
+1. Let $u = t^3, du = 3t^2 dt$. $\int \sin u \, du = -\cos u$.
+   $[-\cos(t^3)]_0^1 = -\cos(1) - (-\cos(0)) = 1 - \cos(1)$.
+2. Let $v = t^2, dv = 2t dt$. $\int \cos v \, dv = \sin v$.
+   $-[\sin(t^2)]_0^1 = -(\sin(1) - \sin(0)) = -\sin(1)$.
+3. $[t^5/5]_0^1 = 1/5$.
+
+Sum:
+$$
+1 - \cos(1) - \sin(1) + \frac{1}{5} = \frac{6}{5} - \cos 1 - \sin 1
+$$
+**Answer:** $\frac{6}{5} - \cos 1 - \sin 1$
+
+<br />
+
+**29.** Find the work done by the force field $\mathbf{F}$ in moving an object from $P$ to $Q$.
+$$
+\mathbf{F}(x, y) = x^3 \mathbf{i} + y^3 \mathbf{j}; \quad P(1, 0), \quad Q(2, 2)
+$$
+
+**Solution:**
+Since $\mathbf{F}$ is conservative (curl is zero: $\frac{\partial}{\partial x}(y^3) - \frac{\partial}{\partial y}(x^3) = 0 - 0 = 0$), the work is independent of the path. We can choose the simplest path or use the potential function.
+Potential function $f$:
+$f_x = x^3 \implies f = \frac{x^4}{4} + g(y)$
+$f_y = y^3 \implies g'(y) = y^3 \implies g(y) = \frac{y^4}{4}$
+$f(x, y) = \frac{x^4}{4} + \frac{y^4}{4}$
+Work $W = f(Q) - f(P)$:
+$$
+W = f(2, 2) - f(1, 0) = \left( \frac{2^4}{4} + \frac{2^4}{4} \right) - \left( \frac{1^4}{4} + 0 \right)
+$$
+$$
+= (4 + 4) - \frac{1}{4} = 8 - 0.25 = 7.75
+$$
+**Answer:** $7.75$ (or $31/4$)
+
+<br />
+
+**30.** Find the work done by the force field $\mathbf{F}$ in moving an object from $P$ to $Q$.
+$$
+\mathbf{F}(x, y) = (2x + y) \mathbf{i} + x \mathbf{j}; \quad P(1, 1), \quad Q(4, 3)
+$$
+
+**Solution:**
+Check if conservative: $\frac{\partial Q}{\partial x} = 1$, $\frac{\partial P}{\partial y} = 1$. It is conservative.
+Find potential $f$:
+$f_x = 2x + y \implies f = x^2 + xy + g(y)$
+$f_y = x + g'(y) = x \implies g'(y) = 0 \implies g(y) = K$
+$f(x, y) = x^2 + xy$
+Work $W = f(4, 3) - f(1, 1)$:
+$$
+\begin{aligned}
+W &= (4^2 + 4(3)) - (1^2 + 1(1)) \\
+&= (16 + 12) - (2) \\
+&= 28 - 2 \\
+&= 26
+\end{aligned}
+$$
+**Answer:** $26$
+
+---
+
+### Video Resource
+[YouTube Video Placeholder: Stewart Calculus 16.2 Line Integrals of Vector Fields]
+
+---
+
+## 2. Surface Integrals
+
+**Book:** *Multivariable Calculus* by James Stewart, 9th Edition
+**Chapter:** 16. Vector Calculus
+**Section:** 16.7 Surface Integrals
+
+---
+
+### Definition
+
+If $S$ is a surface parametrized by a vector function $\mathbf{r}(u, v) = \langle x(u, v), y(u, v), z(u, v) \rangle$ on a domain $D$, the **surface integral of $f$ over $S$** is given by:
+
+$$
+\iint_S f(x, y, z) \, dS = \iint_D f(\mathbf{r}(u, v)) |\mathbf{r}_u \times \mathbf{r}_v| \, dA
+$$
+
+where $\mathbf{r}_u$ and $\mathbf{r}_v$ are the partial derivatives of $\mathbf{r}$ with respect to $u$ and $v$.
+
+**For graphs of functions:** If $S$ is the graph of $z = g(x, y)$, we let $x$ and $y$ be the parameters. Then:
+
+$$
+\iint_S f(x, y, z) \, dS = \iint_D f(x, y, g(x, y)) \sqrt{\left(\frac{\partial z}{\partial x}\right)^2 + \left(\frac{\partial z}{\partial y}\right)^2 + 1} \, dA
+$$
+
+---
+
+### Solved Examples from the Book
+
+**Example 1:** Compute the surface integral $\iint_S x^2 \, dS$, where $S$ is the unit sphere $x^2 + y^2 + z^2 = 1$.
+
+**Solution:**
+We use the parametric representation of the sphere using spherical coordinates (with $\rho = 1$):
+$$
+x = \sin \phi \cos \theta, \quad y = \sin \phi \sin \theta, \quad z = \cos \phi
+$$
+The domain $D$ is $0 \le \phi \le \pi$ and $0 \le \theta \le 2\pi$.
+The cross product of the tangent vectors is given by $|\mathbf{r}_\phi \times \mathbf{r}_\theta| = \sin \phi$ (since $\rho = 1$, the factor is $1^2 \sin \phi$).
+Using the formula for surface integrals:
+$$
+\begin{aligned}
+\iint_S x^2 \, dS &= \iint_D (\sin \phi \cos \theta)^2 |\mathbf{r}_\phi \times \mathbf{r}_\theta| \, dA \\
+&= \int_0^{2\pi} \int_0^\pi \sin^2 \phi \cos^2 \theta \sin \phi \, d\phi \, d\theta \\
+&= \int_0^{2\pi} \cos^2 \theta \, d\theta \int_0^\pi \sin^3 \phi \, d\phi
+\end{aligned}
+$$
+Evaluate the integrals separately:
+$$
+\int_0^{2\pi} \cos^2 \theta \, d\theta = \int_0^{2\pi} \frac{1}{2}(1 + \cos 2\theta) \, d\theta = \frac{1}{2} \left[ \theta + \frac{1}{2}\sin 2\theta \right]_0^{2\pi} = \pi
+$$
+$$
+\begin{aligned}
+\int_0^\pi \sin^3 \phi \, d\phi &= \int_0^\pi (1 - \cos^2 \phi) \sin \phi \, d\phi \\
+&= \left[ -\cos \phi + \frac{\cos^3 \phi}{3} \right]_0^\pi \\
+&= \left( -(-1) + \frac{-1}{3} \right) - \left( -1 + \frac{1}{3} \right) = \frac{4}{3}
+\end{aligned}
+$$
+$$
+\text{Total} = \pi \cdot \frac{4}{3} = \frac{4\pi}{3}
+$$
+
+<br />
+
+**Example 2:** Evaluate $\iint_S y \, dS$, where $S$ is the surface $z = x + y^2$, $0 \le x \le 1$, $0 \le y \le 2$.
+
+**Solution:**
+Here $S$ is the graph of $z = g(x, y) = x + y^2$. We use the formula for graphs:
+$$
+\frac{\partial z}{\partial x} = 1, \quad \frac{\partial z}{\partial y} = 2y
+$$
+$$
+dS = \sqrt{1^2 + (2y)^2 + 1} \, dA = \sqrt{1 + 4y^2 + 1} \, dA = \sqrt{2 + 4y^2} \, dA
+$$
+The domain $D$ is the rectangle $0 \le x \le 1$, $0 \le y \le 2$.
+$$
+\begin{aligned}
+\iint_S y \, dS &= \int_0^1 \int_0^2 y \sqrt{2 + 4y^2} \, dy \, dx \\
+&= \int_0^1 dx \int_0^2 y \sqrt{2 + 4y^2} \, dy
+\end{aligned}
+$$
+For the inner integral, let $u = 2 + 4y^2$, then $du = 8y \, dy \Rightarrow y \, dy = \frac{1}{8} du$.
+Limits: $y=0 \to u=2$, $y=2 \to u=18$.
+$$
+\begin{aligned}
+\int_0^2 y (2 + 4y^2)^{1/2} \, dy &= \frac{1}{8} \int_2^{18} u^{1/2} \, du \\
+&= \frac{1}{8} \left[ \frac{2}{3} u^{3/2} \right]_2^{18} \\
+&= \frac{1}{12} (18\sqrt{18} - 2\sqrt{2}) \\
+&= \frac{1}{12} (54\sqrt{2} - 2\sqrt{2}) = \frac{52\sqrt{2}}{12} = \frac{13\sqrt{2}}{3}
+\end{aligned}
+$$
+Integrating with respect to $x$ gives just the constant times $(1 - 0)$:
+$$
+\iint_S y \, dS = \frac{13\sqrt{2}}{3}
+$$
+
+---
+
+### Exercise 16.7 Solutions
+
+**5.** Evaluate $\iint_S (x + y + z) \, dS$, where $S$ is the parallelogram with parametric equations $x = u + v$, $y = u - v$, $z = 1 + 2u + v$, $0 \le u \le 2$, $0 \le v \le 1$.
+
+**Solution:**
+$$
+\mathbf{r}(u, v) = \langle u + v, u - v, 1 + 2u + v \rangle
+$$
+Compute tangent vectors:
+$$
+\mathbf{r}_u = \langle 1, 1, 2 \rangle
+$$
+$$
+\mathbf{r}_v = \langle 1, -1, 1 \rangle
+$$
+Compute cross product:
+$$
+\mathbf{r}_u \times \mathbf{r}_v = \begin{vmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\ 1 & 1 & 2 \\ 1 & -1 & 1 \end{vmatrix} = \langle 1 - (-2), 2 - 1, -1 - 1 \rangle = \langle 3, 1, -2 \rangle
+$$
+$$
+|\mathbf{r}_u \times \mathbf{r}_v| = \sqrt{3^2 + 1^2 + (-2)^2} = \sqrt{9 + 1 + 4} = \sqrt{14}
+$$
+Substitute into the integral ($f = x+y+z$):
+$$
+x + y + z = (u+v) + (u-v) + (1+2u+v) = 4u + v + 1
+$$
+$$
+\begin{aligned}
+\iint_S (x+y+z) \, dS &= \int_0^1 \int_0^2 (4u + v + 1) \sqrt{14} \, du \, dv \\
+&= \sqrt{14} \int_0^1 \left[ 2u^2 + vu + u \right]_0^2 \, dv \\
+&= \sqrt{14} \int_0^1 (8 + 2v + 2) \, dv \\
+&= \sqrt{14} \int_0^1 (10 + 2v) \, dv \\
+&= \sqrt{14} \left[ 10v + v^2 \right]_0^1 \\
+&= \sqrt{14} (10 + 1) = 11\sqrt{14}
+\end{aligned}
+$$
+**Answer:** $11\sqrt{14}$
+
+<br />
+
+**6.** Evaluate $\iint_S xyz \, dS$, where $S$ is the cone with parametric equations $x = u \cos v$, $y = u \sin v$, $z = u$, $0 \le u \le 1$, $0 \le v \le \pi/2$.
+
+**Solution:**
+$$
+\mathbf{r}_u = \langle \cos v, \sin v, 1 \rangle
+$$
+$$
+\mathbf{r}_v = \langle -u \sin v, u \cos v, 0 \rangle
+$$
+$$
+\mathbf{r}_u \times \mathbf{r}_v = \langle -u \cos v, -u \sin v, u(\cos^2 v + \sin^2 v) \rangle = \langle -u \cos v, -u \sin v, u \rangle
+$$
+$$
+|\mathbf{r}_u \times \mathbf{r}_v| = \sqrt{u^2 \cos^2 v + u^2 \sin^2 v + u^2} = \sqrt{u^2 + u^2} = \sqrt{2u^2} = u\sqrt{2} \quad (\text{since } u \ge 0)
+$$
+Function: $xyz = (u \cos v)(u \sin v)(u) = u^3 \cos v \sin v$.
+$$
+\begin{aligned}
+\iint_S xyz \, dS &= \int_0^{\pi/2} \int_0^1 (u^3 \cos v \sin v) (u\sqrt{2}) \, du \, dv \\
+&= \sqrt{2} \int_0^1 u^4 \, du \int_0^{\pi/2} \sin v \cos v \, dv \\
+&= \sqrt{2} \left[ \frac{u^5}{5} \right]_0^1 \left[ \frac{\sin^2 v}{2} \right]_0^{\pi/2} \\
+&= \sqrt{2} \left(\frac{1}{5}\right) \left(\frac{1}{2}\right) = \frac{\sqrt{2}}{10}
+\end{aligned}
+$$
+**Answer:** $\frac{\sqrt{2}}{10}$
+
+<br />
+
+**10.** Evaluate $\iint_S xz \, dS$, where $S$ is the part of the plane $2x + 2y + z = 4$ that lies in the first octant.
+
+**Solution:**
+Express as a graph $z = 4 - 2x - 2y$.
+$$
+\frac{\partial z}{\partial x} = -2, \quad \frac{\partial z}{\partial y} = -2
+$$
+$$
+dS = \sqrt{(-2)^2 + (-2)^2 + 1} \, dA = \sqrt{4+4+1} \, dA = 3 \, dA
+$$
+Region $D$: $z \ge 0 \Rightarrow 4 - 2x - 2y \ge 0 \Rightarrow x + y \le 2$. First octant means $x \ge 0, y \ge 0$.
+$$
+D = \{(x, y) | 0 \le x \le 2, 0 \le y \le 2 - x\}
+$$
+Integral:
+$$
+\begin{aligned}
+\iint_D x(4 - 2x - 2y) \cdot 3 \, dA &= 3 \int_0^2 \int_0^{2-x} (4x - 2x^2 - 2xy) \, dy \, dx \\
+&= 3 \int_0^2 \left[ 4xy - 2x^2y - xy^2 \right]_0^{2-x} \, dx \\
+&= 3 \int_0^2 \left( 4x(2-x) - 2x^2(2-x) - x(2-x)^2 \right) \, dx \\
+&= 3 \int_0^2 (2-x) \left( 4x - 2x^2 - x(2-x) \right) \, dx \\
+&= 3 \int_0^2 (2-x) (4x - 2x^2 - 2x + x^2) \, dx \\
+&= 3 \int_0^2 (2-x)(2x - x^2) \, dx \\
+&= 3 \int_0^2 x(2-x)^2 \, dx
+\end{aligned}
+$$
+Let $u = 2-x$, $du = -dx$.
+$$
+= 3 \int_2^0 (2-u)u^2 (-du) = 3 \int_0^2 (2u^2 - u^3) \, du = 3 \left[ \frac{2}{3}u^3 - \frac{u^4}{4} \right]_0^2 = 3 \left( \frac{16}{3} - 4 \right) = 16 - 12 = 4
+$$
+**Answer:** $4$
+
+<br />
+
+**11.** Evaluate $\iint_S x \, dS$, $S$ is the triangular region with vertices $(1, 0, 0)$, $(0, -2, 0)$, and $(0, 0, 4)$.
+
+**Solution:**
+Find the equation of the plane. Vectors: $\mathbf{a} = \langle -1, -2, 0 \rangle$, $\mathbf{b} = \langle -1, 0, 4 \rangle$.
+$\mathbf{n} = \mathbf{a} \times \mathbf{b} = \langle -8, 4, -2 \rangle$. Simplify normal to $\langle 4, -2, 1 \rangle$.
+Equation: $4x - 2y + z = 4(1) - 2(0) + 0 = 4$. So $z = 4 - 4x + 2y$.
+$$
+\frac{\partial z}{\partial x} = -4, \quad \frac{\partial z}{\partial y} = 2
+$$
+$$
+dS = \sqrt{(-4)^2 + (2)^2 + 1} \, dA = \sqrt{16 + 4 + 1} \, dA = \sqrt{21} \, dA
+$$
+Region $D$ in $xy$-plane: Connects $(1, 0)$ and $(0, -2)$. Line eq: $y - 0 = \frac{-2-0}{0-1}(x-1) \Rightarrow y = 2(x-1) = 2x - 2$.
+Bounded by $x=0$, $y=0$, $y=2x-2$. Or $0 \le x \le 1$, $2x-2 \le y \le 0$.
+$$
+\begin{aligned}
+\iint_S x \, dS &= \int_0^1 \int_{2x-2}^0 x \sqrt{21} \, dy \, dx \\
+&= \sqrt{21} \int_0^1 x [y]_{2x-2}^0 \, dx \\
+&= \sqrt{21} \int_0^1 x (0 - (2x - 2)) \, dx \\
+&= \sqrt{21} \int_0^1 (2x - 2x^2) \, dx \\
+&= \sqrt{21} \left[ x^2 - \frac{2}{3}x^3 \right]_0^1 \\
+&= \sqrt{21} (1 - \frac{2}{3}) = \frac{\sqrt{21}}{3}
+\end{aligned}
+$$
+**Answer:** $\frac{\sqrt{21}}{3}$
+
+<br />
+
+**13.** Evaluate $\iint_S z^2 \, dS$, $S$ is the part of the paraboloid $x = y^2 + z^2$ given by $0 \le x \le 1$.
+
+**Solution:**
+This is a graph $x = g(y, z)$. We project onto the $yz$-plane.
+$0 \le y^2 + z^2 \le 1$. $D$ is the unit disk in the $yz$-plane.
+$$
+\frac{\partial x}{\partial y} = 2y, \quad \frac{\partial x}{\partial z} = 2z
+$$
+$$
+dS = \sqrt{(2y)^2 + (2z)^2 + 1} \, dA = \sqrt{4(y^2+z^2) + 1} \, dA
+$$
+Use polar coordinates for the $yz$-plane: $y = r \cos \theta, z = r \sin \theta$.
+$$
+z^2 = r^2 \sin^2 \theta, \quad dS = \sqrt{4r^2 + 1} \, r \, dr \, d\theta
+$$
+$$
+\begin{aligned}
+\iint_S z^2 \, dS &= \int_0^{2\pi} \int_0^1 (r^2 \sin^2 \theta) \sqrt{4r^2 + 1} \, r \, dr \, d\theta \\
+&= \int_0^{2\pi} \sin^2 \theta \, d\theta \int_0^1 r^3 \sqrt{4r^2 + 1} \, dr
+\end{aligned}
+$$
+Integral 1: $\int_0^{2\pi} \sin^2 \theta \, d\theta = \pi$.
+Integral 2: Let $u = 4r^2 + 1$, then $du = 8r \, dr \Rightarrow r \, dr = \frac{1}{8} du$.
+Since $r^2 = \frac{u-1}{4}$, $r^3 \, dr = r^2 \cdot r \, dr = \frac{u-1}{4} \cdot \frac{1}{8} du = \frac{1}{32}(u-1) du$.
+Limits: $r=0 \to u=1$, $r=1 \to u=5$.
+$$
+\begin{aligned}
+\int_1^5 \frac{1}{32} (u-1) \sqrt{u} \, du &= \frac{1}{32} \int_1^5 (u^{3/2} - u^{1/2}) \, du \\
+&= \frac{1}{32} \left[ \frac{2}{5} u^{5/2} - \frac{2}{3} u^{3/2} \right]_1^5 \\
+&= \frac{1}{16} \left[ \left(\frac{1}{5} (5^{2}\sqrt{5}) - \frac{1}{3} (5\sqrt{5})\right) - \left(\frac{1}{5} - \frac{1}{3}\right) \right] \\
+&= \frac{1}{16} \left[ \left(5\sqrt{5} - \frac{5}{3}\sqrt{5}\right) - \left(\frac{3-5}{15}\right) \right] \\
+&= \frac{1}{16} \left[ \frac{10\sqrt{5}}{3} + \frac{2}{15} \right]
+\end{aligned}
+$$
+Total: $\pi \cdot \frac{1}{16} (\frac{50\sqrt{5} + 2}{15}) = \frac{\pi}{120} (25\sqrt{5} + 1)$.
+(Re-checking arithmetic: $32 \times 15 = 480$. $2 \times 15 = 30$ in num? Wait.
+$\frac{1}{16} [\frac{50\sqrt{5} + 2}{15}] = \frac{2(25\sqrt{5}+1)}{16 \cdot 15} = \frac{25\sqrt{5}+1}{8 \cdot 15} = \frac{25\sqrt{5}+1}{120}$. Correct.)
+**Answer:** $\frac{\pi}{120}(1 + 25\sqrt{5})$
+
+---
+
+### Video Resource
+
+[YouTube Video Placeholder: Stewart Calculus 16.7 Surface Integrals]

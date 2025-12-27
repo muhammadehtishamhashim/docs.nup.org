@@ -1,1 +1,686 @@
-## Coming Soon
+# Line and Surface Integrals
+
+**Book:** *Multivariable Calculus* by James Stewart, 9th Edition
+**Chapter:** 16. Vector Calculus
+**Section:** 16.2 Line Integrals
+
+---
+
+## 1. Line Integrals along a Curve C (16.2)
+
+### Definition
+
+If $f$ is defined on a smooth curve $C$ given by the parametric equations $x = x(t)$, $y = y(t)$, $a \le t \le b$, then the **line integral of $f$ along $C$** is
+
+$$
+\int_C f(x, y) \, ds = \lim_{n \to \infty} \sum_{i=1}^n f(x_i^*, y_i^*) \, \Delta s_i
+$$
+
+if this limit exists.
+
+### Formula for Evaluation
+
+If $f$ is continuous, then
+
+$$
+\int_C f(x, y) \, ds = \int_a^b f(x(t), y(t)) \sqrt{\left(\frac{dx}{dt}\right)^2 + \left(\frac{dy}{dt}\right)^2} \, dt
+$$
+
+***
+
+### Solved Examples from the Book
+
+**Example 1:** Evaluate $\int_C (2 + x^2y) \, ds$, where $C$ is the upper half of the unit circle $x^2 + y^2 = 1$.
+
+**Solution:**
+In order to use the formula, we first need parametric equations to represent $C$. Recall that the unit circle can be parametrized by means of the equations
+$$
+x = \cos t \quad y = \sin t
+$$
+and the upper half of the circle is described by the parameter interval $0 \le t \le \pi$. Therefore the formula gives:
+$$
+\begin{aligned}
+\int_C (2 + x^2y) \, ds &= \int_0^\pi (2 + \cos^2 t \sin t) \sqrt{\left(\frac{dx}{dt}\right)^2 + \left(\frac{dy}{dt}\right)^2} \, dt \\
+&= \int_0^\pi (2 + \cos^2 t \sin t) \sqrt{(-\sin t)^2 + (\cos t)^2} \, dt \\
+&= \int_0^\pi (2 + \cos^2 t \sin t) \cdot 1 \, dt \\
+&= \left[ 2t - \frac{\cos^3 t}{3} \right]_0^\pi \\
+&= 2\pi + \frac{2}{3}
+\end{aligned}
+$$
+
+<br />
+
+**Example 2:** Evaluate $\int_C 2x \, ds$, where $C$ consists of the arc $C_1$ of the parabola $y = x^2$ from $(0, 0)$ to $(1, 1)$ followed by the vertical line segment $C_2$ from $(1, 1)$ to $(1, 2)$.
+
+**Solution:**
+$C_1$ is the graph of a function of $x$, so we can choose $x$ as the parameter and the equations for $C_1$ become
+$$
+x = x \quad y = x^2 \quad 0 \le x \le 1
+$$
+Therefore
+$$
+\begin{aligned}
+\int_{C_1} 2x \, ds &= \int_0^1 2x \sqrt{\left(\frac{dx}{dx}\right)^2 + \left(\frac{dy}{dx}\right)^2} \, dx \\
+&= \int_0^1 2x \sqrt{1 + 4x^2} \, dx \\
+&= \left[ \frac{1}{4} \cdot \frac{2}{3} (1 + 4x^2)^{3/2} \right]_0^1 \\
+&= \frac{5\sqrt{5} - 1}{6}
+\end{aligned}
+$$
+On $C_2$ we choose $y$ as the parameter, so the equations of $C_2$ are
+$$
+x = 1 \quad y = y \quad 1 \le y \le 2
+$$
+and
+$$
+\begin{aligned}
+\int_{C_2} 2x \, ds &= \int_1^2 2(1) \sqrt{\left(\frac{dx}{dy}\right)^2 + \left(\frac{dy}{dy}\right)^2} \, dy \\
+&= \int_1^2 2 \sqrt{0^2 + 1^2} \, dy = \int_1^2 2 \, dy = 2
+\end{aligned}
+$$
+Thus
+$$
+\int_C 2x \, ds = \int_{C_1} 2x \, ds + \int_{C_2} 2x \, ds = \frac{5\sqrt{5} - 1}{6} + 2
+$$
+
+<br />
+
+**Example 4:** Evaluate $\int_C y^2 \, dx + x \, dy$ for two different paths $C$.
+(a) $C = C_1$ is the line segment from $(-5, -3)$ to $(0, 2)$.
+(b) $C = C_2$ is the arc of the parabola $x = 4 - y^2$ from $(-5, -3)$ to $(0, 2)$.
+
+**Solution:**
+**(a)** A parametric representation for the line segment is
+$$
+x = 5t - 5 \quad y = 5t - 3 \quad 0 \le t \le 1
+$$
+Then $dx = 5 \, dt$, $dy = 5 \, dt$, and
+$$
+\begin{aligned}
+\int_{C_1} y^2 \, dx + x \, dy &= \int_0^1 (5t - 3)^2 (5 \, dt) + (5t - 5)(5 \, dt) \\
+&= 5 \int_0^1 (25t^2 - 30t + 9 + 5t - 5) \, dt \\
+&= 5 \int_0^1 (25t^2 - 25t + 4) \, dt \\
+&= 5 \left[ \frac{25t^3}{3} - \frac{25t^2}{2} + 4t \right]_0^1 = -\frac{5}{6}
+\end{aligned}
+$$
+
+**(b)** Since the parabola is given as a function of $y$, let's take $y$ as the parameter and write $C_2$ as
+$$
+x = 4 - y^2 \quad y = y \quad -3 \le y \le 2
+$$
+Then $dx = -2y \, dy$ and
+$$
+\begin{aligned}
+\int_{C_2} y^2 \, dx + x \, dy &= \int_{-3}^2 y^2 (-2y \, dy) + (4 - y^2) \, dy \\
+&= \int_{-3}^2 (-2y^3 - y^2 + 4) \, dy \\
+&= \left[ -\frac{y^4}{2} - \frac{y^3}{3} + 4y \right]_{-3}^2 = 40 \frac{5}{6}
+\end{aligned}
+$$
+
+***
+
+### Exercises 16.2
+
+**1.** Evaluate $\int_C y \, ds$, $C: x = t^2$, $y = 2t$, $0 \le t \le 3$.
+
+**Solution:**
+$$
+\frac{dx}{dt} = 2t \quad \frac{dy}{dt} = 2
+$$
+$$
+ds = \sqrt{(2t)^2 + (2)^2} \, dt = \sqrt{4t^2 + 4} \, dt = 2\sqrt{t^2 + 1} \, dt
+$$
+$$
+\begin{aligned}
+\int_C y \, ds &= \int_0^3 (2t) \cdot 2\sqrt{t^2 + 1} \, dt \\
+&= 4 \int_0^3 t(t^2 + 1)^{1/2} \, dt
+\end{aligned}
+$$
+Let $u = t^2 + 1$, $du = 2t \, dt$. Limits: $1 \to 10$.
+$$
+= 4 \cdot \frac{1}{2} \int_1^{10} u^{1/2} \, du = 2 \left[ \frac{2}{3} u^{3/2} \right]_1^{10} = \frac{4}{3} (10^{3/2} - 1)
+$$
+
+<br />
+
+**2.** Evaluate $\int_C \frac{x}{y} \, ds$, $C: x = t^3$, $y = t^4$, $1 \le t \le 2$.
+
+**Solution:**
+$$
+\frac{dx}{dt} = 3t^2 \quad \frac{dy}{dt} = 4t^3
+$$
+$$
+ds = \sqrt{(3t^2)^2 + (4t^3)^2} \, dt = \sqrt{9t^4 + 16t^6} \, dt = t^2 \sqrt{9 + 16t^2} \, dt
+$$
+$$
+\begin{aligned}
+\int_C \frac{x}{y} \, ds &= \int_1^2 \frac{t^3}{t^4} \cdot t^2 \sqrt{9 + 16t^2} \, dt \\
+&= \int_1^2 t \sqrt{9 + 16t^2} \, dt
+\end{aligned}
+$$
+Let $u = 9 + 16t^2$, $du = 32t \, dt$. Limits: $25 \to 73$.
+$$
+= \frac{1}{32} \int_{25}^{73} u^{1/2} \, du = \frac{1}{32} \cdot \frac{2}{3} [u^{3/2}]_{25}^{73} = \frac{1}{48} (73 \sqrt{73} - 125)
+$$
+
+<br />
+
+**3.** Evaluate $\int_C xy^4 \, ds$, $C$ is the right half of the circle $x^2 + y^2 = 16$.
+
+**Solution:**
+Parameterize $C$: $x = 4 \cos t$, $y = 4 \sin t$, $-\frac{\pi}{2} \le t \le \frac{\pi}{2}$.
+$$
+ds = \sqrt{(-4\sin t)^2 + (4\cos t)^2} \, dt = \sqrt{16} \, dt = 4 \, dt
+$$
+$$
+\begin{aligned}
+\int_C xy^4 \, ds &= \int_{-\pi/2}^{\pi/2} (4\cos t)(4\sin t)^4 \cdot 4 \, dt \\
+&= 4^6 \int_{-\pi/2}^{\pi/2} \cos t \sin^4 t \, dt
+\end{aligned}
+$$
+Let $u = \sin t$, $du = \cos t \, dt$.
+$$
+= 4096 \int_{-1}^1 u^4 \, du = 4096 \left[ \frac{u^5}{5} \right]_{-1}^1 = \frac{4096}{5} (1 - (-1)) = \frac{8192}{5}
+$$
+
+<br />
+
+**4.** Evaluate $\int_C xe^y \, ds$, $C$ is the line segment from $(2, 0)$ to $(5, 4)$.
+
+**Solution:**
+Vector equation: $\mathbf{r}(t) = (1-t)\langle 2, 0 \rangle + t\langle 5, 4 \rangle = \langle 2 + 3t, 4t \rangle$, $0 \le t \le 1$.
+$x = 2 + 3t$, $y = 4t$.
+$$
+\frac{dx}{dt} = 3 \quad \frac{dy}{dt} = 4 \quad ds = \sqrt{3^2 + 4^2} \, dt = 5 \, dt
+$$
+$$
+\begin{aligned}
+\int_C xe^y \, ds &= \int_0^1 (2 + 3t)e^{4t} \cdot 5 \, dt \\
+&= 5 \int_0^1 (2e^{4t} + 3te^{4t}) \, dt
+\end{aligned}
+$$
+Use integration by parts for $\int te^{4t} dt$: $u=t, dv=e^{4t}dt \Rightarrow du=dt, v=\frac{1}{4}e^{4t}$.
+$$
+\int te^{4t} dt = \frac{1}{4}te^{4t} - \int \frac{1}{4}e^{4t} dt = \frac{1}{4}te^{4t} - \frac{1}{16}e^{4t}
+$$
+$$
+\begin{aligned}
+\text{Integral} &= 5 \left[ \frac{2}{4}e^{4t} + 3\left( \frac{t}{4}e^{4t} - \frac{1}{16}e^{4t} \right) \right]_0^1 \\
+&= 5 \left[ \left( \frac{1}{2}e^4 + \frac{3}{4}e^4 - \frac{3}{16}e^4 \right) - \left( \frac{1}{2} + 0 - \frac{3}{16} \right) \right] \\
+&= 5 \left[ \frac{17}{16}e^4 - \frac{5}{16} \right] = \frac{5}{16} (17e^4 - 5)
+\end{aligned}
+$$
+
+<br />
+
+**5.** Evaluate $\int_C (x^2y + \sin x) \, dy$, $C$ is the arc of the parabola $y = x^2$ from $(0, 0)$ to $(\pi, \pi^2)$.
+
+**Solution:**
+Parameterize with $x$: $x=t, y=t^2$, $0 \le t \le \pi$.
+$dy = 2t \, dt$.
+$$
+\begin{aligned}
+\int_0^\pi (t^2(t^2) + \sin t)(2t) \, dt &= \int_0^\pi (2t^5 + 2t \sin t) \, dt \\
+&= \left[ \frac{2t^6}{6} \right]_0^\pi + 2 \int_0^\pi t \sin t \, dt
+\end{aligned}
+$$
+For $\int t \sin t \, dt$, use parts: $u=t, dv=\sin t \, dt \Rightarrow du=dt, v=-\cos t$.
+$$
+\int t \sin t \, dt = -t \cos t - \int (-\cos t) \, dt = -t \cos t + \sin t
+$$
+$$
+= \frac{\pi^6}{3} + 2 [-t \cos t + \sin t]_0^\pi = \frac{\pi^6}{3} + 2 [(-\pi(-1) + 0) - 0] = \frac{\pi^6}{3} + 2\pi
+$$
+
+<br />
+
+**6.** Evaluate $\int_C e^x \, dx$, $C$ is the arc of the curve $x = y^3$ from $(-1, -1)$ to $(1, 1)$.
+
+**Solution:**
+Take $y$ as the parameter: $y=t, x=t^3$, $-1 \le t \le 1$.
+$dx = 3t^2 \, dt$.
+$$
+\int_{-1}^1 e^{t^3} (3t^2) \, dt
+$$
+Let $u = t^3$, $du = 3t^2 \, dt$. Limits: $-1 \to 1$.
+$$
+\int_{-1}^1 e^u \, du = [e^u]_{-1}^1 = e - e^{-1}
+$$
+
+<br />
+
+**7.** Evaluate $\int_C (x + 2y) \, dx + x^2 \, dy$, $C$ consists of line segments from $(0, 0)$ to $(2, 1)$ to $(3, 0)$.
+
+**Solution:**
+Segment $C_1$: $(0,0)$ to $(2,1)$. Vector: $\langle 2, 1 \rangle$.
+$x = 2t, y = t, 0 \le t \le 1$. $dx = 2 dt, dy = dt$.
+$$
+\begin{aligned}
+\int_{C_1} &= \int_0^1 ((2t + 2t)(2) + (2t)^2(1)) \, dt = \int_0^1 (8t + 4t^2) \, dt \\
+&= [4t^2 + \frac{4}{3}t^3]_0^1 = 4 + \frac{4}{3} = \frac{16}{3}
+\end{aligned}
+$$
+Segment $C_2$: $(2,1)$ to $(3,0)$. Vector: $\langle 1, -1 \rangle$.
+$x = 2 + t, y = 1 - t, 0 \le t \le 1$. $dx = dt, dy = -dt$.
+$$
+\begin{aligned}
+\int_{C_2} &= \int_0^1 ((2+t + 2(1-t))(1) + (2+t)^2(-1)) \, dt \\
+&= \int_0^1 (2+t+2-2t - (4 + 4t + t^2)) \, dt \\
+&= \int_0^1 (4 - t - 4 - 4t - t^2) \, dt = \int_0^1 (-t^2 - 5t) \, dt \\
+&= [-\frac{t^3}{3} - \frac{5t^2}{2}]_0^1 = -\frac{1}{3} - \frac{5}{2} = -\frac{17}{6}
+\end{aligned}
+$$
+$$
+\text{Total} = \frac{16}{3} - \frac{17}{6} = \frac{32}{6} - \frac{17}{6} = \frac{15}{6} = \frac{5}{2}
+$$
+
+<br />
+
+**8.** Evaluate $\int_C x^2 \, dx + y^2 \, dy$, $C$ is the arc of the circle $x^2 + y^2 = 4$ from $(2, 0)$ to $(0, 2)$.
+
+**Solution:**
+$x = 2 \cos t, y = 2 \sin t$, $0 \le t \le \frac{\pi}{2}$.
+$dx = -2 \sin t \, dt, dy = 2 \cos t \, dt$.
+$$
+\begin{aligned}
+\int_0^{\pi/2} (4\cos^2 t)(-2\sin t) + (4\sin^2 t)(2\cos t) \, dt &= \int_0^{\pi/2} (-8\cos^2 t \sin t + 8\sin^2 t \cos t) \, dt \\
+&= -8 \int_0^{\pi/2} \cos^2 t \sin t \, dt + 8 \int_0^{\pi/2} \sin^2 t \cos t \, dt \\
+&= -8 [-\frac{\cos^3 t}{3}]_0^{\pi/2} + 8 [\frac{\sin^3 t}{3}]_0^{\pi/2} \\
+&= -8 (0 - (-\frac{1}{3})) + 8 (\frac{1}{3} - 0) \\
+&= -\frac{8}{3} + \frac{8}{3} = 0
+\end{aligned}
+$$
+
+***
+
+[YouTube Video Placeholder: Stewart Calculus 16.2 Line Integrals]
+
+---
+
+## 2. Line Integral with Respect to Arc Length
+
+### Definition
+
+If $C$ is a smooth space curve given by the parametric equations $x = x(t)$, $y = y(t)$, $z = z(t)$, $a \le t \le b$, or by a vector equation $\mathbf{r}(t) = x(t) \mathbf{i} + y(t) \mathbf{j} + z(t) \mathbf{k}$, and if $f$ is a function of three variables that is continuous on some region containing $C$, then the **line integral of $f$ along $C$** (with respect to arc length) is defined by
+
+$$
+\int_C f(x, y, z) \, ds = \lim_{n \to \infty} \sum_{i=1}^n f(x_i^*, y_i^*, z_i^*) \, \Delta s_i
+$$
+
+### Formula for Evaluation
+
+We evaluate it using the formula:
+
+$$
+\int_C f(x, y, z) \, ds = \int_a^b f(x(t), y(t), z(t)) \sqrt{\left(\frac{dx}{dt}\right)^2 + \left(\frac{dy}{dt}\right)^2 + \left(\frac{dz}{dt}\right)^2} \, dt
+$$
+
+In compact vector notation, this is:
+
+$$
+\int_C f(x, y, z) \, ds = \int_a^b f(\mathbf{r}(t)) \, |\mathbf{r}'(t)| \, dt
+$$
+
+---
+
+### Solved Example from the Book
+
+**Example 5:** Evaluate $\int_C y \sin z \, ds$, where $C$ is the circular helix given by the equations $x = \cos t$, $y = \sin t$, $z = t$, $0 \le t \le 2\pi$.
+
+**Solution:**
+The formula gives:
+$$
+\begin{aligned}
+\int_C y \sin z \, ds &= \int_0^{2\pi} (\sin t) \sin t \sqrt{\left(\frac{dx}{dt}\right)^2 + \left(\frac{dy}{dt}\right)^2 + \left(\frac{dz}{dt}\right)^2} \, dt \\
+&= \int_0^{2\pi} \sin^2 t \sqrt{(-\sin t)^2 + (\cos t)^2 + 1^2} \, dt \\
+&= \int_0^{2\pi} \sin^2 t \sqrt{1 + 1} \, dt \\
+&= \sqrt{2} \int_0^{2\pi} \frac{1}{2}(1 - \cos 2t) \, dt \\
+&= \frac{\sqrt{2}}{2} \left[ t - \frac{1}{2} \sin 2t \right]_0^{2\pi} \\
+&= \frac{\sqrt{2}}{2} (2\pi) \\
+&= \sqrt{2}\pi
+\end{aligned}
+$$
+
+---
+
+### Exercise 16.2 Solutions
+
+**9.** Evaluate $\int_C x^2 y \, ds$, where $C$ is the curve $x = \cos t$, $y = \sin t$, $z = t$, $0 \le t \le \pi/2$.
+
+**Solution:**
+Calculate the arc length element $ds$:
+$$
+\mathbf{r}(t) = \langle \cos t, \sin t, t \rangle
+$$
+$$
+\mathbf{r}'(t) = \langle -\sin t, \cos t, 1 \rangle
+$$
+$$
+|\mathbf{r}'(t)| = \sqrt{(-\sin t)^2 + (\cos t)^2 + 1^2} = \sqrt{1 + 1} = \sqrt{2}
+$$
+Substitute into the integral:
+$$
+\begin{aligned}
+\int_C x^2 y \, ds &= \int_0^{\pi/2} (\cos^2 t)(\sin t) \sqrt{2} \, dt \\
+&= \sqrt{2} \int_0^{\pi/2} \cos^2 t \sin t \, dt
+\end{aligned}
+$$
+Let $u = \cos t$, then $du = -\sin t \, dt$.
+$$
+= \sqrt{2} \int_1^0 u^2 (-du) = \sqrt{2} \int_0^1 u^2 \, du = \sqrt{2} \left[ \frac{u^3}{3} \right]_0^1 = \frac{\sqrt{2}}{3}
+$$
+
+<br />
+
+**10.** Evaluate $\int_C y^2 z \, ds$, where $C$ is the line segment from $(3, 1, 2)$ to $(1, 2, 5)$.
+
+**Solution:**
+Find the vector equation for the line segment:
+$$
+\mathbf{r}(t) = (1 - t)\langle 3, 1, 2 \rangle + t\langle 1, 2, 5 \rangle
+$$
+$$
+\mathbf{r}(t) = \langle 3 - 3t + t, 1 - t + 2t, 2 - 2t + 5t \rangle = \langle 3 - 2t, 1 + t, 2 + 3t \rangle, \quad 0 \le t \le 1
+$$
+Calculate $ds$:
+$$
+\mathbf{r}'(t) = \langle -2, 1, 3 \rangle
+$$
+$$
+|\mathbf{r}'(t)| = \sqrt{(-2)^2 + 1^2 + 3^2} = \sqrt{4 + 1 + 9} = \sqrt{14}
+$$
+Substitute into the integral ($y = 1+t$, $z = 2+3t$):
+$$
+\begin{aligned}
+\int_C y^2 z \, ds &= \int_0^1 (1 + t)^2 (2 + 3t) \sqrt{14} \, dt \\
+&= \sqrt{14} \int_0^1 (1 + 2t + t^2)(2 + 3t) \, dt \\
+&= \sqrt{14} \int_0^1 (2 + 3t + 4t + 6t^2 + 2t^2 + 3t^3) \, dt \\
+&= \sqrt{14} \int_0^1 (3t^3 + 8t^2 + 7t + 2) \, dt \\
+&= \sqrt{14} \left[ \frac{3t^4}{4} + \frac{8t^3}{3} + \frac{7t^2}{2} + 2t \right]_0^1 \\
+&= \sqrt{14} \left( \frac{3}{4} + \frac{8}{3} + \frac{7}{2} + 2 \right) \\
+&= \sqrt{14} \left( \frac{9 + 32 + 42 + 24}{12} \right) = \frac{107\sqrt{14}}{12}
+\end{aligned}
+$$
+
+<br />
+
+**11.** Evaluate $\int_C x e^{yz} \, ds$, where $C$ is the line segment from $(0, 0, 0)$ to $(1, 2, 3)$.
+
+**Solution:**
+$$
+\mathbf{r}(t) = t\langle 1, 2, 3 \rangle = \langle t, 2t, 3t \rangle, \quad 0 \le t \le 1
+$$
+$$
+|\mathbf{r}'(t)| = \sqrt{1^2 + 2^2 + 3^2} = \sqrt{14}
+$$
+$$
+\begin{aligned}
+\int_C x e^{yz} \, ds &= \int_0^1 t e^{(2t)(3t)} \sqrt{14} \, dt \\
+&= \sqrt{14} \int_0^1 t e^{6t^2} \, dt
+\end{aligned}
+$$
+Let $u = 6t^2$, $du = 12t \, dt \implies t \, dt = \frac{1}{12} du$.
+Limits: $t=0 \to u=0$, $t=1 \to u=6$.
+$$
+= \sqrt{14} \int_0^6 e^u \frac{1}{12} \, du = \frac{\sqrt{14}}{12} [e^u]_0^6 = \frac{\sqrt{14}}{12} (e^6 - 1)
+$$
+
+<br />
+
+**12.** Evaluate $\int_C (x^2 + y^2 + z^2) \, ds$, where $C$ is given by $x = t$, $y = \cos 2t$, $z = \sin 2t$, $0 \le t \le 2\pi$.
+
+**Solution:**
+$$
+\frac{dx}{dt} = 1, \quad \frac{dy}{dt} = -2\sin 2t, \quad \frac{dz}{dt} = 2\cos 2t
+$$
+$$
+\begin{aligned}
+ds &= \sqrt{1^2 + (-2\sin 2t)^2 + (2\cos 2t)^2} \, dt \\
+&= \sqrt{1 + 4\sin^2 2t + 4\cos^2 2t} \, dt \\
+&= \sqrt{1 + 4(1)} \, dt = \sqrt{5} \, dt
+\end{aligned}
+$$
+Evaluate the function on the curve ($x^2 + y^2 + z^2 = t^2 + \cos^2 2t + \sin^2 2t = t^2 + 1$):
+$$
+\begin{aligned}
+\int_C (x^2 + y^2 + z^2) \, ds &= \int_0^{2\pi} (t^2 + 1) \sqrt{5} \, dt \\
+&= \sqrt{5} \left[ \frac{t^3}{3} + t \right]_0^{2\pi} \\
+&= \sqrt{5} \left( \frac{8\pi^3}{3} + 2\pi \right)
+\end{aligned}
+$$
+
+<br />
+
+**27.** Evaluate $\int_C xy \arctan z \, ds$, where $C$ is the curve $x = t^2$, $y = t^3$, $z = \sqrt{t}$ for $1 \le t \le 2$.
+*(Note: Text requires calculator evaluation after simplification, but we will set up the integral).*
+
+**Solution:**
+$$
+x'(t) = 2t, \quad y'(t) = 3t^2, \quad z'(t) = \frac{1}{2\sqrt{t}}
+$$
+$$
+\begin{aligned}
+ds &= \sqrt{(2t)^2 + (3t^2)^2 + \left(\frac{1}{2\sqrt{t}}\right)^2} \, dt \\
+&= \sqrt{4t^2 + 9t^4 + \frac{1}{4t}} \, dt
+\end{aligned}
+$$
+Function: $xy \arctan z = (t^2)(t^3) \arctan(\sqrt{t}) = t^5 \arctan(\sqrt{t})$.
+$$
+\int_1^2 t^5 \arctan(\sqrt{t}) \sqrt{4t^2 + 9t^4 + \frac{1}{4t}} \, dt
+$$
+*(Numerical evaluation yields approximately 94.8231).*
+
+<br />
+
+**28.** Evaluate $\int_C z \ln(x + y) \, ds$, where $x = 1 + 3t$, $y = 2 + t^2$, $z = t^4$ for $-1 \le t \le 1$.
+
+**Solution:**
+$$
+\frac{dx}{dt} = 3, \quad \frac{dy}{dt} = 2t, \quad \frac{dz}{dt} = 4t^3
+$$
+$$
+ds = \sqrt{9 + 4t^2 + 16t^6} \, dt
+$$
+Function: $z \ln(x + y) = t^4 \ln(1 + 3t + 2 + t^2) = t^4 \ln(t^2 + 3t + 3)$.
+$$
+\int_{-1}^1 t^4 \ln(t^2 + 3t + 3) \sqrt{9 + 4t^2 + 16t^6} \, dt
+$$
+*(Numerical evaluation).*
+
+---
+
+### Video Resource
+[YouTube Video Placeholder: Stewart Calculus 16.2 Line Integrals Space Curves]
+
+---
+
+## 3. Line Integrals in Space
+
+### Definition
+
+Let $C$ be a smooth space curve given by the parametric equations
+$$
+x = x(t) \quad y = y(t) \quad z = z(t) \quad a \le t \le b
+$$
+The line integral of a function $f(x, y, z)$ along $C$ with respect to $x$, $y$, and $z$ is defined by the limits of Riemann sums. For practical evaluation, we use the following formulas:
+
+$$
+\int_C P(x, y, z) \, dx + Q(x, y, z) \, dy + R(x, y, z) \, dz =
+\int_a^b \left[ P(x(t), y(t), z(t)) x'(t) + Q(x(t), y(t), z(t)) y'(t) + R(x(t), y(t), z(t)) z'(t) \right] \, dt
+$$
+
+---
+
+### Explanation
+
+To evaluate a line integral in space with respect to the coordinate variables $x, y, z$:
+1.  **Parametrize the curve** $C$ in terms of $t$. You will need expressions for $x(t)$, $y(t)$, and $z(t)$.
+2.  **Calculate the differentials** $dx$, $dy$, and $dz$ in terms of $dt$. For example, $dx = x'(t) \, dt$.
+3.  **Substitute** these expressions into the integral to obtain a definite integral in a single variable $t$.
+4.  **Evaluate** the definite integral from $a$ to $b$.
+
+---
+
+### Solved Example from the Book
+
+**Example 6:** Evaluate $\int_C y \, dx + z \, dy + x \, dz$, where $C$ consists of the line segment $C_1$ from $(2, 0, 0)$ to $(3, 4, 5)$, followed by the vertical line segment $C_2$ from $(3, 4, 5)$ to $(3, 4, 0)$.
+
+**Solution:**
+**Step 1:** Evaluate along $C_1$.
+The vector equation for the line segment from $(2, 0, 0)$ to $(3, 4, 5)$ is:
+$$
+\mathbf{r}(t) = (1 - t)\langle 2, 0, 0 \rangle + t\langle 3, 4, 5 \rangle = \langle 2 + t, 4t, 5t \rangle \quad 0 \le t \le 1
+$$
+Parametric equations: $x = 2 + t$, $y = 4t$, $z = 5t$.
+Differentials: $dx = dt$, $dy = 4 \, dt$, $dz = 5 \, dt$.
+$$
+\begin{aligned}
+\int_{C_1} y \, dx + z \, dy + x \, dz &= \int_0^1 (4t)(dt) + (5t)(4 \, dt) + (2 + t)(5 \, dt) \\
+&= \int_0^1 (4t + 20t + 10 + 5t) \, dt \\
+&= \int_0^1 (29t + 10) \, dt \\
+&= \left[ \frac{29}{2}t^2 + 10t \right]_0^1 = 14.5 + 10 = 24.5
+\end{aligned}
+$$
+
+**Step 2:** Evaluate along $C_2$.
+The segment goes from $(3, 4, 5)$ to $(3, 4, 0)$.
+$$
+\mathbf{r}(t) = (1 - t)\langle 3, 4, 5 \rangle + t\langle 3, 4, 0 \rangle = \langle 3, 4, 5 - 5t \rangle \quad 0 \le t \le 1
+$$
+Parametric equations: $x = 3$, $y = 4$, $z = 5 - 5t$.
+Differentials: $dx = 0$, $dy = 0$, $dz = -5 \, dt$.
+$$
+\begin{aligned}
+\int_{C_2} y \, dx + z \, dy + x \, dz &= \int_0^1 (4)(0) + (5 - 5t)(0) + (3)(-5 \, dt) \\
+&= \int_0^1 -15 \, dt = -15
+\end{aligned}
+$$
+
+**Step 3:** Add the results.
+$$
+\int_C y \, dx + z \, dy + x \, dz = 24.5 - 15 = 9.5
+$$
+
+---
+
+### Exercise 16.2 Solutions
+
+**13.** Evaluate the line integral, where $C$ is the given space curve.
+$$
+\int_C xye^{yz} \, dy, \quad C: x = t, \quad y = t^2, \quad z = t^3, \quad 0 \le t \le 1
+$$
+
+**Solution:**
+Identify the components and differentials:
+$$
+x = t, \quad y = t^2, \quad z = t^3
+$$
+$$
+dy = 2t \, dt
+$$
+Substitute into the integral:
+$$
+\begin{aligned}
+\int_0^1 (t)(t^2) e^{(t^2)(t^3)} (2t \, dt) &= \int_0^1 2t^4 e^{t^5} \, dt
+\end{aligned}
+$$
+Let $u = t^5$, then $du = 5t^4 \, dt$ or $\frac{1}{5} du = t^4 \, dt$.
+$$
+= 2 \int_0^1 e^u \left(\frac{1}{5} du\right) = \frac{2}{5} \left[ e^u \right]_0^1 = \frac{2}{5} (e^1 - e^0) = \frac{2}{5}(e - 1)
+$$
+**Answer:** $\frac{2}{5}(e - 1)$
+
+<br />
+
+**16.** Evaluate the line integral, where $C$ is the given space curve.
+$$
+\int_C y \, dx + z \, dy + x \, dz, \quad C: x = \sqrt{t}, \quad y = t, \quad z = t^2, \quad 1 \le t \le 4
+$$
+
+**Solution:**
+Calculate the differentials:
+$$
+dx = \frac{1}{2\sqrt{t}} \, dt, \quad dy = dt, \quad dz = 2t \, dt
+$$
+Substitute into the integral:
+$$
+\begin{aligned}
+\int_1^4 \left[ t\left(\frac{1}{2\sqrt{t}}\right) + t^2(1) + \sqrt{t}(2t) \right] \, dt &= \int_1^4 \left( \frac{1}{2}t^{1/2} + t^2 + 2t^{3/2} \right) \, dt \\
+&= \left[ \frac{1}{2} \cdot \frac{2}{3} t^{3/2} + \frac{t^3}{3} + 2 \cdot \frac{2}{5} t^{5/2} \right]_1^4 \\
+&= \left[ \frac{1}{3} t^{3/2} + \frac{1}{3} t^3 + \frac{4}{5} t^{5/2} \right]_1^4
+\end{aligned}
+$$
+Evaluate at limits:
+At $t=4$: $\frac{1}{3}(8) + \frac{1}{3}(64) + \frac{4}{5}(32) = \frac{72}{3} + \frac{128}{5} = 24 + 25.6 = 49.6$.
+At $t=1$: $\frac{1}{3} + \frac{1}{3} + \frac{4}{5} = \frac{2}{3} + 0.8 = 0.66\dots + 0.8 = 1.46\dots$
+Exact calculation:
+$$
+\left( 24 + \frac{128}{5} \right) - \left( \frac{2}{3} + \frac{4}{5} \right) = \frac{360 + 384 - 10 - 12}{15} = \frac{722}{15}
+$$
+**Answer:** $\frac{722}{15}$
+
+<br />
+
+**17.** Evaluate the line integral along the given path.
+$$
+\int_C z^2 \, dx + x^2 \, dy + y^2 \, dz, \quad C \text{ is the line segment from } (1, 0, 0) \text{ to } (4, 1, 2)
+$$
+
+**Solution:**
+Parametrize the line segment using $\mathbf{r}(t) = (1-t)\mathbf{r}_0 + t\mathbf{r}_1$:
+$$
+x = 1(1-t) + 4t = 1 + 3t
+$$
+$$
+y = 0(1-t) + 1t = t
+$$
+$$
+z = 0(1-t) + 2t = 2t
+$$
+Limits: $0 \le t \le 1$.
+Differentials: $dx = 3 \, dt, \quad dy = dt, \quad dz = 2 \, dt$.
+Substitute:
+$$
+\begin{aligned}
+\int_0^1 \left[ (2t)^2(3) + (1+3t)^2(1) + (t)^2(2) \right] \, dt &= \int_0^1 \left[ 12t^2 + (1 + 6t + 9t^2) + 2t^2 \right] \, dt \\
+&= \int_0^1 (23t^2 + 6t + 1) \, dt \\
+&= \left[ \frac{23}{3}t^3 + 3t^2 + t \right]_0^1 \\
+&= \frac{23}{3} + 3 + 1 = \frac{23 + 9 + 3}{3} = \frac{35}{3}
+\end{aligned}
+$$
+**Answer:** $\frac{35}{3}$
+
+<br />
+
+**18.** Evaluate the line integral along the given path.
+$$
+\int_C (y + z) \, dx + (x + z) \, dy + (x + y) \, dz
+$$
+$C$ consists of line segments from $(0, 0, 0)$ to $(1, 0, 1)$ and from $(1, 0, 1)$ to $(0, 1, 2)$.
+
+**Solution:**
+Path 1 ($C_1$): $(0, 0, 0)$ to $(1, 0, 1)$.
+$x = t, y = 0, z = t$, where $0 \le t \le 1$.
+$dx = dt, dy = 0, dz = dt$.
+$$
+\int_{C_1} = \int_0^1 \left[ (0 + t)(1) + (t + t)(0) + (t + 0)(1) \right] \, dt = \int_0^1 2t \, dt = [t^2]_0^1 = 1
+$$
+
+Path 2 ($C_2$): $(1, 0, 1)$ to $(0, 1, 2)$.
+$x = 1 - t, y = t, z = 1 + t$, where $0 \le t \le 1$.
+$dx = -dt, dy = dt, dz = dt$.
+$$
+\begin{aligned}
+\int_{C_2} &= \int_0^1 \left[ (t + 1 + t)(-1) + (1 - t + 1 + t)(1) + (1 - t + t)(1) \right] \, dt \\
+&= \int_0^1 \left[ -(2t + 1) + 2 + 1 \right] \, dt \\
+&= \int_0^1 (-2t + 2) \, dt \\
+&= [-t^2 + 2t]_0^1 = -1 + 2 = 1
+\end{aligned}
+$$
+Total Integral = $\int_{C_1} + \int_{C_2} = 1 + 1 = 2$.
+**Answer:** $2$
+
+---
+
+### Video Resource
+[YouTube Video Placeholder: Stewart Calculus 16.2 Line Integrals in Space]
+
