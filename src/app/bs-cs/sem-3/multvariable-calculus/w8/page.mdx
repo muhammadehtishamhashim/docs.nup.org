@@ -1,1 +1,196 @@
-## Coming Soon
+# Week 8: Periodic Functions and Driven Motion
+
+**Book:** *A First Course in Differential Equations with Modeling Applications* by Dennis G. Zill, 11th Edition
+**Chapter:** 5. Modeling with Higher-Order Differential Equations
+**Section:** 5.1.3 Spring/Mass Systems: Driven Motion
+
+*Note: The provided text for the Zill textbook includes Chapters 1 through 9. While Fourier Series (Chapter 11) specifically addresses the expansion of periodic functions, Chapter 5.1.3 covers the behavior of physical systems driven by periodic functions (sines and cosines). This section provides the foundational analysis of how differential equations respond to periodic inputs, distinguishing between transient and periodic steady-state solutions.*
+
+---
+
+### 1. Periodic Driving Functions and Steady-State Solutions
+
+In the study of differential equations, **periodic functions** often appear as driving forces in mechanical or electrical systems. When a system is driven by a periodic function (like $F_0 \sin \gamma t$), the general solution consists of two parts:
+1.  **Transient Solution ($x_c$):** The solution to the homogeneous equation, which approaches zero as time increases (due to damping).
+2.  **Steady-State Solution ($x_p$):** A particular solution that mimics the periodic behavior of the driving force.
+
+**Differential Equation of Driven Motion:**
+The equation of motion for a system with damping and a periodic driving force is:
+$$
+\frac{d^2x}{dt^2} + 2\lambda \frac{dx}{dt} + \omega^2 x = F_0 \sin \gamma t
+$$
+where $F(t) = F_0 \sin \gamma t$ is the periodic input.
+
+**Behavior:**
+When $F(t)$ is periodic, the steady-state solution $x_p(t)$ is also periodic. This relationship is crucial for understanding why we later use Fourier Series: to break down complex periodic driving forces into simple sines and cosines that we can solve using the methods below.
+
+---
+
+### 2. Solved Examples: Periodic Inputs
+
+**Example 8: Undamped Forced Motion**
+Solve the initial-value problem where the system is undamped and driven by a periodic force:
+$$
+\frac{d^2x}{dt^2} + \omega^2 x = F_0 \sin \gamma t, \quad x(0) = 0, \quad x'(0) = 0
+$$
+where $\gamma \neq \omega$.
+
+**Solution:**
+The complementary function (homogeneous solution) is $x_c(t) = c_1 \cos \omega t + c_2 \sin \omega t$.
+To find the particular solution $x_p(t)$ for the periodic input $F_0 \sin \gamma t$, we assume:
+$$
+x_p(t) = A \cos \gamma t + B \sin \gamma t
+$$
+Substituting this into the differential equation:
+$$
+x''_p + \omega^2 x_p = A(\omega^2 - \gamma^2)\cos \gamma t + B(\omega^2 - \gamma^2)\sin \gamma t = F_0 \sin \gamma t
+$$
+Equating coefficients, we find $A = 0$ and $B = \frac{F_0}{\omega^2 - \gamma^2}$.
+Thus, the particular solution is:
+$$
+x_p(t) = \frac{F_0}{\omega^2 - \gamma^2} \sin \gamma t
+$$
+Applying the initial conditions $x(0) = 0$ and $x'(0) = 0$ to the general solution $x(t) = x_c(t) + x_p(t)$, we determine the constants:
+$$
+x(t) = \frac{F_0}{\omega^2 - \gamma^2} (-\frac{\gamma}{\omega} \sin \omega t + \sin \gamma t)
+$$
+This solution represents a superposition of two periodic functions with different frequencies ($\omega$ and $\gamma$).
+
+---
+
+### 3. Exercises 5.1: Periodic Driving Forces
+
+**41.** Solve the given initial-value problem.
+$$
+\frac{d^2x}{dt^2} + 4x = -5 \sin 2t + 3 \cos 2t, \quad x(0) = -1, \quad x'(0) = 1
+$$
+**Description:** This equation represents a system with a natural frequency of $\omega = \sqrt{4} = 2$, driven by a periodic force of the same frequency $\gamma = 2$. This is a case of **pure resonance**.
+
+**Solution:**
+**Step 1: Homogeneous Solution**
+The auxiliary equation is $m^2 + 4 = 0$, so $m = \pm 2i$.
+$$
+x_c(t) = c_1 \cos 2t + c_2 \sin 2t
+$$
+
+**Step 2: Particular Solution**
+Since the driving function terms ($\sin 2t, \cos 2t$) are already present in the complementary function, we must multiply our assumption by $t$ (Method of Undetermined Coefficients, Case II).
+Assume $x_p(t) = At \cos 2t + Bt \sin 2t$.
+Differentiating:
+$$
+x'_p = A \cos 2t - 2At \sin 2t + B \sin 2t + 2Bt \cos 2t
+$$
+$$
+x''_p = -4A \sin 2t - 4At \cos 2t + 4B \cos 2t - 4Bt \sin 2t
+$$
+Substitute into $x'' + 4x$:
+$$
+(-4A \sin 2t - 4At \cos 2t + 4B \cos 2t - 4Bt \sin 2t) + 4(At \cos 2t + Bt \sin 2t)
+$$
+The terms with $t$ cancel out (as expected), leaving:
+$$
+-4A \sin 2t + 4B \cos 2t = -5 \sin 2t + 3 \cos 2t
+$$
+Equating coefficients:
+$-4A = -5 \implies A = \frac{5}{4}$
+$4B = 3 \implies B = \frac{3}{4}$
+Thus, $x_p(t) = \frac{5}{4}t \cos 2t + \frac{3}{4}t \sin 2t$.
+
+**Step 3: General Solution**
+$$
+x(t) = c_1 \cos 2t + c_2 \sin 2t + \frac{5}{4}t \cos 2t + \frac{3}{4}t \sin 2t
+$$
+
+**Step 4: Initial Conditions**
+$x(0) = -1$:
+$$
+c_1 (1) + 0 + 0 + 0 = -1 \implies c_1 = -1
+$$
+Differentiate for $x'(0) = 1$:
+$$
+x'(t) = -2c_1 \sin 2t + 2c_2 \cos 2t + \frac{5}{4}(\cos 2t - 2t \sin 2t) + \frac{3}{4}(\sin 2t + 2t \cos 2t)
+$$
+At $t=0$:
+$$
+2c_2 + \frac{5}{4} = 1 \implies 2c_2 = -\frac{1}{4} \implies c_2 = -\frac{1}{8}
+$$
+
+**Answer:**
+$$
+x(t) = -\cos 2t - \frac{1}{8} \sin 2t + \frac{5}{4}t \cos 2t + \frac{3}{4}t \sin 2t
+$$
+
+<br />
+
+**42.** Solve the given initial-value problem.
+$$
+\frac{d^2x}{dt^2} + 9x = 5 \sin 3t, \quad x(0) = 2, \quad x'(0) = 0
+$$
+**Description:** Similar to Problem 41, the driving frequency ($\gamma=3$) matches the natural frequency ($\omega=\sqrt{9}=3$), resulting in resonance.
+
+**Solution:**
+**Step 1: Homogeneous Solution**
+$m^2 + 9 = 0 \implies m = \pm 3i$.
+$$
+x_c(t) = c_1 \cos 3t + c_2 \sin 3t
+$$
+
+**Step 2: Particular Solution**
+Because $\sin 3t$ is in $x_c$, we assume $x_p(t) = At \cos 3t + Bt \sin 3t$.
+Differentiating and substituting into $x'' + 9x$:
+$$
+x''_p = -6A \sin 3t - 9At \cos 3t + 6B \cos 3t - 9Bt \sin 3t
+$$
+$$
+x''_p + 9x_p = -6A \sin 3t + 6B \cos 3t = 5 \sin 3t
+$$
+Equating coefficients:
+$-6A = 5 \implies A = -\frac{5}{6}$
+$6B = 0 \implies B = 0$
+Thus, $x_p(t) = -\frac{5}{6}t \cos 3t$.
+
+**Step 3: General Solution**
+$$
+x(t) = c_1 \cos 3t + c_2 \sin 3t - \frac{5}{6}t \cos 3t
+$$
+
+**Step 4: Initial Conditions**
+$x(0) = 2$:
+$$
+c_1 = 2
+$$
+$x'(t) = -3c_1 \sin 3t + 3c_2 \cos 3t - \frac{5}{6}(\cos 3t - 3t \sin 3t)$
+$x'(0) = 0$:
+$$
+3c_2 - \frac{5}{6} = 0 \implies 3c_2 = \frac{5}{6} \implies c_2 = \frac{5}{18}
+$$
+
+**Answer:**
+$$
+x(t) = 2 \cos 3t + \frac{5}{18} \sin 3t - \frac{5}{6}t \cos 3t
+$$
+
+<br />
+
+**45. Beats Phenomenon**
+Analyze the solution given in Problem 43 part (a) (General solution for undamped forced motion) when the driving frequency $\gamma$ is close to, but not equal to, the natural frequency $\omega$.
+$$
+x(t) = \frac{F_0}{\omega^2 - \gamma^2} (\cos \gamma t - \cos \omega t)
+$$
+(assuming initial conditions $x(0)=0, x'(0)=0$).
+
+**Solution:**
+Using the trigonometric identity:
+$$
+\cos A - \cos B = -2 \sin\left(\frac{A-B}{2}\right) \sin\left(\frac{A+B}{2}\right)
+$$
+We can rewrite the solution as:
+$$
+x(t) = \frac{-2F_0}{\omega^2 - \gamma^2} \sin\left(\frac{(\gamma - \omega)t}{2}\right) \sin\left(\frac{(\gamma + \omega)t}{2}\right)
+$$
+If we define $\epsilon = \frac{1}{2}(\gamma - \omega)$, then $\gamma \approx \omega$ implies $\epsilon$ is small.
+$$
+x(t) = \frac{F_0}{2\epsilon \gamma} \sin(\epsilon t) \sin(\gamma t)
+$$
+**Interpretation:**
+This function represents an oscillation with frequency $\gamma$ (represented by $\sin(\gamma t)$) whose amplitude is modulated by the term $\frac{F_0}{2\epsilon \gamma} \sin(\epsilon t)$. Since $\epsilon$ is small, the amplitude varies slowly. This periodic variation in amplitude is known as the **beats** phenomenon, often heard in acoustics when two sound waves of similar frequencies interfere.

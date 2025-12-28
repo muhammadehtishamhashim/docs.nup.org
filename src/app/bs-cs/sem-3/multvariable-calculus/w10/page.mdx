@@ -1,1 +1,169 @@
-## Coming Soon
+# Week 10: Functions of Any Period
+
+**Book:** *A First Course in Differential Equations with Modeling Applications* by Dennis G. Zill, 11th Edition
+**Chapter:** 7. The Laplace Transform
+**Section:** 7.4.3 Transform of a Periodic Function (and Exercises 7.4)
+
+---
+
+### Overview
+In the study of differential equations, functions with arbitrary periods $P = 2L$ (or $T$) frequently appear as forcing functions in mechanical and electrical systems. While Fourier Series (typically Chapter 11) is the standard tool for analyzing these functions, the **Laplace Transform** provides an elegant method for solving initial-value problems involving periodic inputs without needing to derive the full Fourier series coefficients first.
+
+The Laplace transform of a periodic function $f(t)$ with period $T$ is given by:
+$$
+\mathcal{L}\{f(t)\} = \frac{1}{1 - e^{-sT}} \int_0^T e^{-st} f(t) \, dt
+$$
+
+Below are applications involving periodic functions found in the exercises of Chapter 7.
+
+---
+
+### Solved Exercises: Systems with Periodic Inputs
+
+**60. RL-Circuit with Sawtooth Voltage**
+**Problem:** Solve the differential equation for the current $i(t)$ in a single-loop $LR$-series circuit:
+$$
+L \frac{di}{dt} + Ri = E(t), \quad i(0) = 0
+$$
+where $L=1$, $R=1$, and $E(t)$ is the **sawtooth function** (linearly increasing from 0 to 1 over the period). The period is $T=1$ (derived from Problem 55 parameters $b=1$, amplitude 1). The function is defined as $E(t) = t$ for $0 \le t < 1$ and $E(t+1) = E(t)$.
+
+**Solution:**
+**Step 1: Transform the Periodic Function**
+First, we find the Laplace transform of the forcing function $E(t)$.
+Using the formula for a periodic function with $T=1$:
+$$
+\mathcal{L}\{E(t)\} = \frac{1}{1 - e^{-s}} \int_0^1 t e^{-st} \, dt
+$$
+Using integration by parts ($u=t, dv=e^{-st}dt$):
+$$
+\int_0^1 t e^{-st} \, dt = \left[ -\frac{t}{s}e^{-st} - \frac{1}{s^2}e^{-st} \right]_0^1
+$$
+$$
+= \left( -\frac{1}{s}e^{-s} - \frac{1}{s^2}e^{-s} \right) - \left( 0 - \frac{1}{s^2} \right) 
+= \frac{1}{s^2} - \frac{e^{-s}}{s} - \frac{e^{-s}}{s^2}
+$$
+Thus,
+$$
+E(s) = \frac{1}{1 - e^{-s}} \left( \frac{1 - e^{-s} - se^{-s}}{s^2} \right)
+$$
+
+**Step 2: Transform the Differential Equation**
+Substituting $L=1, R=1, i(0)=0$ into the DE:
+$$
+\frac{di}{dt} + i = E(t)
+$$
+Taking the Laplace transform:
+$$
+sI(s) - i(0) + I(s) = E(s) \implies (s+1)I(s) = E(s)
+$$
+$$
+I(s) = \frac{E(s)}{s+1} = \frac{1}{(s+1)(1 - e^{-s})} \left( \frac{1}{s^2} - \frac{e^{-s}}{s} - \frac{e^{-s}}{s^2} \right)
+$$
+
+**Step 3: Expansion and Inverse Transform**
+To interpret the solution, we expand the periodic term $\frac{1}{1 - e^{-s}}$ as a geometric series:
+$$
+\frac{1}{1 - e^{-s}} = 1 + e^{-s} + e^{-2s} + e^{-3s} + \dots = \sum_{n=0}^{\infty} e^{-ns}
+$$
+The term $\int_0^1 t e^{-st} dt$ derived in Step 1 can be written as:
+$$
+\frac{1}{s^2} - e^{-s}\left(\frac{1}{s} + \frac{1}{s^2}\right)
+$$
+So, $I(s)$ becomes:
+$$
+I(s) = \frac{1}{s+1} \left[ \frac{1}{s^2} - e^{-s}\left(\frac{1}{s} + \frac{1}{s^2}\right) \right] \sum_{n=0}^{\infty} e^{-ns}
+$$
+Partial fraction decomposition for $\frac{1}{s^2(s+1)}$ is $\frac{1}{s^2} - \frac{1}{s} + \frac{1}{s+1}$.
+Partial fraction decomposition for $\frac{1}{s(s+1)}$ is $\frac{1}{s} - \frac{1}{s+1}$.
+
+This allows us to write the response as a series of time-shifted functions (using the unit step function $\mathcal{U}(t-n)$) representing the cumulative effect of the periodic input pulses.
+
+---
+
+**61. Driven Spring/Mass System**
+**Problem:** Solve the model for a driven spring/mass system with damping:
+$$
+m \frac{d^2x}{dt^2} + \beta \frac{dx}{dt} + kx = f(t), \quad x(0) = 0, \quad x'(0) = 0
+$$
+Given: $m = 1/2$, $\beta = 1$, $k = 5$. The driving function $f(t)$ is the **meander function** (square wave) with amplitude 10 and period $T = 2\pi$. The function is defined as:
+$$
+f(t) = \begin{cases} 
+10, & 0 < t < \pi \\
+-10, & \pi < t < 2\pi
+\end{cases}
+$$
+
+**Solution:**
+**Step 1: Transform the Differential Equation**
+The equation is:
+$$
+\frac{1}{2}x'' + x' + 5x = f(t)
+$$
+Multiply by 2 to simplify:
+$$
+x'' + 2x' + 10x = 2f(t)
+$$
+Let $G(t) = 2f(t)$. $G(t)$ is a square wave with amplitude 20.
+Taking the Laplace transform with zero initial conditions:
+$$
+(s^2 + 2s + 10)X(s) = \mathcal{L}\{2f(t)\}
+$$
+
+**Step 2: Transform the Periodic Force**
+Using the formula for a periodic function with $T=2\pi$:
+$$
+\mathcal{L}\{G(t)\} = \frac{1}{1 - e^{-2\pi s}} \int_0^{2\pi} e^{-st} G(t) \, dt
+$$
+Split the integral for the square wave ($20$ on $(0, \pi)$, $-20$ on $(\pi, 2\pi)$):
+$$
+\begin{aligned}
+\int_0^{2\pi} e^{-st} G(t) \, dt &= \int_0^\pi 20 e^{-st} \, dt + \int_\pi^{2\pi} -20 e^{-st} \, dt \\
+&= 20 \left[ \frac{1 - e^{-\pi s}}{s} \right] - 20 \left[ \frac{e^{-\pi s} - e^{-2\pi s}}{s} \right] \\
+&= \frac{20}{s} (1 - e^{-\pi s} - e^{-\pi s} + e^{-2\pi s}) \\
+&= \frac{20}{s} (1 - e^{-\pi s})^2
+\end{aligned}
+$$
+Substitute back into the transform expression:
+$$
+\mathcal{L}\{G(t)\} = \frac{1}{(1 - e^{-\pi s})(1 + e^{-\pi s})} \cdot \frac{20(1 - e^{-\pi s})^2}{s}
+$$
+$$
+= \frac{20}{s} \frac{1 - e^{-\pi s}}{1 + e^{-\pi s}}
+$$
+
+**Step 3: Solve for X(s)**
+$$
+X(s) = \frac{20}{s(s^2 + 2s + 10)} \cdot \frac{1 - e^{-\pi s}}{1 + e^{-\pi s}}
+$$
+To invert this, we expand the hyperbolic term using geometric series:
+$$
+\frac{1 - e^{-\pi s}}{1 + e^{-\pi s}} = (1 - e^{-\pi s}) (1 - e^{-\pi s} + e^{-2\pi s} - \dots)
+$$
+$$
+= 1 - 2e^{-\pi s} + 2e^{-2\pi s} - 2e^{-3\pi s} + \dots
+$$
+And find the inverse transform of the system function $H(s) = \frac{20}{s(s^2 + 2s + 10)}$.
+Using partial fractions:
+$$
+\frac{20}{s(s^2 + 2s + 10)} = \frac{A}{s} + \frac{Bs + C}{s^2 + 2s + 10}
+$$
+Solving for constants:
+$20 = A(s^2 + 2s + 10) + s(Bs + C)$
+Set $s=0 \implies 20 = 10A \implies A=2$.
+Coeff $s^2$: $A + B = 0 \implies B = -2$.
+Coeff $s$: $2A + C = 0 \implies C = -4$.
+$$
+H(s) = \frac{2}{s} - \frac{2s + 4}{s^2 + 2s + 10} = \frac{2}{s} - \frac{2(s+1) + 2}{(s+1)^2 + 3^2}
+$$
+$$
+H(s) = \frac{2}{s} - 2\frac{s+1}{(s+1)^2 + 3^2} - \frac{2}{3}\frac{3}{(s+1)^2 + 3^2}
+$$
+The inverse transform $h(t)$ is:
+$$
+h(t) = 2 - 2e^{-t}\cos 3t - \frac{2}{3}e^{-t}\sin 3t
+$$
+The final solution $x(t)$ is the convolution of this response with the square wave series:
+$$
+x(t) = h(t) + 2 \sum_{n=1}^{\infty} (-1)^n h(t - n\pi) \mathcal{U}(t - n\pi)
+$$
+This represents the transient response plus the accumulation of responses to each "switch" of the forcing function.

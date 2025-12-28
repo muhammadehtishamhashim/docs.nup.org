@@ -1,1 +1,214 @@
-## Coming Soon
+# Week 12: Boundary-Value Problems and Eigenfunctions
+
+**Book:** *A First Course in Differential Equations with Modeling Applications* by Dennis G. Zill, 11th Edition  
+**Chapter:** 4. Higher-Order Differential Equations & 5. Modeling with Higher-Order Differential Equations  
+**Section:** 4.1 Preliminary Theory — Linear Equations & 5.2 Linear Models: Boundary-Value Problems
+
+---
+
+### Definitions
+
+**Boundary-Value Problem (BVP)**  
+A problem consisting of solving a linear differential equation of order two or greater in which the dependent variable $y$ or its derivatives are specified at different points is called a boundary-value problem. For a second-order equation, the boundary conditions are often specified at two points $x=a$ and $x=b$.
+
+$$
+a_2(x) \frac{d^2y}{dx^2} + a_1(x) \frac{dy}{dx} + a_0(x)y = g(x)
+$$
+$$
+\text{Subject to: } y(a) = y_0, \quad y(b) = y_1
+$$
+
+<br />
+
+**Eigenvalues and Eigenfunctions**  
+In many applied problems, we encounter a BVP involving a parameter $\lambda$:
+$$
+y'' + \lambda y = 0, \quad y(0) = 0, \quad y(L) = 0
+$$
+The values of $\lambda$ for which the boundary-value problem has **nontrivial** (nonzero) solutions are called **eigenvalues**. The corresponding nontrivial solutions are called **eigenfunctions**. These functions form the basis for Fourier Series.
+
+---
+
+### Explanation
+
+Unlike initial-value problems (IVPs) where conditions are given at a single point (e.g., $y(0)$ and $y'(0)$) and a unique solution is guaranteed, boundary-value problems can have:
+1.  A unique solution.
+2.  No solution.
+3.  Infinitely many solutions.
+
+The study of eigenvalues in BVPs is crucial for topics like Fourier Series, as it determines the fundamental frequencies (or modes) of a physical system, such as a vibrating string or a buckling column.
+
+---
+
+### Solved Examples from the Book
+
+**Example 1: A BVP Can Have Many, One, or No Solutions (Sec 4.1, Ex 3)**  
+**Problem:** Analyze the solutions of $x'' + 16x = 0$ subject to different boundary conditions.  
+**Solution:**  
+The general solution is:
+$$
+x(t) = c_1 \cos 4t + c_2 \sin 4t
+$$
+
+**(a) Subject to $x(0) = 0, x(\pi/2) = 0$:**
+$$
+x(0) = c_1(1) + c_2(0) = 0 \implies c_1 = 0
+$$
+$$
+x(t) = c_2 \sin 4t
+$$
+$$
+x(\pi/2) = c_2 \sin(4 \cdot \pi/2) = c_2 \sin(2\pi) = 0
+$$
+This is satisfied for **any** constant $c_2$. Thus, there are **infinitely many solutions**.
+
+<br />
+
+**(b) Subject to $x(0) = 0, x(\pi/8) = 0$:**
+$$
+x(0) = 0 \implies c_1 = 0
+$$
+$$
+x(\pi/8) = c_2 \sin(4 \cdot \pi/8) = c_2 \sin(\pi/2) = c_2(1) = 0 \implies c_2 = 0
+$$
+Thus, $x = 0$ is the **only solution**.
+
+<br />
+
+**(c) Subject to $x(0) = 0, x(\pi/2) = 1$:**
+$$
+x(0) = 0 \implies c_1 = 0
+$$
+$$
+x(\pi/2) = c_2 \sin(2\pi) = 0
+$$
+Since the condition requires $x(\pi/2) = 1$ and $0 \ne 1$, the BVP has **no solution**.
+
+<br />
+
+**Example 2: An Embedded Beam (Sec 5.2, Ex 1)**  
+**Problem:** A beam of length $L$ is embedded at both ends. Find the deflection $y(x)$ if a constant load $w_0$ is uniformly distributed.  
+**Differential Equation:** $EI \frac{d^4y}{dx^4} = w_0$  
+**Boundary Conditions:** $y(0)=0, y'(0)=0$ and $y(L)=0, y'(L)=0$  
+**Solution:**  
+Integrating four times:
+$$
+y(x) = c_1 + c_2 x + c_3 x^2 + c_4 x^3 + \frac{w_0}{24EI}x^4
+$$
+Applying $y(0) = 0$ and $y'(0) = 0 \implies c_1 = 0, c_2 = 0$.  
+Applying conditions at $x=L$:
+$$
+\begin{aligned}
+y(L) &= c_3 L^2 + c_4 L^3 + \frac{w_0}{24EI}L^4 = 0 \\
+y'(L) &= 2c_3 L + 3c_4 L^2 + \frac{w_0}{6EI}L^3 = 0
+\end{aligned}
+$$
+Solving the system:
+$$
+c_3 = \frac{w_0 L^2}{24EI}, \quad c_4 = -\frac{w_0 L}{12EI}
+$$
+**Answer:** $y(x) = \frac{w_0}{24EI} x^2(x-L)^2$
+
+<br />
+
+**Example 3: Nontrivial Solutions of a BVP (Sec 5.2, Ex 2)**  
+**Problem:** Solve $y'' + \lambda y = 0, y(0) = 0, y(L) = 0$.  
+**Solution:**  
+**Case I ($\lambda = 0$):** $y = c_1 x + c_2$.  
+$y(0) = 0, y(L) = 0 \implies c_1=0, c_2=0$ (Trivial).  
+<br />
+**Case II ($\lambda < 0$):** Let $\lambda = -\alpha^2$. $y = c_1 \cosh \alpha x + c_2 \sinh \alpha x$.  
+$y(0) = 0, y(L) = 0 \implies c_1=0, c_2=0$ (Trivial).  
+<br />
+**Case III ($\lambda > 0$):** Let $\lambda = \alpha^2$. $y = c_1 \cos \alpha x + c_2 \sin \alpha x$.  
+$y(0) = 0 \implies c_1 = 0$.  
+$y(L) = c_2 \sin \alpha L = 0$. For nontrivial solutions:
+$$
+\alpha L = n\pi \implies \alpha = \frac{n\pi}{L} \implies \lambda_n = \frac{n^2\pi^2}{L^2}
+$$
+**Eigenfunctions:** $y_n(x) = \sin\left(\frac{n\pi x}{L}\right)$ for $n=1, 2, 3, \dots$
+
+---
+
+### Solved Exercise Questions
+
+**1. (Ex 4.1, Q11)** Solve $y'' - y = 0$ with $y(0) = 0, y(1) = 1$ using $y = c_1 e^x + c_2 e^{-x}$.  
+**Solution:**  
+$$
+y(0) = c_1 + c_2 = 0 \implies c_2 = -c_1
+$$
+$$
+y(x) = c_1(e^x - e^{-x}) = 2c_1 \sinh x
+$$
+$$
+y(1) = 2c_1 \sinh(1) = 1 \implies c_1 = \frac{1}{2\sinh 1}
+$$
+**Answer:** $y = \frac{\sinh x}{\sinh 1}$
+
+<br />
+
+**2. (Ex 4.1, Q13)** Solve $y = c_1 e^x \cos x + c_2 e^x \sin x$ for $y(0)=1, y'(\pi)=0$.  
+**Solution:**  
+$$
+y(0) = c_1(1) + 0 = 1 \implies c_1 = 1
+$$
+$$
+y'(x) = e^x[(1+c_2)\cos x + (c_2-1)\sin x]
+$$
+$$
+y'(\pi) = e^\pi[(1+c_2)(-1) + 0] = 0 \implies 1+c_2 = 0 \implies c_2 = -1
+$$
+**Answer:** $y = e^x(\cos x - \sin x)$
+
+<br />
+
+**3. (Ex 5.2, Q1)** Find deflection $y(x)$ for a beam embedded at $x=0$ and free at $x=L$ with $w(x) = w_0$.  
+**Solution:**  
+$$
+y(x) = c_3 x^2 + c_4 x^3 + \frac{w_0}{24EI}x^4 \quad (\text{since } y(0)=0, y'(0)=0)
+$$
+Conditions at $x=L$ (Free end): $y''(L)=0, y'''(L)=0$.
+$$
+\begin{aligned}
+y'''(L) &= 6c_4 + \frac{w_0 L}{EI} = 0 \implies c_4 = -\frac{w_0 L}{6EI} \\
+y''(L) &= 2c_3 + 6c_4 L + \frac{w_0 L^2}{2EI} = 0 \implies c_3 = \frac{w_0 L^2}{4EI}
+\end{aligned}
+$$
+**Answer:** $y(x) = \frac{w_0}{24EI}(6L^2x^2 - 4Lx^3 + x^4)$
+
+<br />
+
+**4. (Ex 5.2, Q9)** Solve $y'' + \lambda y = 0, y(0)=0, y(\pi)=0$.  
+**Solution:**  
+$$
+y(0)=0 \implies c_1=0 \implies y = c_2 \sin \sqrt{\lambda}x
+$$
+$$
+y(\pi) = \sin(\sqrt{\lambda}\pi) = 0 \implies \sqrt{\lambda} = n
+$$
+**Answer:** $\lambda_n = n^2, \quad y_n = \sin nx$
+
+<br />
+
+**5. (Ex 5.2, Q11)** Solve $y'' + \lambda y = 0, y'(0)=0, y(L)=0$.  
+**Solution:**  
+$$
+y'(0) = 0 \implies c_2 = 0 \implies y = c_1 \cos \sqrt{\lambda}x
+$$
+$$
+y(L) = \cos(\sqrt{\lambda}L) = 0 \implies \sqrt{\lambda}L = \frac{(2n-1)\pi}{2}
+$$
+**Answer:** $\lambda_n = \frac{(2n-1)^2\pi^2}{4L^2}, \quad y_n = \cos\left(\frac{(2n-1)\pi x}{2L}\right)$
+
+<br />
+
+**6. (Ex 5.2, Q17)** Solve $x^2y'' + xy' + \lambda y = 0, y(1)=0, y(e^\pi)=0$.  
+**Solution:**  
+Cauchy-Euler equation solution: $y = c_1 \cos(\sqrt{\lambda} \ln x) + c_2 \sin(\sqrt{\lambda} \ln x)$.
+$$
+y(1) = c_1 \cos(0) = 0 \implies c_1 = 0
+$$
+$$
+y(e^\pi) = c_2 \sin(\sqrt{\lambda} \ln e^\pi) = c_2 \sin(\pi\sqrt{\lambda}) = 0 \implies \sqrt{\lambda} = n
+$$
+**Answer:** $\lambda_n = n^2, \quad y_n = \sin(n \ln x)$

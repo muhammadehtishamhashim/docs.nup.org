@@ -1,1 +1,272 @@
-## Coming Soon
+# Week 15: The Laplace Transform
+
+**Book:** *A First Course in Differential Equations with Modeling Applications* by Dennis G. Zill, 11th Edition
+**Chapter:** 7. The Laplace Transform
+**Section:** 7.1 Definition of the Laplace Transform
+**Exercises:** 7.1
+
+---
+
+### Definition
+
+Let $f$ be a function defined for $t \ge 0$. Then the integral
+$$
+\mathcal{L}\{f(t)\} = \int_0^\infty e^{-st} f(t) \, dt
+$$
+is said to be the **Laplace transform** of $f$, provided that the integral converges.
+
+When the defining integral converges, the result is a function of $s$. In general, we use a lowercase letter to denote the function being transformed and the corresponding capital letter to denote its Laplace transform, for example, $\mathcal{L}\{f(t)\} = F(s)$, $\mathcal{L}\{g(t)\} = G(s)$.
+
+**Linearity Property:**
+The Laplace transform is a linear transform; that is, for constants $\alpha$ and $\beta$:
+$$
+\mathcal{L}\{\alpha f(t) + \beta g(t)\} = \alpha \mathcal{L}\{f(t)\} + \beta \mathcal{L}\{g(t)\}
+$$
+
+---
+
+### Solved Examples from the Book
+
+**Example 1: Applying Definition**
+Evaluate $\mathcal{L}\{1\}$.
+
+**Solution:**
+From the definition:
+$$
+\begin{aligned}
+\mathcal{L}\{1\} &= \int_0^\infty e^{-st}(1) \, dt = \lim_{b \to \infty} \int_0^b e^{-st} \, dt \\
+&= \lim_{b \to \infty} \left[ \frac{-e^{-st}}{s} \right]_0^b \\
+&= \lim_{b \to \infty} \left( \frac{-e^{-sb}}{s} + \frac{1}{s} \right) \\
+&= \frac{1}{s} \quad \text{provided } s > 0.
+\end{aligned}
+$$
+**Result:** $\displaystyle \frac{1}{s}, \quad s > 0$
+
+<br/>
+
+**Example 2: Applying Definition**
+Evaluate $\mathcal{L}\{t\}$.
+
+**Solution:**
+$$
+\mathcal{L}\{t\} = \int_0^\infty e^{-st} t \, dt
+$$
+Using integration by parts with $u = t$, $du = dt$, $dv = e^{-st}dt$, $v = \frac{-e^{-st}}{s}$:
+$$
+\begin{aligned}
+\mathcal{L}\{t\} &= \left[ \frac{-te^{-st}}{s} \right]_0^\infty + \frac{1}{s} \int_0^\infty e^{-st} \, dt \\
+&= (0 - 0) + \frac{1}{s} \mathcal{L}\{1\} \quad (\text{since } \lim_{t \to \infty} te^{-st} = 0 \text{ for } s > 0) \\
+&= \frac{1}{s} \left( \frac{1}{s} \right) = \frac{1}{s^2}
+\end{aligned}
+$$
+**Result:** $\displaystyle \frac{1}{s^2}, \quad s > 0$
+
+<br/>
+
+**Example 3: Applying Definition to Exponentials**
+Evaluate (a) $\mathcal{L}\{e^{-3t}\}$ and (b) $\mathcal{L}\{e^{5t}\}$.
+
+**Solution:**
+**(a)** $\mathcal{L}\{e^{-3t}\} = \int_0^\infty e^{-3t}e^{-st} \, dt = \int_0^\infty e^{-(s+3)t} \, dt$
+$$
+= \left[ \frac{-e^{-(s+3)t}}{s+3} \right]_0^\infty = 0 - \left( \frac{-1}{s+3} \right) = \frac{1}{s+3}, \quad s > -3
+$$
+**(b)** $\mathcal{L}\{e^{5t}\} = \int_0^\infty e^{5t}e^{-st} \, dt = \int_0^\infty e^{-(s-5)t} \, dt$
+$$
+= \left[ \frac{-e^{-(s-5)t}}{s-5} \right]_0^\infty = \frac{1}{s-5}, \quad s > 5
+$$
+
+<br/>
+
+**Example 4: Applying Definition to Sine**
+Evaluate $\mathcal{L}\{\sin 2t\}$.
+
+**Solution:**
+$$
+\mathcal{L}\{\sin 2t\} = \int_0^\infty e^{-st} \sin 2t \, dt
+$$
+Using integration by parts twice yields the equation:
+$$
+\int_0^\infty e^{-st} \sin 2t \, dt = \frac{2}{s^2} - \frac{4}{s^2} \int_0^\infty e^{-st} \sin 2t \, dt
+$$
+Let $I = \mathcal{L}\{\sin 2t\}$. Then:
+$$
+I = \frac{2}{s^2} - \frac{4}{s^2} I \implies \left( 1 + \frac{4}{s^2} \right) I = \frac{2}{s^2}
+$$
+$$
+\left( \frac{s^2 + 4}{s^2} \right) I = \frac{2}{s^2} \implies I = \frac{2}{s^2 + 4}
+$$
+**Result:** $\displaystyle \frac{2}{s^2 + 4}, \quad s > 0$
+
+<br/>
+
+**Example 5: Linearity of the Laplace Transform**
+Evaluate $\mathcal{L}\{1 + 5t\}$.
+
+**Solution:**
+From Examples 1 and 2 and the linearity property:
+$$
+\mathcal{L}\{1 + 5t\} = \mathcal{L}\{1\} + 5\mathcal{L}\{t\} = \frac{1}{s} + \frac{5}{s^2}
+$$
+
+---
+
+### Solved Exercise Questions (from Zill 7.1)
+
+**1.** Use Definition 7.1.1 to find $\mathcal{L}\{f(t)\}$ given:
+$$
+f(t) = \begin{cases} -1, & 0 \le t < 1 \\ 1, & t \ge 1 \end{cases}
+$$
+
+**Solution:**
+$$
+\begin{aligned}
+\mathcal{L}\{f(t)\} &= \int_0^1 e^{-st}(-1) \, dt + \int_1^\infty e^{-st}(1) \, dt \\
+&= -\left[ \frac{e^{-st}}{-s} \right]_0^1 + \left[ \frac{e^{-st}}{-s} \right]_1^\infty \\
+&= \frac{1}{s}(e^{-s} - 1) - \frac{1}{s}(0 - e^{-s}) \\
+&= \frac{e^{-s}}{s} - \frac{1}{s} + \frac{e^{-s}}{s} = \frac{2e^{-s} - 1}{s}
+\end{aligned}
+$$
+
+<br/>
+
+**4.** Use Definition 7.1.1 to find $\mathcal{L}\{f(t)\}$ given:
+$$
+f(t) = \begin{cases} 2t+1, & 0 \le t < 1 \\ 0, & t \ge 1 \end{cases}
+$$
+
+**Solution:**
+$$
+\begin{aligned}
+\mathcal{L}\{f(t)\} &= \int_0^1 e^{-st}(2t+1) \, dt + \int_1^\infty e^{-st}(0) \, dt \\
+&= \int_0^1 (2te^{-st} + e^{-st}) \, dt
+\end{aligned}
+$$
+Integration by parts for $\int te^{-st} dt$:
+$$
+\left[ 2\left(\frac{-te^{-st}}{s} - \frac{e^{-st}}{s^2}\right) + \frac{-e^{-st}}{s} \right]_0^1
+$$
+$$
+= \left( \frac{-2e^{-s}}{s} - \frac{2e^{-s}}{s^2} - \frac{e^{-s}}{s} \right) - \left( 0 - \frac{2}{s^2} - \frac{1}{s} \right)
+$$
+$$
+= -\frac{3e^{-s}}{s} - \frac{2e^{-s}}{s^2} + \frac{2}{s^2} + \frac{1}{s}
+$$
+$$
+= \frac{1}{s} + \frac{2}{s^2} - \frac{e^{-s}}{s^2}(3s + 2)
+$$
+
+<br/>
+
+**11.** Use Definition 7.1.1 to find $\mathcal{L}\{e^{t+7}\}$.
+
+**Solution:**
+Note that $e^{t+7} = e^7 e^t$. Since $e^7$ is a constant:
+$$
+\mathcal{L}\{e^7 e^t\} = e^7 \mathcal{L}\{e^t\}
+$$
+Using the definition or the known result for $e^{at}$ with $a=1$:
+$$
+\mathcal{L}\{e^t\} = \int_0^\infty e^{-st} e^t \, dt = \int_0^\infty e^{-(s-1)t} \, dt = \frac{1}{s-1}, \quad s > 1
+$$
+$$
+\mathcal{L}\{e^{t+7}\} = \frac{e^7}{s-1}
+$$
+
+<br/>
+
+**15.** Use Definition 7.1.1 to find $\mathcal{L}\{e^{-t} \sin t\}$.
+
+**Solution:**
+$$
+\mathcal{L}\{e^{-t} \sin t\} = \int_0^\infty e^{-st} (e^{-t} \sin t) \, dt = \int_0^\infty e^{-(s+1)t} \sin t \, dt
+$$
+This is the standard Laplace integral for $\sin t$ but with parameter $s \to s+1$.
+Using the formula $\int_0^\infty e^{-at} \sin kt \, dt = \frac{k}{a^2 + k^2}$ with $a = s+1$ and $k=1$:
+$$
+\mathcal{L}\{e^{-t} \sin t\} = \frac{1}{(s+1)^2 + 1}
+$$
+
+<br/>
+
+**19.** Use Theorem 7.1.1 to find $\mathcal{L}\{2t^4\}$.
+
+**Solution:**
+Using $\mathcal{L}\{t^n\} = \frac{n!}{s^{n+1}}$ with $n=4$:
+$$
+\mathcal{L}\{2t^4\} = 2 \mathcal{L}\{t^4\} = 2 \left( \frac{4!}{s^{4+1}} \right) = 2 \left( \frac{24}{s^5} \right) = \frac{48}{s^5}
+$$
+
+<br/>
+
+**21.** Use Theorem 7.1.1 to find $\mathcal{L}\{4t - 10\}$.
+
+**Solution:**
+Using linearity:
+$$
+\mathcal{L}\{4t - 10\} = 4\mathcal{L}\{t\} - 10\mathcal{L}\{1\}
+$$
+$$
+= 4\left(\frac{1}{s^2}\right) - 10\left(\frac{1}{s}\right) = \frac{4}{s^2} - \frac{10}{s}
+$$
+
+<br/>
+
+**25.** Use Theorem 7.1.1 to find $\mathcal{L}\{(t+1)^3\}$.
+
+**Solution:**
+Expand the polynomial: $(t+1)^3 = t^3 + 3t^2 + 3t + 1$.
+$$
+\begin{aligned}
+\mathcal{L}\{(t+1)^3\} &= \mathcal{L}\{t^3\} + 3\mathcal{L}\{t^2\} + 3\mathcal{L}\{t\} + \mathcal{L}\{1\} \\
+&= \frac{3!}{s^4} + 3\frac{2!}{s^3} + 3\frac{1!}{s^2} + \frac{1}{s} \\
+&= \frac{6}{s^4} + \frac{6}{s^3} + \frac{3}{s^2} + \frac{1}{s}
+\end{aligned}
+$$
+
+<br/>
+
+**29.** Use Theorem 7.1.1 to find $\mathcal{L}\{(1 + e^{2t})^2\}$.
+
+**Solution:**
+Expand the expression: $(1 + e^{2t})^2 = 1 + 2e^{2t} + e^{4t}$.
+Using linearity and $\mathcal{L}\{e^{at}\} = \frac{1}{s-a}$:
+$$
+\begin{aligned}
+\mathcal{L}\{1 + 2e^{2t} + e^{4t}\} &= \mathcal{L}\{1\} + 2\mathcal{L}\{e^{2t}\} + \mathcal{L}\{e^{4t}\} \\
+&= \frac{1}{s} + \frac{2}{s-2} + \frac{1}{s-4}
+\end{aligned}
+$$
+
+<br/>
+
+**31.** Use Theorem 7.1.1 to find $\mathcal{L}\{4t^2 - 5\sin 3t\}$.
+
+**Solution:**
+$$
+\begin{aligned}
+\mathcal{L}\{4t^2 - 5\sin 3t\} &= 4\mathcal{L}\{t^2\} - 5\mathcal{L}\{\sin 3t\} \\
+&= 4\left(\frac{2!}{s^3}\right) - 5\left(\frac{3}{s^2 + 3^2}\right) \\
+&= \frac{8}{s^3} - \frac{15}{s^2 + 9}
+\end{aligned}
+$$
+
+<br/>
+
+**35.** Use Theorem 7.1.1 to find $\mathcal{L}\{e^t \sinh t\}$.
+
+**Solution:**
+Recall $\sinh t = \frac{e^t - e^{-t}}{2}$.
+$$
+e^t \sinh t = e^t \left( \frac{e^t - e^{-t}}{2} \right) = \frac{e^{2t} - 1}{2} = \frac{1}{2}e^{2t} - \frac{1}{2}
+$$
+Now apply the transform:
+$$
+\mathcal{L}\left\{ \frac{1}{2}e^{2t} - \frac{1}{2} \right\} = \frac{1}{2} \frac{1}{s-2} - \frac{1}{2s}
+$$
+**Alternative Method:** Using the shift theorem (if covered, or by anticipating the form from definition):
+$\mathcal{L}\{\sinh t\} = \frac{1}{s^2 - 1}$. The term $e^t$ shifts $s \to s-1$.
+$$
+\mathcal{L}\{e^t \sinh t\} = \frac{1}{(s-1)^2 - 1} = \frac{1}{s^2 - 2s + 1 - 1} = \frac{1}{s(s-2)}
+$$
+Both forms are equivalent.

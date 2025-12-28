@@ -1,1 +1,569 @@
-## Coming Soon
+# Green's and Stoke's Theorems
+
+**Book:** *Multivariable Calculus* by James Stewart, 9th Edition
+**Chapter:** 16. Vector Calculus
+**Section:** 16.4 Green's Theorem
+**Exercises:** 16.4
+
+---
+
+## Green's Theorem
+
+### Definition 
+
+Let $C$ be a positively oriented, piecewise-smooth, simple closed curve in the plane and let $D$ be the region bounded by $C$. If $P$ and $Q$ have continuous partial derivatives on an open region that contains $D$, then
+
+$$
+\oint_C P \, dx + Q \, dy = \iint_D \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) \, dA
+$$
+
+**Note:** The notation $\oint_C$ indicates that the line integral is calculated using the positive (counterclockwise) orientation of the closed curve $C$.
+
+### Explanation
+
+Green’s Theorem relates a line integral along a simple closed curve $C$ to a double integral over the plane region $D$ bounded by $C$. It can be regarded as the counterpart of the Fundamental Theorem of Calculus for double integrals.
+
+It has two primary applications:
+1.  **Evaluating Line Integrals:** When the line integral is difficult to calculate directly (parameterizing sides of a polygon, for example), converting it to a double integral over the region often simplifies the calculation.
+2.  **Finding Area:** By choosing specific functions for $P$ and $Q$ such that $\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = 1$, the double integral becomes $\iint_D 1 \, dA$, which is the area of $D$. Common formulas for area include:
+    $$
+    A = \oint_C x \, dy = -\oint_C y \, dx = \frac{1}{2} \oint_C x \, dy - y \, dx
+    $$
+
+---
+
+### Solved Examples from the Book
+
+**Example 1:** Evaluate $\oint_C x^4 \, dx + xy \, dy$, where $C$ is the triangular curve consisting of the line segments from $(0, 0)$ to $(1, 0)$, from $(1, 0)$ to $(0, 1)$, and from $(0, 1)$ to $(0, 0)$.
+
+**Solution:**
+The region $D$ enclosed by $C$ is the triangle with vertices $(0, 0), (1, 0), (0, 1)$. The equation of the hypotenuse is $y = 1 - x$.
+We have $P(x, y) = x^4$ and $Q(x, y) = xy$.
+$$
+\frac{\partial Q}{\partial x} = y \quad \text{and} \quad \frac{\partial P}{\partial y} = 0
+$$
+Using Green's Theorem:
+$$
+\begin{aligned}
+\oint_C x^4 \, dx + xy \, dy &= \iint_D (y - 0) \, dA \\
+&= \int_0^1 \int_0^{1-x} y \, dy \, dx \\
+&= \int_0^1 \left[ \frac{1}{2}y^2 \right]_0^{1-x} \, dx \\
+&= \frac{1}{2} \int_0^1 (1-x)^2 \, dx \\
+&= \left[ -\frac{1}{6}(1-x)^3 \right]_0^1 \\
+&= 0 - \left( -\frac{1}{6} \right) = \frac{1}{6}
+\end{aligned}
+$$
+
+<br/>
+
+**Example 2:** Evaluate $\oint_C (3y - e^{\sin x}) \, dx + (7x + \sqrt{y^4+1}) \, dy$, where $C$ is the circle $x^2 + y^2 = 9$.
+
+**Solution:**
+The boundary $C$ encloses the disk $D$ with radius 3.
+$P = 3y - e^{\sin x}$ and $Q = 7x + \sqrt{y^4+1}$.
+$$
+\frac{\partial Q}{\partial x} = 7 \quad \text{and} \quad \frac{\partial P}{\partial y} = 3
+$$
+Using Green's Theorem:
+$$
+\begin{aligned}
+\oint_C P \, dx + Q \, dy &= \iint_D (7 - 3) \, dA \\
+&= \iint_D 4 \, dA \\
+&= 4 \cdot (\text{Area of disk } D) \\
+&= 4 \cdot (\pi \cdot 3^2) \\
+&= 36\pi
+\end{aligned}
+$$
+
+<br/>
+
+**Example 3:** Find the area enclosed by the ellipse $\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$.
+
+**Solution:**
+We use the area formula $A = \frac{1}{2} \oint_C x \, dy - y \, dx$. The parametric equations for the ellipse are $x = a \cos t$, $y = b \sin t$, for $0 \le t \le 2\pi$.
+$$
+dx = -a \sin t \, dt, \quad dy = b \cos t \, dt
+$$
+$$
+\begin{aligned}
+A &= \frac{1}{2} \int_0^{2\pi} (a \cos t)(b \cos t) - (b \sin t)(-a \sin t) \, dt \\
+&= \frac{1}{2} \int_0^{2\pi} (ab \cos^2 t + ab \sin^2 t) \, dt \\
+&= \frac{1}{2} ab \int_0^{2\pi} (\cos^2 t + \sin^2 t) \, dt \\
+&= \frac{1}{2} ab \int_0^{2\pi} 1 \, dt \\
+&= \frac{1}{2} ab (2\pi) = \pi ab
+\end{aligned}
+$$
+
+<br/>
+
+**Example 4:** Evaluate $\oint_C y^2 \, dx + 3xy \, dy$, where $C$ is the boundary of the semiannular region $D$ in the upper half-plane between the circles $x^2 + y^2 = 1$ and $x^2 + y^2 = 4$.
+
+**Solution:**
+We have $P = y^2$ and $Q = 3xy$.
+$$
+\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = 3y - 2y = y
+$$
+The region $D$ is given in polar coordinates by $1 \le r \le 2, 0 \le \theta \le \pi$.
+$$
+\begin{aligned}
+\oint_C y^2 \, dx + 3xy \, dy &= \iint_D y \, dA \\
+&= \int_0^\pi \int_1^2 (r \sin \theta) \, r \, dr \, d\theta \\
+&= \int_0^\pi \sin \theta \, d\theta \int_1^2 r^2 \, dr \\
+&= [-\cos \theta]_0^\pi \left[ \frac{r^3}{3} \right]_1^2 \\
+&= (1 - (-1)) \left( \frac{8}{3} - \frac{1}{3} \right) \\
+&= 2 \cdot \frac{7}{3} = \frac{14}{3}
+\end{aligned}
+$$
+
+---
+
+### Exercise 16.4 Solutions
+
+**1.** Evaluate the line integral using Green's Theorem.
+$$
+\oint_C y^2 \, dx + x^2y \, dy
+$$
+$C$ is the rectangle with vertices $(0, 0), (5, 0), (5, 4)$, and $(0, 4)$.
+
+**Solution:**
+$P = y^2$, $Q = x^2y$.
+$$
+\frac{\partial Q}{\partial x} = 2xy, \quad \frac{\partial P}{\partial y} = 2y
+$$
+Region $D$: $0 \le x \le 5$, $0 \le y \le 4$.
+$$
+\begin{aligned}
+\oint_C \dots &= \int_0^5 \int_0^4 (2xy - 2y) \, dy \, dx \\
+&= \int_0^5 \left[ xy^2 - y^2 \right]_0^4 \, dx \\
+&= \int_0^5 (16x - 16) \, dx \\
+&= \left[ 8x^2 - 16x \right]_0^5 \\
+&= (8(25) - 16(5)) - 0 \\
+&= 200 - 80 = 120
+\end{aligned}
+$$
+
+<br/>
+
+**2.** Evaluate the line integral using Green's Theorem.
+$$
+\oint_C y \, dx - x \, dy
+$$
+$C$ is the circle with center the origin and radius 4.
+
+**Solution:**
+$P = y$, $Q = -x$.
+$$
+\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = -1 - 1 = -2
+$$
+$$
+\begin{aligned}
+\oint_C \dots &= \iint_D -2 \, dA \\
+&= -2 \times (\text{Area of circle}) \\
+&= -2 (\pi \cdot 4^2) \\
+&= -32\pi
+\end{aligned}
+$$
+
+<br/>
+
+**3.** Evaluate the line integral using Green's Theorem.
+$$
+\oint_C xy \, dx + x^2y^3 \, dy
+$$
+$C$ is the triangle with vertices $(0, 0), (1, 0)$, and $(1, 2)$.
+
+**Solution:**
+$P = xy$, $Q = x^2y^3$.
+$$
+\frac{\partial Q}{\partial x} = 2xy^3, \quad \frac{\partial P}{\partial y} = x
+$$
+Region $D$: Bounded by $x=1$ and $y=2x$ (slope from $(0,0)$ to $(1,2)$).
+$0 \le x \le 1$, $0 \le y \le 2x$.
+$$
+\begin{aligned}
+\oint_C \dots &= \int_0^1 \int_0^{2x} (2xy^3 - x) \, dy \, dx \\
+&= \int_0^1 \left[ \frac{1}{2}xy^4 - xy \right]_{y=0}^{y=2x} \, dx \\
+&= \int_0^1 \left( \frac{1}{2}x(16x^4) - x(2x) \right) \, dx \\
+&= \int_0^1 (8x^5 - 2x^2) \, dx \\
+&= \left[ \frac{8}{6}x^6 - \frac{2}{3}x^3 \right]_0^1 \\
+&= \frac{4}{3} - \frac{2}{3} = \frac{2}{3}
+\end{aligned}
+$$
+
+<br/>
+
+**5.** Evaluate the line integral using Green's Theorem.
+$$
+\oint_C ye^x \, dx + 2e^x \, dy
+$$
+$C$ is the rectangle with vertices $(0, 0), (3, 0), (3, 4)$, and $(0, 4)$.
+
+**Solution:**
+$P = ye^x$, $Q = 2e^x$.
+$$
+\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = 2e^x - e^x = e^x
+$$
+Region $D$: $0 \le x \le 3$, $0 \le y \le 4$.
+$$
+\begin{aligned}
+\oint_C \dots &= \int_0^3 \int_0^4 e^x \, dy \, dx \\
+&= \int_0^3 e^x [y]_0^4 \, dx \\
+&= \int_0^3 4e^x \, dx \\
+&= 4[e^x]_0^3 = 4(e^3 - 1)
+\end{aligned}
+$$
+
+<br/>
+
+**7.** Evaluate the line integral using Green's Theorem.
+$$
+\oint_C x^2y^2 \, dx + y \tan^{-1}y \, dy
+$$
+$C$ is the triangle with vertices $(0, 0), (1, 0)$, and $(1, 3)$.
+
+**Solution:**
+$P = x^2y^2$, $Q = y \tan^{-1}y$.
+$$
+\frac{\partial Q}{\partial x} = 0, \quad \frac{\partial P}{\partial y} = 2x^2y
+$$
+Region $D$: Bounded by $y=0$, $x=1$, and hypotenuse $y=3x$.
+$0 \le x \le 1$, $0 \le y \le 3x$.
+$$
+\begin{aligned}
+\oint_C \dots &= \iint_D (0 - 2x^2y) \, dA \\
+&= \int_0^1 \int_0^{3x} -2x^2y \, dy \, dx \\
+&= \int_0^1 -x^2 [y^2]_0^{3x} \, dx \\
+&= \int_0^1 -x^2 (9x^2) \, dx \\
+&= -9 \int_0^1 x^4 \, dx \\
+&= -9 \left[ \frac{x^5}{5} \right]_0^1 = -\frac{9}{5}
+\end{aligned}
+$$
+
+<br/>
+
+**9.** Evaluate the line integral using Green's Theorem.
+$$
+\oint_C (y + e^{\sqrt{x}}) \, dx + (2x + \cos y^2) \, dy
+$$
+$C$ is the boundary of the region enclosed by the parabolas $y = x^2$ and $x = y^2$.
+
+**Solution:**
+$P = y + e^{\sqrt{x}}$, $Q = 2x + \cos y^2$.
+$$
+\frac{\partial Q}{\partial x} = 2, \quad \frac{\partial P}{\partial y} = 1
+$$
+Difference: $2 - 1 = 1$.
+The curves intersect at $(0,0)$ and $(1,1)$. $D$: $0 \le x \le 1$, $x^2 \le y \le \sqrt{x}$.
+$$
+\begin{aligned}
+\oint_C \dots &= \iint_D (1) \, dA \\
+&= \text{Area of region} \\
+&= \int_0^1 (\sqrt{x} - x^2) \, dx \\
+&= \left[ \frac{2}{3}x^{3/2} - \frac{x^3}{3} \right]_0^1 \\
+&= \frac{2}{3} - \frac{1}{3} = \frac{1}{3}
+\end{aligned}
+$$
+
+<br/>
+
+**11.** Evaluate the line integral using Green's Theorem.
+$$
+\oint_C y^3 \, dx - x^3 \, dy
+$$
+$C$ is the circle $x^2 + y^2 = 4$.
+
+**Solution:**
+$P = y^3$, $Q = -x^3$.
+$$
+\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = -3x^2 - 3y^2 = -3(x^2+y^2)
+$$
+Polar coordinates: $D$ is $0 \le r \le 2$.
+$$
+\begin{aligned}
+\oint_C \dots &= \iint_D -3r^2 \, dA \\
+&= \int_0^{2\pi} \int_0^2 (-3r^2) \, r \, dr \, d\theta \\
+&= \int_0^{2\pi} d\theta \int_0^2 -3r^3 \, dr \\
+&= 2\pi \left[ -\frac{3}{4}r^4 \right]_0^2 \\
+&= 2\pi \left( -\frac{3}{4}(16) \right) \\
+&= 2\pi (-12) = -24\pi
+\end{aligned}
+$$
+
+<br/>
+
+**17.** Use Green's Theorem to evaluate $\oint_C F \cdot dr$.
+$$
+\mathbf{F}(x, y) = \langle y - \cos y, x \sin y \rangle
+$$
+$C$ is the circle $(x - 3)^2 + (y + 4)^2 = 4$ oriented clockwise.
+
+**Solution:**
+$P = y - \cos y$, $Q = x \sin y$.
+$$
+\frac{\partial Q}{\partial x} = \sin y
+$$
+$$
+\frac{\partial P}{\partial y} = 1 - (-\sin y) = 1 + \sin y
+$$
+$$
+\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = \sin y - (1 + \sin y) = -1
+$$
+Green's Theorem applies to the region $D$ (a disk of radius $r=2$).
+$$
+\iint_D -1 \, dA = -1 \cdot (\text{Area of D}) = -1 \cdot (\pi (2)^2) = -4\pi
+$$
+However, Green's Theorem assumes counterclockwise orientation. Since $C$ is clockwise, we multiply by $-1$.
+$$
+\oint_C F \cdot dr = -(-4\pi) = 4\pi
+$$
+
+---
+
+### Video Resource
+[YouTube Video Placeholder: Stewart Calculus 16.4 Green's Theorem]
+
+---
+
+## Stokes' Theorem
+
+### Definition
+
+Stokes’ Theorem relates a surface integral over an oriented surface $S$ to a line integral around the boundary curve of $S$ (which is a space curve).
+
+Let $S$ be an oriented piecewise-smooth surface that is bounded by a simple, closed, piecewise-smooth boundary curve $C$ with positive orientation. Let $\mathbf{F}$ be a vector field whose components have continuous partial derivatives on an open region in $\mathbb{R}^3$ that contains $S$. Then
+
+$$
+\oint_C \mathbf{F} \cdot d\mathbf{r} = \iint_S \text{curl } \mathbf{F} \cdot dS
+$$
+
+Since $\oint_C \mathbf{F} \cdot d\mathbf{r} = \oint_C \mathbf{F} \cdot \mathbf{T} \, ds$ and $\iint_S \text{curl } \mathbf{F} \cdot dS = \iint_S \text{curl } \mathbf{F} \cdot \mathbf{n} \, dS$, Stokes’ Theorem says that the line integral around the boundary curve of $S$ of the tangential component of $\mathbf{F}$ is equal to the surface integral over $S$ of the normal component of the curl of $\mathbf{F}$.
+
+---
+
+### Solved Examples from the Book
+
+**Example 1:** Evaluate $\int_C \mathbf{F} \cdot d\mathbf{r}$, where $\mathbf{F}(x, y, z) = -y^2 \mathbf{i} + x \mathbf{j} + z^2 \mathbf{k}$ and $C$ is the curve of intersection of the plane $y + z = 2$ and the cylinder $x^2 + y^2 = 1$. (Orient $C$ to be counterclockwise when viewed from above.)
+
+**Solution:**
+Although $\int_C \mathbf{F} \cdot d\mathbf{r}$ could be evaluated directly, it’s easier to use Stokes’ Theorem. We first compute the curl of $\mathbf{F}$:
+$$
+\text{curl } \mathbf{F} = \begin{vmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\ \frac{\partial}{\partial x} & \frac{\partial}{\partial y} & \frac{\partial}{\partial z} \\ -y^2 & x & z^2 \end{vmatrix}
+$$
+$$
+= (0 - 0)\mathbf{i} - (0 - 0)\mathbf{j} + (1 - (-2y))\mathbf{k} = (1 + 2y)\mathbf{k}
+$$
+Stokes’ Theorem allows us to choose any (oriented, piecewise-smooth) surface with boundary curve $C$. The most convenient choice is the elliptical region $S$ in the plane $y + z = 2$ that is bounded by $C$. If we orient $S$ upward, then $C$ has the induced positive orientation.
+
+The projection $D$ of $S$ onto the $xy$-plane is the disk $x^2 + y^2 \le 1$. The equation of the surface is $z = g(x, y) = 2 - y$.
+Using the formula for surface integrals of vector fields:
+$$
+\iint_S \text{curl } \mathbf{F} \cdot dS = \iint_D \left( -P \frac{\partial g}{\partial x} - Q \frac{\partial g}{\partial y} + R \right) dA
+$$
+Here, the components of $\text{curl } \mathbf{F}$ are $P=0, Q=0, R=1+2y$.
+$$
+\begin{aligned}
+\int_C \mathbf{F} \cdot d\mathbf{r} &= \iint_S \text{curl } \mathbf{F} \cdot dS \\
+&= \iint_D (1 + 2y) \, dA
+\end{aligned}
+$$
+Converting to polar coordinates ($x = r \cos \theta, y = r \sin \theta, dA = r \, dr \, d\theta$):
+$$
+\begin{aligned}
+&= \int_0^{2\pi} \int_0^1 (1 + 2r \sin \theta) r \, dr \, d\theta \\
+&= \int_0^{2\pi} \left[ \frac{r^2}{2} + \frac{2r^3}{3} \sin \theta \right]_0^1 \, d\theta \\
+&= \int_0^{2\pi} \left( \frac{1}{2} + \frac{2}{3} \sin \theta \right) \, d\theta \\
+&= \left[ \frac{1}{2}\theta - \frac{2}{3} \cos \theta \right]_0^{2\pi} \\
+&= \left( \pi - \frac{2}{3} \right) - \left( 0 - \frac{2}{3} \right) = \pi
+\end{aligned}
+$$
+**Answer:** $\pi$
+
+<br/>
+
+**Example 2:** Use Stokes’ Theorem to compute the integral $\iint_S \text{curl } \mathbf{F} \cdot dS$, where $\mathbf{F}(x, y, z) = xz \mathbf{i} + yz \mathbf{j} + xy \mathbf{k}$ and $S$ is the part of the sphere $x^2 + y^2 + z^2 = 4$ that lies inside the cylinder $x^2 + y^2 = 1$ and above the $xy$-plane.
+
+**Solution:**
+**Method 1 (Using the Boundary Curve):**
+To find the boundary curve $C$, we solve the equations $x^2 + y^2 + z^2 = 4$ and $x^2 + y^2 = 1$.
+Subtracting gives $z^2 = 3$, so $z = \sqrt{3}$ (since $z > 0$).
+Thus $C$ is the circle given by $x^2 + y^2 = 1, z = \sqrt{3}$.
+A vector equation of $C$ is:
+$$
+\mathbf{r}(t) = \cos t \mathbf{i} + \sin t \mathbf{j} + \sqrt{3} \mathbf{k}, \quad 0 \le t \le 2\pi
+$$
+$$
+\mathbf{r}'(t) = -\sin t \mathbf{i} + \cos t \mathbf{j}
+$$
+Evaluate $\mathbf{F}$ on the curve:
+$$
+\mathbf{F}(\mathbf{r}(t)) = (\sqrt{3} \cos t) \mathbf{i} + (\sqrt{3} \sin t) \mathbf{j} + (\cos t \sin t) \mathbf{k}
+$$
+By Stokes' Theorem:
+$$
+\begin{aligned}
+\iint_S \text{curl } \mathbf{F} \cdot dS &= \oint_C \mathbf{F} \cdot d\mathbf{r} = \int_0^{2\pi} \mathbf{F}(\mathbf{r}(t)) \cdot \mathbf{r}'(t) \, dt \\
+&= \int_0^{2\pi} (-\sqrt{3} \cos t \sin t + \sqrt{3} \sin t \cos t) \, dt \\
+&= \int_0^{2\pi} 0 \, dt = 0
+\end{aligned}
+$$
+
+**Method 2 (Using a Simpler Surface):**
+Let $S_1$ be the disk in the plane $z = \sqrt{3}$ inside the cylinder $x^2 + y^2 = 1$. Since $S$ and $S_1$ share the same boundary curve $C$, Stokes' Theorem implies:
+$$
+\iint_S \text{curl } \mathbf{F} \cdot dS = \iint_{S_1} \text{curl } \mathbf{F} \cdot dS
+$$
+Calculate curl $\mathbf{F}$:
+$$
+\text{curl } \mathbf{F} = \langle x-y, x-y, 0 \rangle
+$$
+The unit normal to the horizontal disk $S_1$ is $\mathbf{k} = \langle 0, 0, 1 \rangle$.
+$$
+\text{curl } \mathbf{F} \cdot \mathbf{n} = \langle x-y, x-y, 0 \rangle \cdot \langle 0, 0, 1 \rangle = 0
+$$
+Therefore, $\iint_{S_1} 0 \, dS = 0$.
+
+**Answer:** $0$
+
+---
+
+### Exercise 16.8 Solutions
+
+**7.** Use Stokes’ Theorem to evaluate $\int_C \mathbf{F} \cdot d\mathbf{r}$.
+$$
+\mathbf{F}(x, y, z) = (x + y^2) \mathbf{i} + (y + z^2) \mathbf{j} + (z + x^2) \mathbf{k}
+$$
+$C$ is the triangle with vertices $(1, 0, 0)$, $(0, 1, 0)$, and $(0, 0, 1)$, oriented counterclockwise as viewed from above.
+
+**Solution:**
+The curve $C$ is the boundary of the triangular region $S$ lying on the plane passing through the three intercepts. The equation of the plane is $x + y + z = 1$.
+The unit normal vector for the plane $x+y+z=1$ is $\mathbf{n} = \frac{1}{\sqrt{3}}\langle 1, 1, 1 \rangle$.
+First, find $\text{curl } \mathbf{F}$:
+$$
+\text{curl } \mathbf{F} = \begin{vmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\ \partial_x & \partial_y & \partial_z \\ x+y^2 & y+z^2 & z+x^2 \end{vmatrix}
+$$
+$$
+= (0 - 2z)\mathbf{i} - (2x - 0)\mathbf{j} + (0 - 2y)\mathbf{k} = \langle -2z, -2x, -2y \rangle
+$$
+Now evaluate $\text{curl } \mathbf{F} \cdot \mathbf{n}$:
+$$
+\langle -2z, -2x, -2y \rangle \cdot \frac{1}{\sqrt{3}}\langle 1, 1, 1 \rangle = \frac{1}{\sqrt{3}}(-2z - 2x - 2y) = \frac{-2}{\sqrt{3}}(x+y+z)
+$$
+Since points on $S$ satisfy $x+y+z=1$, this simplifies to:
+$$
+\text{curl } \mathbf{F} \cdot \mathbf{n} = \frac{-2}{\sqrt{3}}(1) = \frac{-2}{\sqrt{3}}
+$$
+Using Stokes' Theorem:
+$$
+\int_C \mathbf{F} \cdot d\mathbf{r} = \iint_S \text{curl } \mathbf{F} \cdot dS = \iint_S \frac{-2}{\sqrt{3}} \, dS
+$$
+$$
+= \frac{-2}{\sqrt{3}} \cdot \text{Area}(S)
+$$
+$S$ is an equilateral triangle with side length $\sqrt{(1-0)^2 + (0-1)^2 + (0-0)^2} = \sqrt{2}$.
+Area of equilateral triangle with side $s$ is $\frac{\sqrt{3}}{4}s^2$.
+$\text{Area}(S) = \frac{\sqrt{3}}{4}(\sqrt{2})^2 = \frac{\sqrt{3}}{4}(2) = \frac{\sqrt{3}}{2}$.
+$$
+\int_C \mathbf{F} \cdot d\mathbf{r} = \frac{-2}{\sqrt{3}} \left( \frac{\sqrt{3}}{2} \right) = -1
+$$
+**Answer:** $-1$
+
+<br/>
+
+**9.** Use Stokes’ Theorem to evaluate $\int_C \mathbf{F} \cdot d\mathbf{r}$.
+$$
+\mathbf{F}(x, y, z) = xy \mathbf{i} + yz \mathbf{j} + zx \mathbf{k}
+$$
+$C$ is the boundary of the part of the paraboloid $z = 1 - x^2 - y^2$ in the first octant, oriented counterclockwise as viewed from above.
+
+**Solution:**
+The boundary curve $C$ consists of three parts along the coordinate planes, but Stokes' Theorem relates the line integral over $C$ to the surface integral over the surface $S$ (the paraboloid part).
+Wait, "boundary of the part... in the first octant".
+Actually, it's easier to integrate over the surface $S$. Or, note that the boundary $C$ lies in the coordinate planes?
+Let's look at the boundary curve components:
+1. On $xy$-plane ($z=0$): Quarter circle from $(1,0,0)$ to $(0,1,0)$.
+2. On $yz$-plane ($x=0$): Parabola arc from $(0,1,0)$ to $(0,0,1)$.
+3. On $xz$-plane ($y=0$): Parabola arc from $(0,0,1)$ to $(1,0,0)$.
+This seems tedious. Let's calculate the surface integral over $S$: $z = 1 - x^2 - y^2$.
+$\text{curl } \mathbf{F} = \langle -y, -z, -x \rangle$.
+Using formula for graph $z=g(x,y)$:
+$$
+\iint_D (-P \frac{\partial g}{\partial x} - Q \frac{\partial g}{\partial y} + R) dA
+$$
+$P = -y, Q = -z, R = -x$.
+$\frac{\partial z}{\partial x} = -2x, \frac{\partial z}{\partial y} = -2y$.
+$$
+\iint_D [-(-y)(-2x) - (-z)(-2y) + (-x)] dA = \iint_D [-2xy - 2yz - x] dA
+$$
+Substitute $z = 1 - x^2 - y^2$:
+$$
+\iint_D [-2xy - 2y(1 - x^2 - y^2) - x] dA
+$$
+$D$ is the quarter disk $x^2 + y^2 \le 1, x \ge 0, y \ge 0$.
+Switch to polar coordinates: $x = r \cos \theta, y = r \sin \theta$.
+Integrand:
+$-2r^2 \sin \theta \cos \theta - 2r \sin \theta (1 - r^2) - r \cos \theta$
+$= -r^2 \sin 2\theta - 2r \sin \theta + 2r^3 \sin \theta - r \cos \theta$.
+Limits: $0 \le r \le 1, 0 \le \theta \le \pi/2$.
+$$
+\begin{aligned}
+\int_0^{\pi/2} \int_0^1 (-r^2 \sin 2\theta - 2r \sin \theta + 2r^3 \sin \theta - r \cos \theta) r \, dr \, d\theta \\
+= \int_0^{\pi/2} \int_0^1 (-r^3 \sin 2\theta - 2r^2 \sin \theta + 2r^4 \sin \theta - r^2 \cos \theta) \, dr \, d\theta \\
+= \int_0^{\pi/2} \left[ -\frac{1}{4} \sin 2\theta - \frac{2}{3} \sin \theta + \frac{2}{5} \sin \theta - \frac{1}{3} \cos \theta \right] d\theta \\
+= \int_0^{\pi/2} \left( -\frac{1}{4} \sin 2\theta - \frac{4}{15} \sin \theta - \frac{1}{3} \cos \theta \right) d\theta \\
+= \left[ \frac{1}{8} \cos 2\theta + \frac{4}{15} \cos \theta - \frac{1}{3} \sin \theta \right]_0^{\pi/2} \\
+= \left( -\frac{1}{8} + 0 - \frac{1}{3} \right) - \left( \frac{1}{8} + \frac{4}{15} - 0 \right) \\
+= -\frac{1}{8} - \frac{1}{3} - \frac{1}{8} - \frac{4}{15} = -\frac{1}{4} - \frac{5}{15} - \frac{4}{15} \\
+= -0.25 - 0.6 = -0.85 \quad (\text{or } -\frac{17}{20})
+\end{aligned}
+$$
+**Answer:** $-\frac{17}{20}$
+
+<br/>
+
+**13.** Use Stokes’ Theorem to evaluate $\int_C \mathbf{F} \cdot d\mathbf{r}$.
+$$
+\mathbf{F}(x, y, z) = x^2y \mathbf{i} + \frac{1}{3}x^3 \mathbf{j} + xy \mathbf{k}
+$$
+$C$ is the curve of intersection of the hyperbolic paraboloid $z = y^2 - x^2$ and the cylinder $x^2 + y^2 = 1$, oriented counterclockwise as viewed from above.
+
+**Solution:**
+$S$ is the part of the surface $z = y^2 - x^2$ inside the cylinder $x^2 + y^2 = 1$.
+Calculate $\text{curl } \mathbf{F}$:
+$$
+\text{curl } \mathbf{F} = \langle x - 0, -(y - 0), x^2 - x^2 \rangle = \langle x, -y, 0 \rangle
+$$
+Use the surface integral over $S$: $z = g(x,y) = y^2 - x^2$.
+$\frac{\partial g}{\partial x} = -2x, \frac{\partial g}{\partial y} = 2y$.
+Formula: $\iint_D (-P \frac{\partial g}{\partial x} - Q \frac{\partial g}{\partial y} + R) dA$
+$P = x, Q = -y, R = 0$.
+$$
+\iint_D (-x(-2x) - (-y)(2y) + 0) dA = \iint_D (2x^2 + 2y^2) dA
+$$
+$D$ is the unit disk $x^2 + y^2 \le 1$. Polar coordinates:
+$$
+\int_0^{2\pi} \int_0^1 2r^2 \cdot r \, dr \, d\theta = \int_0^{2\pi} d\theta \int_0^1 2r^3 \, dr
+$$
+$$
+= 2\pi \left[ \frac{1}{2}r^4 \right]_0^1 = 2\pi \left( \frac{1}{2} \right) = \pi
+$$
+**Answer:** $\pi$
+
+<br/>
+
+**15.**
+**(a)** Use Stokes’ Theorem to evaluate $\int_C \mathbf{F} \cdot d\mathbf{r}$, where $\mathbf{F}(x, y, z) = x^2z \mathbf{i} + xy^2 \mathbf{j} + z^2 \mathbf{k}$ and $C$ is the intersection of the plane $x + y + z = 1$ and the cylinder $x^2 + y^2 = 9$, oriented counterclockwise.
+
+**Solution:**
+Surface $S$ is the portion of the plane $z = 1 - x - y$ inside the cylinder.
+$\text{curl } \mathbf{F} = \langle 0 - 0, 0 - x^2, y^2 - 0 \rangle = \langle 0, -x^2, y^2 \rangle$.
+Formula: $\iint_D (-P(-1) - Q(-1) + R) dA$ (since $z_x = -1, z_y = -1$).
+$P=0, Q=-x^2, R=y^2$.
+$$
+\iint_D (0(-1) - (-x^2)(-1) + y^2) dA = \iint_D (-x^2 + y^2) dA
+$$
+$D$ is the disk of radius 3. Polar coordinates:
+$$
+\int_0^{2\pi} \int_0^3 (-r^2 \cos^2 \theta + r^2 \sin^2 \theta) r \, dr \, d\theta = \int_0^{2\pi} (-\cos 2\theta) d\theta \int_0^3 r^3 dr
+$$
+The integral of $\cos 2\theta$ over $[0, 2\pi]$ is 0.
+**Answer:** $0$

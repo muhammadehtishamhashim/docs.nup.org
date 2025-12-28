@@ -1,1 +1,295 @@
-## Coming Soon
+# Week 11: Even and Odd Functions (Series Solutions)
+
+**Book:** *A First Course in Differential Equations with Modeling Applications* by Dennis G. Zill, 11th Edition
+**Chapter:** 6. Series Solutions of Linear Equations
+**Section:** 6.1 Review of Power Series, 6.4 Special Functions
+
+---
+
+### Definitions
+
+**Even Function**
+A function $f$ is said to be **even** if its graph is symmetric with respect to the $y$-axis, that is, $f(-x) = f(x)$ for all $x$ in the domain.
+In terms of power series (Maclaurin series), an even function contains only **even** powers of $x$.
+$$
+f(x) = c_0 + c_2 x^2 + c_4 x^4 + \dots = \sum_{n=0}^{\infty} c_{2n} x^{2n}
+$$
+
+**Odd Function**
+A function $f$ is said to be **odd** if its graph is symmetric with respect to the origin, that is, $f(-x) = -f(x)$ for all $x$ in the domain.
+In terms of power series (Maclaurin series), an odd function contains only **odd** powers of $x$.
+$$
+f(x) = c_1 x + c_3 x^3 + c_5 x^5 + \dots = \sum_{n=0}^{\infty} c_{2n+1} x^{2n+1}
+$$
+
+---
+
+### Explanation
+
+In the context of differential equations and series solutions, identifying even and odd functions allows for the simplification of series expansions.
+1.  **Trigonometric Series:** The Maclaurin series for $\cos x$ contains only even powers, reflecting its property as an even function. Similarly, $\sin x$ contains only odd powers.
+2.  **Special Functions:** Solutions to important differential equations, such as Legendre's Equation and Bessel's Equation, yield families of functions (polynomials or infinite series) that alternate between being even and odd based on their order parameter ($n$ or $\nu$).
+    *   **Legendre Polynomials $P_n(x)$:** $P_n(x)$ is an even function if $n$ is even, and an odd function if $n$ is odd.
+    *   **Bessel Functions $J_n(x)$:** $J_n(x)$ is even if $n$ is even, and odd if $n$ is odd.
+
+---
+
+### Solved Examples from the Book
+
+**Example 1: Maclaurin Series of an Even Function (Cosine)**
+**Context:** Review of Power Series (Section 6.1)
+Find the Maclaurin series for the even function $\cos x$.
+**Solution:**
+Using the formula for Maclaurin series:
+$$
+\cos x = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \dots = \sum_{n=0}^{\infty} \frac{(-1)^n}{(2n)!} x^{2n}
+$$
+The series contains only even powers of $x$, confirming it represents an even function. The interval of convergence is $(-\infty, \infty)$.
+
+<br />
+
+**Example 2: Maclaurin Series of an Odd Function (Sine)**
+**Context:** Review of Power Series (Section 6.1)
+Find the Maclaurin series for the odd function $\sin x$.
+**Solution:**
+$$
+\sin x = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \dots = \sum_{n=0}^{\infty} \frac{(-1)^n}{(2n+1)!} x^{2n+1}
+$$
+The series contains only odd powers of $x$, confirming it represents an odd function.
+
+<br />
+
+**Example 3: Series for an Even Composite Function**
+**Context:** Review of Power Series (Section 6.1)
+Find the Maclaurin series representation of $e^{x^2}$.
+**Solution:**
+Since $x^2$ is even, $e^{x^2}$ is an even function. We replace $x$ in the standard series for $e^x$:
+$$
+e^x = \sum_{n=0}^{\infty} \frac{1}{n!} x^n
+$$
+Substituting $x^2$ for $x$:
+$$
+e^{x^2} = 1 + \frac{x^2}{1!} + \frac{x^4}{2!} + \frac{x^6}{3!} + \dots = \sum_{n=0}^{\infty} \frac{1}{n!} x^{2n}
+$$
+This series contains only even powers of $x$.
+
+<br />
+
+**Example 4: Even and Odd Properties of Legendre Polynomials**
+**Context:** Special Functions (Section 6.4)
+Legendre polynomials $P_n(x)$ are solutions to Legendre's equation. They exhibit specific parity.
+*   $P_0(x) = 1$ (Even)
+*   $P_1(x) = x$ (Odd)
+*   $P_2(x) = \frac{1}{2}(3x^2 - 1)$ (Even)
+*   $P_3(x) = \frac{1}{2}(5x^3 - 3x)$ (Odd)
+**Property:**
+$$
+P_n(-x) = (-1)^n P_n(x)
+$$
+This property explicitly states that $P_n$ is even when $n$ is even and odd when $n$ is odd.
+
+<br />
+
+**Example 5: Even and Odd Properties of Bessel Functions**
+**Context:** Special Functions (Section 6.4)
+The Bessel function of the first kind, $J_n(x)$, for integer $n$, satisfies:
+$$
+J_n(-x) = (-1)^n J_n(x)
+$$
+**Solution:**
+This indicates that $J_n(x)$ is an even function if $n$ is an even integer and an odd function if $n$ is an odd integer.
+For instance:
+*   $J_0(x)$ is symmetric about the y-axis.
+*   $J_1(x)$ is symmetric about the origin.
+
+---
+
+### Solved Exercise Questions (from Zill Chapter 6)
+
+**1. (Exercise 6.1, Q11)**
+Find the Maclaurin series of the function $e^{-x^2/2}$.
+**Solution:**
+The function involves $x^2$, making it an even function.
+Start with $e^t = \sum_{n=0}^{\infty} \frac{t^n}{n!}$.
+Substitute $t = -x^2/2$:
+$$
+\begin{aligned}
+e^{-x^2/2} &= \sum_{n=0}^{\infty} \frac{1}{n!} \left(-\frac{x^2}{2}\right)^n \\
+&= \sum_{n=0}^{\infty} \frac{(-1)^n}{n! 2^n} x^{2n} \\
+&= 1 - \frac{1}{2}x^2 + \frac{1}{8}x^4 - \frac{1}{48}x^6 + \dots
+\end{aligned}
+$$
+**Answer:** $\sum_{n=0}^{\infty} \frac{(-1)^n}{n! 2^n} x^{2n}$
+
+<br />
+
+**2. (Exercise 6.1, Q14)**
+Find the Maclaurin series of the function $\frac{x}{1+x^2}$.
+**Solution:**
+This is the product of an odd function ($x$) and an even function ($(1+x^2)^{-1}$), so the result should be odd.
+Using the geometric series $\frac{1}{1-u} = \sum_{n=0}^{\infty} u^n$ for $|u| < 1$:
+Let $u = -x^2$.
+$$
+\frac{1}{1+x^2} = \sum_{n=0}^{\infty} (-x^2)^n = \sum_{n=0}^{\infty} (-1)^n x^{2n}
+$$
+Now multiply by $x$:
+$$
+\frac{x}{1+x^2} = x \sum_{n=0}^{\infty} (-1)^n x^{2n} = \sum_{n=0}^{\infty} (-1)^n x^{2n+1}
+$$
+**Answer:** $\sum_{n=0}^{\infty} (-1)^n x^{2n+1}$
+
+<br />
+
+**3. (Exercise 6.1, Q16)**
+Find the Maclaurin series of the function $\sin(x^2)$.
+**Solution:**
+The sine function is odd, but the argument $x^2$ is even. The composite $f(x) = \sin(x^2)$ satisfies $f(-x) = \sin((-x)^2) = \sin(x^2) = f(x)$, so it is even.
+Using the series for $\sin t = \sum_{n=0}^{\infty} \frac{(-1)^n}{(2n+1)!} t^{2n+1}$:
+Substitute $t = x^2$:
+$$
+\sin(x^2) = \sum_{n=0}^{\infty} \frac{(-1)^n}{(2n+1)!} (x^2)^{2n+1} = \sum_{n=0}^{\infty} \frac{(-1)^n}{(2n+1)!} x^{4n+2}
+$$
+**Answer:** $\sum_{n=0}^{\infty} \frac{(-1)^n}{(2n+1)!} x^{4n+2}$
+
+<br />
+
+**4. (Exercise 6.1, Q19)**
+Find the first four nonzero terms of the Maclaurin series for $\sin x \cos x$ by multiplication.
+**Solution:**
+Product of two odd functions? No, $\sin x$ is odd, $\cos x$ is even. The product is Odd.
+$$
+\sin x = x - \frac{x^3}{6} + \frac{x^5}{120} - \dots
+$$
+$$
+\cos x = 1 - \frac{x^2}{2} + \frac{x^4}{24} - \dots
+$$
+Multiply:
+$$
+\begin{aligned}
+\left(x - \frac{x^3}{6} + \frac{x^5}{120}\right) \left(1 - \frac{x^2}{2} + \frac{x^4}{24}\right)
+&= x - \frac{x^3}{2} + \frac{x^5}{24} - \frac{x^3}{6} + \frac{x^5}{12} - \dots \\
+&= x - \left(\frac{3}{6} + \frac{1}{6}\right)x^3 + \left(\frac{1}{24} + \frac{10}{120} + \frac{1}{120}\right)x^5 \dots
+\end{aligned}
+$$
+(Actually, simpler to use $\sin 2x = 2 \sin x \cos x \implies \sin x \cos x = \frac{1}{2} \sin 2x$).
+Using identity: $\frac{1}{2} \sum \frac{(-1)^n}{(2n+1)!} (2x)^{2n+1} = \sum \frac{(-1)^n 2^{2n}}{(2n+1)!} x^{2n+1}$.
+Terms: $\frac{1}{2}(2x - \frac{8x^3}{6} + \frac{32x^5}{120} - \frac{128x^7}{5040}) = x - \frac{2}{3}x^3 + \frac{2}{15}x^5 - \frac{4}{315}x^7$.
+**Answer:** $x - \frac{2}{3}x^3 + \frac{2}{15}x^5 - \frac{4}{315}x^7$
+
+<br />
+
+**5. (Exercise 6.1, Q21)**
+Find the first four nonzero terms of the Maclaurin series for $\sec x$.
+**Solution:**
+$\sec x$ is an **even** function ($\sec(-x) = \sec x$).
+Using long division $1 / \cos x$:
+$$
+\frac{1}{1 - \frac{x^2}{2} + \frac{x^4}{24} - \frac{x^6}{720}}
+$$
+1. $1 \div 1 = 1$.
+2. $1 - (1 - x^2/2 + \dots) = x^2/2 - x^4/24$.
+3. $(x^2/2) \div 1 = x^2/2$.
+4. Multiply: $(x^2/2)(1 - x^2/2) = x^2/2 - x^4/4$.
+5. Subtract: $(-x^4/24) - (-x^4/4) = 5x^4/24$.
+6. $(5x^4/24) \div 1 = 5x^4/24$.
+Next term calculation yields $61x^6/720$.
+**Answer:** $1 + \frac{1}{2}x^2 + \frac{5}{24}x^4 + \frac{61}{720}x^6$
+
+<br />
+
+**6. (Exercise 6.1, Q22)**
+Find the first four nonzero terms of the Maclaurin series for $\tan x$.
+**Solution:**
+$\tan x$ is an **odd** function ($\tan(-x) = -\tan x$).
+$\tan x = \frac{\sin x}{\cos x} = \frac{x - x^3/6 + x^5/120 - \dots}{1 - x^2/2 + x^4/24 - \dots}$.
+Performing long division:
+1. $x \div 1 = x$.
+2. Multiply: $x(1 - x^2/2 + x^4/24) = x - x^3/2 + x^5/24$.
+3. Subtract: $(-x^3/6) - (-x^3/2) = x^3/3$.
+4. $x^3/3 \div 1 = x^3/3$.
+5. Multiply: $(x^3/3)(1 - x^2/2) = x^3/3 - x^5/6$.
+6. Subtract: $(x^5/120 - x^5/24) - (-x^5/6) = (1 - 5 + 20)/120 x^5 = 16/120 x^5 = 2/15 x^5$.
+**Answer:** $x + \frac{1}{3}x^3 + \frac{2}{15}x^5 + \frac{17}{315}x^7$
+
+<br />
+
+**7. (Exercise 6.4, Q25)**
+Use the binomial series to show $P_n(1) = 1$ and $P_n(-1) = (-1)^n$.
+**Solution:**
+The generating function for Legendre polynomials is:
+$$
+(1 - 2xt + t^2)^{-1/2} = \sum_{n=0}^{\infty} P_n(x) t^n
+$$
+To find $P_n(-1)$, let $x = -1$:
+$$
+\begin{aligned}
+(1 - 2(-1)t + t^2)^{-1/2} &= (1 + 2t + t^2)^{-1/2} \\
+&= ((1+t)^2)^{-1/2} \\
+&= (1+t)^{-1} \\
+&= \sum_{n=0}^{\infty} (-1)^n t^n
+\end{aligned}
+$$
+Comparing coefficients of $t^n$:
+$$
+P_n(-1) = (-1)^n
+$$
+This confirms the parity property: for even $n$, value is 1; for odd $n$, value is -1.
+
+<br />
+
+**8. (Exercise 6.4, Q47)**
+Use the recurrence relation to generate $P_6(x)$ and check its parity.
+**Relation:** $(k+1)P_{k+1}(x) - (2k+1)xP_k(x) + kP_{k-1}(x) = 0$.
+Given $P_4(x)$ and $P_5(x)$ (from text):
+$P_5(x) = \frac{1}{8}(63x^5 - 70x^3 + 15x)$ (Odd).
+$P_4(x) = \frac{1}{8}(35x^4 - 30x^2 + 3)$ (Even).
+Set $k=5$:
+$$
+6 P_6(x) - 11x P_5(x) + 5 P_4(x) = 0
+$$
+$$
+6 P_6(x) = 11x [\frac{1}{8}(63x^5 - 70x^3 + 15x)] - 5 [\frac{1}{8}(35x^4 - 30x^2 + 3)]
+$$
+$$
+6 P_6(x) = \frac{1}{8} [ (693x^6 - 770x^4 + 165x^2) - (175x^4 - 150x^2 + 15) ]
+$$
+$$
+6 P_6(x) = \frac{1}{8} [ 693x^6 - 945x^4 + 315x^2 - 15 ]
+$$
+Divide by 6:
+$$
+P_6(x) = \frac{1}{16} (231x^6 - 315x^4 + 105x^2 - 5)
+$$
+**Conclusion:** $P_6(x)$ contains only even powers, so it is an Even function.
+
+<br />
+
+**9. (Exercise 6.4, Q30)**
+Use the relationship between Bessel functions to show the derivative of an even order Bessel function relates to an odd one.
+**Statement:** $J_0'(x) = -J_1(x)$.
+**Solution:**
+We know $J_0(x)$ is an even function (Series has $x^{2n}$).
+$$
+J_0(x) = \sum_{n=0}^{\infty} \frac{(-1)^n}{(n!)^2} \left(\frac{x}{2}\right)^{2n}
+$$
+Differentiation of an Even function results in an Odd function.
+$J_1(x)$ is an odd function (Series has $x^{2n+1}$).
+Thus, the derivative property preserves the parity logic (Derivative of Even is Odd).
+
+<br />
+
+**10. (Exercise 6.4, Q32)**
+Express $J_{3/2}(x)$ in terms of $\sin x$, $\cos x$, and powers of $x$.
+**Context:** Bessel functions of half-integer order.
+**Relation:** $J_{\nu+1}(x) = \frac{2\nu}{x}J_{\nu}(x) - J_{\nu-1}(x)$.
+Let $\nu = 1/2$.
+$$
+J_{3/2}(x) = \frac{1}{x} J_{1/2}(x) - J_{-1/2}(x)
+$$
+Using known values:
+$J_{1/2}(x) = \sqrt{\frac{2}{\pi x}} \sin x$ (Odd/Even symmetry mixed due to $\sqrt{x}$).
+$J_{-1/2}(x) = \sqrt{\frac{2}{\pi x}} \cos x$.
+$$
+J_{3/2}(x) = \frac{1}{x} \sqrt{\frac{2}{\pi x}} \sin x - \sqrt{\frac{2}{\pi x}} \cos x = \sqrt{\frac{2}{\pi x}} \left( \frac{\sin x}{x} - \cos x \right)
+$$
+**Answer:** $\sqrt{\frac{2}{\pi x}} (\frac{\sin x}{x} - \cos x)$
