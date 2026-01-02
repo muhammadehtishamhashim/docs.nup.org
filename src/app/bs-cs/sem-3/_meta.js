@@ -1,6 +1,6 @@
 const meta = {
     index: "Overview",
-    "multvariable-calculus": "Multvariable Calculus",
+    "multvariable-calculus": "Multivariable Calculus",
     "data-structures": "Data Structures",
     "software-engineering": "Software Engineering",
     "intro-to-ai": "Introduction to AI",
