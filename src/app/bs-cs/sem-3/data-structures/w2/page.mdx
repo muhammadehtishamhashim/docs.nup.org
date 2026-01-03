@@ -1,1 +1,179 @@
-## Coming Soon
+# Week 2
+
+## Abstract Data Types, Complexity Analysis, and Big Oh Notation
+
+### Definitions
+
+**Abstract Data Type (ADT)**
+An **Abstract Data Type** is a theoretical model for data structures defined by their behavior (operations) rather than their implementation. Programming is enhanced by creating procedural abstractions and hiding information. For example, a stack is defined by operations like `push` and `pop`, regardless of whether it is implemented using a linked list or an array,.
+
+**Time Complexity**
+The **time complexity** of an algorithm is the number of primitive operations or "steps" executed by the algorithm on a particular input. It is usually described as a function of the size of the input, denoted as $T(n)$.
+
+**Big Oh Notation ($O$)**
+$O$-notation provides an **asymptotic upper bound** on a function. For a given function $g(n)$, $O(g(n))$ is the set of functions $f(n)$ such that there exist positive constants $c$ and $n_0$ where $0 \leq f(n) \leq c g(n)$ for all $n \geq n_0$. It characterizes the worst-case running time.
+
+**Big Theta Notation ($\Theta$)**
+$\Theta$-notation bounds a function from **above and below**. For a given function $g(n)$, $\Theta(g(n))$ is the set of functions $f(n)$ such that there exist positive constants $c_1, c_2, n_0$ where $c_1 g(n) \leq f(n) \leq c_2 g(n)$ for all $n \geq n_0$. This denotes an asymptotically tight bound.
+
+### Explanation
+
+**Abstract Data Types**
+ADTs allow a program designer to separate the logic of the data's behavior from the details of how it is stored. Common ADTs include:
+*   **Stack:** A Last-In-First-Out (LIFO) structure supporting `push`, `pop`, and `empty` checks.
+*   **Queue:** A First-In-First-Out (FIFO) structure supporting `enqueue` and `dequeue`.
+*   **Set:** A collection of distinct elements supporting operations like `union`, `intersection`, and `member` check.
+
+**Analyzing Algorithms**
+To analyze an algorithm, we often assume a generic **Random-Access Machine (RAM)** model where instructions (add, move, load) take constant time. The analysis focuses on the **growth rate** of the running time as the input size $n$ increases. We usually concentrate on the **worst-case** running time because it provides a guarantee that the algorithm will never take longer.
+
+**Asymptotic Notation**
+When analyzing large inputs, we ignore constant factors and lower-order terms. For example, if an algorithm's running time is $an^2 + bn + c$, we drop the lower terms and constants to say the running time is $\Theta(n^2)$. This simplifies the comparison of algorithms, allowing us to see that an algorithm with $\Theta(n^2)$ will eventually be slower than one with $\Theta(n \lg n)$ as $n$ grows large.
+
+### Solved Examples (from the book)
+
+**Example 1: Analysis of Insertion Sort**
+**Problem**: Analyze the running time of Insertion Sort.
+**Analysis**:
+The running time $T(n)$ is the sum of the running times for each statement. In the **best case** (array already sorted), the inner loop runs 0 times, resulting in a linear function: $T(n) = an + b$, which is $\Theta(n)$.
+In the **worst case** (array reverse sorted), we must compare each element $A[j]$ with the entire sorted subarray. This results in a summation $\sum_{j=2}^{n} j$, which yields a quadratic function: $T(n) = an^2 + bn + c$.
+**Result**: Dropping constants and lower-order terms, the worst-case time complexity is $\Theta(n^2)$.
+
+**Example 2: Recurrence for Merge Sort**
+**Problem**: Analyze the running time of Merge Sort using Divide-and-Conquer.
+**Analysis**:
+1.  **Divide**: Computing the middle takes $\Theta(1)$.
+2.  **Conquer**: Recursively solving two subproblems of size $n/2$ takes $2T(n/2)$.
+3.  **Combine**: Merging $n$ elements takes $\Theta(n)$.
+**Recurrence**: $T(n) = 2T(n/2) + \Theta(n)$ if $n > 1$.
+**Solution**: Using the Master Theorem or recursion trees, the solution is $T(n) = \Theta(n \lg n)$.
+
+**Example 3: ADT Stack Implementation in Prolog**
+**Context**: Implementing the Stack ADT using lists in Prolog.
+**Operations**:
+1.  `empty_stack([])`: Tests if the stack is empty.
+2.  `stack(Top, Stack, [Top | Stack])`: Pushes `Top` onto `Stack`.
+3.  `stack(Top, [Top | Rest], Rest)`: Pops `Top` from the stack.
+4.  `member_stack(Element, Stack)`: Checks if `Element` is in `Stack`.
+**Implementation**:
+```prolog
+member_stack(E, S) :- member(E, S).
+empty_stack([]).
+stack(E, S, [E|S]).
+```
+This hides the list implementation from the user of the stack.
+
+**Example 4: Comparing Growth of Functions**
+**Problem**: Compare $f(n) = n^2/2$ and $g(n) = n^2$.
+**Analysis**:
+To see if $f(n) = \Theta(g(n))$, we check if there exist constants $c_1, c_2$ such that $c_1 n^2 \leq n^2/2 \leq c_2 n^2$.
+This holds for $c_1 = 1/4$ and $c_2 = 1$ (or specifically $c_1 \leq 1/2 \leq c_2$).
+**Result**: $n^2/2 = \Theta(n^2)$ because constants do not affect the asymptotic growth class.
+
+**Example 5: ADT Queue Implementation**
+**Context**: A Queue is a First-In-First-Out (FIFO) structure.
+**Operations defined**:
+1.  `empty_queue([])`.
+2.  `enqueue(E, [H|T], [H|T_new]) :- enqueue(E, T, T_new).` (Recursive addition to end).
+3.  `enqueue(E, [], [E]).` (Base case).
+4.  `dequeue(E, [E|T], T).` (Removal from head).
+**Complexity Note**: In this list-based implementation, enqueue is $O(n)$ while dequeue is $O(1)$.
+
+### Solved Exercise Questions (from the book)
+
+**Question 1**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 2.2-1
+**Prompt**: Express the function $n^3/1000 - 100n^2 - 100n + 3$ in terms of $\Theta$-notation.
+**Solution**:
+We keep the highest-order term and drop constants.
+The highest order term is $n^3$.
+We ignore the coefficient $1/1000$ and the lower order terms $-100n^2 - 100n + 3$.
+**Answer**: $\Theta(n^3)$.
+
+**Question 2**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 2.2-3
+**Prompt**: Consider linear search. How many elements of the input sequence need to be checked on the average, assuming that the element being searched for is equally likely to be any element in the array? How about in the worst case? What are the average-case and worst-case running times in $\Theta$-notation?
+**Solution**:
+*   **Average case**: If the element is equally likely to be in any position $1$ through $n$, the average number of checks is $(1 + 2 + \dots + n)/n = (n+1)/2$.
+*   **Worst case**: The element is not present or is at the very end, requiring $n$ checks.
+*   **Asymptotic notation**: Both $(n+1)/2$ and $n$ are linear functions.
+**Answer**: Average-case: $\Theta(n)$; Worst-case: $\Theta(n)$.
+
+**Question 3**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 3.1-1
+**Prompt**: Let $f(n)$ and $g(n)$ be asymptotically nonnegative functions. Using the basic definition of $\Theta$-notation, prove that $\max(f(n), g(n)) = \Theta(f(n) + g(n))$.
+**Solution**:
+We need to find $c_1, c_2, n_0$ such that:
+$c_1(f(n) + g(n)) \leq \max(f(n), g(n)) \leq c_2(f(n) + g(n))$.
+Since $f(n), g(n) \geq 0$:
+$\frac{1}{2}(f(n) + g(n)) \leq \max(f(n), g(n)) \leq 1(f(n) + g(n))$.
+By choosing $c_1 = 0.5$ and $c_2 = 1$, the inequality holds.
+**Answer**: Proven.
+
+**Question 4**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 3.1-4
+**Prompt**: Is $2^{n+1} = O(2^n)$? Is $2^{2n} = O(2^n)$?
+**Solution**:
+1.  $2^{n+1} = 2 \cdot 2^n$. Since $2 \cdot 2^n \leq c \cdot 2^n$ holds for $c \geq 2$, **Yes**, $2^{n+1} = O(2^n)$.
+2.  $2^{2n} = 4^n$. We check if $4^n \leq c \cdot 2^n$. This implies $2^n \leq c$, which is impossible for a constant $c$ as $n \to \infty$. **No**, $2^{2n} \neq O(2^n)$.
+
+**Question 5**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 3.1-3
+**Prompt**: Explain why the statement, "The running time of algorithm A is at least $O(n^2)$," is meaningless.
+**Solution**:
+$O$-notation describes an **upper bound**. Saying a running time is "at least" an upper bound is contradictory. It's like saying "I have at least at most 10 dollars." The correct notation for a lower bound is $\Omega(n^2)$.
+
+**Question 6**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 2.1-3
+**Prompt**: Write pseudocode for linear search, which scans through the sequence, looking for value $\nu$. Using a loop invariant, prove that your algorithm is correct.
+**Solution**:
+**Pseudocode**:
+```
+LINEAR-SEARCH(A, v)
+1 for i = 1 to A.length
+2    if A[i] == v
+3        return i
+4 return NIL
+```
+**Loop Invariant**: At the start of each iteration $i$, the subarray $A[1..i-1]$ does not contain $\nu$.
+*   **Initialization**: Before loop, subarray is empty (true).
+*   **Maintenance**: If $A[i] \neq \nu$, then $A[1..i]$ does not contain $\nu$. Invariant holds for next step.
+*   **Termination**: Loop ends if $\nu$ is found (return $i$) or $i > A.length$ (return NIL). If NIL is returned, invariant says $\nu$ is not in $A[1..n]$.
+
+**Question 7**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 3.1-2
+**Prompt**: Show that for any real constants $a$ and $b$, where $b > 0$, $(n+a)^b = \Theta(n^b)$.
+**Solution**:
+$(n+a)^b = n^b(1 + a/n)^b$.
+For large $n$, $(1 + a/n)$ approaches 1.
+Limit: $\lim_{n \to \infty} \frac{(n+a)^b}{n^b} = \lim_{n \to \infty} (1 + \frac{a}{n})^b = 1^b = 1$.
+Since the limit is a positive constant, $(n+a)^b = \Theta(n^b)$.
+
+**Question 8**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 3.2-1
+**Prompt**: Show that if $f(n)$ and $g(n)$ are monotonically increasing functions, then so are the functions $f(n) + g(n)$ and $f(g(n))$.
+**Solution**:
+If $m \leq n$, then $f(m) \leq f(n)$ and $g(m) \leq g(n)$.
+1.  **Addition**: $f(m) + g(m) \leq f(n) + g(n)$. Thus monotonically increasing.
+2.  **Composition**: $g(m) \leq g(n)$ implies $f(g(m)) \leq f(g(n))$ because $f$ is increasing. Thus monotonically increasing.
+
+**Question 9**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 1.2-2
+**Prompt**: Suppose we are comparing implementations of insertion sort and merge sort on the same machine. For inputs of size $n$, insertion sort runs in $8n^2$ steps, while merge sort runs in $64n \lg n$ steps. For which values of $n$ does insertion sort beat merge sort?
+**Solution**:
+We solve for $8n^2 < 64n \lg n$.
+Dividing by $8n$: $n < 8 \lg n$.
+Trial values:
+$n=2 \rightarrow 2 < 8(1)$ (True)
+$n=43 \rightarrow 43 < 8(5.42) \approx 43.4$ (True)
+$n=44 \rightarrow 44 < 8(5.46) \approx 43.7$ (False)
+Insertion sort beats merge sort for $2 \leq n \leq 43$.
+
+**Question 10**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 1.2-3
+**Prompt**: What is the smallest value of $n$ such that an algorithm whose running time is $100n^2$ runs faster than an algorithm whose running time is $2^n$ on the same machine?
+**Solution**:
+We need to find the smallest integer $n$ where $100n^2 < 2^n$.
+$n=14 \rightarrow 100(196) = 19600$. $2^{14} = 16384$. ($19600 > 16384$, False).
+$n=15 \rightarrow 100(225) = 22500$. $2^{15} = 32768$. ($22500 < 32768$, True).
+The smallest value is $n=15$.

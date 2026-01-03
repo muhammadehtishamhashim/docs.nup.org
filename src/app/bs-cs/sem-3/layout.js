@@ -12,6 +12,7 @@ const banner = <Banner storageKey="nup-bs-cs-sem-3">BS Computer Science Semester
 const navbar = (
   <Navbar
     logo={<b>NUP - BS Computer Science - Semester 3</b>}
+    style={{ backdropFilter: 'blur(20px)' }}
   >
     
   </Navbar>
@@ -35,7 +36,7 @@ export default async function SemesterLayout({ children }) {
       banner={false}
       navbar={navbar}
       pageMap={flattenedPageMap}
-      docsRepositoryBase="https://github.com/your-repo"
+      docsRepositoryBase="https://github.com/muhammadehtisham/docs.nup.org"
       footer={footer}
       search={<Search searchOptions={{ filters: { major: "bs-cs/sem-3" } }} />}
     >

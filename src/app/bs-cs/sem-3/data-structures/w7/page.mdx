@@ -1,1 +1,146 @@
-## Coming Soon
+# Week 7
+
+## Sorted Linked Lists, Single and Doubly Linked
+
+### Definitions
+
+**Linked List**
+A data structure in which objects are arranged in a linear order determined by a pointer in each object.
+*   **Singly Linked**: Each node has a `key` and a `next` pointer.
+*   **Doubly Linked**: Each node has `key`, `next`, and `prev` pointers.
+
+**Sorted Linked List**
+A linked list where the linear order of the list corresponds to the linear order of the keys stored in elements of the list. The minimum element is the head; the maximum is the tail (if sorted ascending).
+
+**Circular List**
+The `prev` pointer of the head points to the tail, and the `next` pointer of the tail points to the head.
+
+### Explanation
+
+**Operations on Sorted Lists**
+*   **Search**: Takes $\Theta(n)$ time in the worst case (searching for max element or non-existent element). However, we can terminate early if we find a key larger than the search key (in ascending order).
+*   **Insert**: Takes $\Theta(n)$ time. Unlike unsorted lists where we can insert at the head in $O(1)$, in a sorted list we must scan to find the correct position to maintain order.
+*   **Delete**: Takes $\Theta(1)$ if we are given the pointer to the node, but $\Theta(n)$ if we must search for the key first.
+
+### Solved Examples (from the book)
+
+**Example 1: Searching a Linked List**
+**Procedure**: `LIST-SEARCH(L, k)`
+**Code**:
+```
+LIST-SEARCH(L, k)
+1 x = L.head
+2 while x != NIL and x.key != k
+3     x = x.next
+4 return x
+```
+**Analysis**: To search a list of $n$ objects, the procedure takes $\Theta(n)$ time in the worst case.
+
+**Example 2: Inserting into a Doubly Linked List (Unsorted)**
+**Context**: Inserting $x$ at the head.
+**Code**:
+```
+LIST-INSERT(L, x)
+1 x.next = L.head
+2 if L.head != NIL
+3     L.head.prev = x
+4 L.head = x
+5 x.prev = NIL
+```
+**Analysis**: The running time is $O(1)$. *Note: For a sorted list, we would iterate to find the correct spot, making it O(n).*
+
+**Example 3: Deleting from a Doubly Linked List**
+**Context**: Removing element $x$.
+**Code**:
+```
+LIST-DELETE(L, x)
+1 if x.prev != NIL
+2     x.prev.next = x.next
+3 else L.head = x.next
+4 if x.next != NIL
+5     x.next.prev = x.prev
+```
+**Analysis**: Runs in $O(1)$ time given the pointer $x$. If given only a key $k$, we must search first, taking $\Theta(n)$.
+
+**Example 4: Lisp List Recursion**
+**Context**: Defining `my-member` to search a list.
+**Code**:
+```lisp
+(defun my-member (element my-list)
+  (cond ((null my-list) nil)
+        ((equal element (car my-list)) my-list)
+        (t (my-member element (cdr my-list)))))
+```
+**Analysis**: This recurses down the list. If it finds the element, it returns the sublist starting there. This is equivalent to a linear search.
+
+**Example 5: List with Sentinels**
+**Context**: Using a sentinel `L.nil` to simplify boundary conditions (no checks for NIL).
+**Search Code**:
+```
+LIST-SEARCH'(L, k)
+1 x = L.nil.next
+2 while x != L.nil and x.key != k
+3     x = x.next
+4 return x
+```
+**Benefits**: Simplifies code and slightly speeds up loops by removing one check per iteration.
+
+### Solved Exercise Questions (from the book)
+
+**Question 6**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 10.2-1
+**Prompt**: Can you implement the dynamic-set operation INSERT on a singly linked list in $O(1)$ time? How about DELETE?
+**Solution**:
+*   **INSERT**: Yes. We can insert at the head of the list in $O(1)$ by updating the `head` pointer and the new node's `next` pointer.
+*   **DELETE**:
+    *   If given the pointer to the *predecessor* of the node to delete: Yes, $O(1)$.
+    *   If given only the pointer to the node itself: No, it takes $O(n)$ because we must traverse the list to find the predecessor to update its `next` link (unless we copy data from the next node and delete that one, which is a trick that doesn't work for the tail).
+
+**Question 7**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 10.2-2
+**Prompt**: Implement a stack using a singly linked list $L$. The operations PUSH and POP should still take $O(1)$ time.
+**Solution**:
+*   **PUSH(L, x)**: Insert $x$ at the head of the list. `x.next = L.head`, `L.head = x`.
+*   **POP(L)**: Remove the node at `L.head`. `x = L.head`, `L.head = L.head.next`, return `x`.
+Both interact only with the head, satisfying $O(1)$.
+
+**Question 8**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 10.2-3
+**Prompt**: Implement a queue by a singly linked list $L$. The operations ENQUEUE and DEQUEUE should still take $O(1)$ time.
+**Solution**:
+Maintain a `head` pointer and a `tail` pointer.
+*   **ENQUEUE(L, x)**: `L.tail.next = x`, `L.tail = x`. (Handle empty list case: `head` and `tail` both point to `x`).
+*   **DEQUEUE(L)**: `x = L.head`, `L.head = L.head.next`. (Handle becoming empty: if `head` becomes NIL, `tail` becomes NIL).
+Both are $O(1)$.
+
+**Question 9**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 10.2-7
+**Prompt**: Give a $\Theta(n)$-time nonrecursive procedure that reverses a singly linked list of $n$ elements using constant storage.
+**Solution**:
+Iterate through the list using three pointers: `prev`, `current`, and `next`.
+```
+REVERSE(L)
+1 prev = NIL
+2 current = L.head
+3 while current != NIL
+4     next = current.next
+5     current.next = prev
+6     prev = current
+7     current = next
+8 L.head = prev
+```
+
+
+**Question 10**
+**Source**: *AI Algorithms...*, Exercise 2.4
+**Prompt**: Write a function that counts the number of times an expression occurs anywhere within another expression.
+**Solution**:
+This requires searching a nested list structure (tree).
+```lisp
+(defun count-anywhere (item tree)
+  (cond ((eql item tree) 1)
+        ((atom tree) 0)
+        (t (+ (count-anywhere item (first tree))
+              (count-anywhere item (rest tree))))))
+```
+This recursively checks if the current `tree` is the item, or if it is an atom (base cases), and otherwise sums the counts from the `first` (car) and `rest` (cdr).

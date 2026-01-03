@@ -1,1 +1,175 @@
-## Coming Soon
+# Week 3
+
+## Basic Terminology (Arrays, Linked Lists, Stacks, Queues)
+
+### Definitions
+
+**Array**
+An **array** is a linear data structure that stores elements in contiguous memory locations. It allows for efficient random access to elements using indices. In many algorithms, the input is provided as an array, such as a sequence of numbers $A = \langle a_1, a_2, \dots, a_n \rangle$ for sorting problems.
+
+**Linked List**
+A **linked list** is a data structure in which objects are arranged in a linear order determined by a pointer in each object. Unlike an array, the order is not determined by indices. A doubly linked list $L$ has attributes $L.head$ pointing to the first element and elements containing $key$, $next$, and $prev$ pointers.
+
+**Stack**
+A **stack** is a dynamic set that implements the **last-in, first-out (LIFO)** policy. The element deleted from the set is the one most recently inserted. Stacks support operations like `PUSH` (insert) and `POP` (delete).
+
+**Queue**
+A **queue** is a dynamic set that implements the **first-in, first-out (FIFO)** policy. The element deleted is always the one that has been in the set for the longest time. Queues support `ENQUEUE` (insert) and `DEQUEUE` (delete) operations.
+
+### Explanation
+
+**Stacks and Queues**
+Stacks and queues are fundamental data structures for managing dynamic sets.
+*   **Stack:** Often physically implemented as an array $S[1 \dots n]$ with an attribute $S.top$ indexing the most recent element. If $S.top = 0$, the stack is empty. Operations run in $O(1)$ time.
+*   **Queue:** Can be implemented as an array $Q[1 \dots n]$ with attributes $Q.head$ and $Q.tail$. Elements reside between locations $Q.head$ and $Q.tail-1$. Operations also run in $O(1)$ time.
+
+**Linked Lists**
+Linked lists provide flexibility. A **singly linked list** omits the $prev$ pointer. A **circular list** connects the $prev$ pointer of the head to the tail and the $next$ pointer of the tail to the head.
+
+### Solved Examples (from the book)
+
+**Example 1: Stack Operations Trace**
+**Context**: An array-based stack $S$.
+**Initial State**: $S$ has 4 elements: $\langle 15, 6, 2, 9 \rangle$. $S.top = 4$.
+**Operations**:
+1.  `PUSH(S, 17)`: $S$ becomes $\langle 15, 6, 2, 9, 17 \rangle$. $S.top = 5$.
+2.  `PUSH(S, 3)`: $S$ becomes $\langle 15, 6, 2, 9, 17, 3 \rangle$. $S.top = 6$.
+3.  `POP(S)`: Returns 3. $S$ becomes $\langle 15, 6, 2, 9, 17 \rangle$. $S.top = 5$.
+
+**Example 2: Queue Operations Trace**
+**Context**: An array-based queue $Q$ with length 12.
+**Initial State**: $Q$ has elements at indices 7 through 11: $\langle 15, 6, 9, 8, 4 \rangle$. $Q.head = 7$, $Q.tail = 12$.
+**Operations**:
+1.  `ENQUEUE(Q, 17)`: Placed at index 12. $Q.tail$ wraps to 1.
+2.  `ENQUEUE(Q, 3)`: Placed at index 1. $Q.tail$ becomes 2.
+3.  `ENQUEUE(Q, 5)`: Placed at index 2. $Q.tail$ becomes 3.
+4.  `DEQUEUE(Q)`: Removes 15 from index 7. $Q.head$ becomes 8.
+
+**Example 3: Linked List Representation**
+**Structure**: A doubly linked list $L$ representing $\{1, 4, 9, 16\}$.
+**Visual**:
+*   Element with key 9 is the head. $prev = NIL$, $next$ points to 16.
+*   Element with key 16 points back to 9 and forward to 4.
+*   Element with key 4 points back to 16 and forward to 1.
+*   Element with key 1 is the tail. $next = NIL$, $prev$ points to 4.
+
+**Example 4: ADT Stack in Prolog**
+**Context**: Using list primitives to implement stack operators.
+**Code**:
+```prolog
+empty_stack([]).
+stack(Top, Stack, [Top | Stack]).
+member_stack(Element, Stack) :- member(Element, Stack).
+```
+**Explanation**: `stack` serves as both push and pop depending on variable bindings. `stack(Top, Rest, Full)` unifies `Full` as a list with `Top` added to `Rest`.
+
+**Example 5: Creating a List in Python**
+**Context**: Lists are Python's version of arrays (variable length).
+**Code**:
+```python
+cheeses = ['Cheddar', 'Edam', 'Gouda']
+numbers =
+empty = []
+print(cheeses, numbers, empty)
+```
+**Output**: `['Cheddar', 'Edam', 'Gouda'] []`.
+
+### Solved Exercise Questions (from the book)
+
+**Question 1**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 10.1-1
+**Prompt**: Using Figure 10.1 as a model, illustrate the result of each operation in the sequence `PUSH(S, 4)`, `PUSH(S, 1)`, `PUSH(S, 3)`, `POP(S)`, `PUSH(S, 8)`, and `POP(S)` on an initially empty stack $S$ stored in array $S[1..6]$.
+**Solution**:
+1.  Init: $S.top = 0$. Array: `[ ]`
+2.  `PUSH(S, 4)`: $S.top = 1$. Array: ``
+3.  `PUSH(S, 1)`: $S.top = 2$. Array: ``
+4.  `PUSH(S, 3)`: $S.top = 3$. Array: ``
+5.  `POP(S)`: Returns 3. $S.top = 2$. Array: ``
+6.  `PUSH(S, 8)`: $S.top = 3$. Array: ``
+7.  `POP(S)`: Returns 8. $S.top = 2$. Array: ``
+
+**Question 2**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 10.1-3
+**Prompt**: Using Figure 10.2 as a model, illustrate the result of each operation in the sequence `ENQUEUE(Q, 4)`, `ENQUEUE(Q, 1)`, `ENQUEUE(Q, 3)`, `DEQUEUE(Q)`, `ENQUEUE(Q, 8)`, and `DEQUEUE(Q)` on an initially empty queue $Q$ stored in array $Q[1..6]$.
+**Solution**:
+1.  Init: $Q.head = 1, Q.tail = 1$. Array: `[ ]`
+2.  `ENQUEUE(Q, 4)`: $Q=4$. $Q.tail=2$. Array: ``
+3.  `ENQUEUE(Q, 1)`: $Q=1$. $Q.tail=3$. Array: ``
+4.  `ENQUEUE(Q, 3)`: $Q=3$. $Q.tail=4$. Array: ``
+5.  `DEQUEUE(Q)`: Returns 4. $Q.head=2$. Array: `[ , 1, 3, ]`
+6.  `ENQUEUE(Q, 8)`: $Q=8$. $Q.tail=5$. Array: `[ , 1, 3, 8, ]`
+7.  `DEQUEUE(Q)`: Returns 1. $Q.head=3$. Array: `[ , , 3, 8, ]`
+
+**Question 3**
+**Source**: *Python for Everybody*, Chapter 8 Exercise 1
+**Prompt**: Write a function called `chop` that takes a list and modifies it, removing the first and last elements, and returns `None`. Then write a function called `middle` that takes a list and returns a new list that contains all but the first and last elements.
+**Solution**:
+```python
+def chop(t):
+    del t
+    del t[-1]
+    return None
+
+def middle(t):
+    return t[1:-1]
+```
+
+**Question 4**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 10.2-1
+**Prompt**: Can you implement the dynamic-set operation INSERT on a singly linked list in $O(1)$ time? How about DELETE?
+**Solution**:
+*   **INSERT**: Yes. Inserting at the head of a singly linked list involves updating the new node's next pointer to the current head and updating the list's head pointer. This is $O(1)$.
+*   **DELETE**: Yes, *if* you are given the pointer to the *predecessor* of the node to be deleted, or if you copy the data from the next node into the current node and delete the next node. However, given just a pointer to the node itself (and without data copying tricks), you must traverse the list to find the predecessor, which is $O(n)$.
+
+**Question 5**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 10.2-2
+**Prompt**: Implement a stack using a singly linked list $L$. The operations PUSH and POP should still take $O(1)$ time.
+**Solution**:
+*   **PUSH(L, x)**: Use `LIST-INSERT(L, x)` to insert $x$ at the head of the list.
+*   **POP(L)**: Use a modified delete operation that removes the head of the list ($L.head$) and returns it. Both operations interact only with the head pointer, requiring constant time.
+
+**Question 6**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 10.2-3
+**Prompt**: Implement a queue by a singly linked list $L$. The operations ENQUEUE and DEQUEUE should still take $O(1)$ time.
+**Solution**:
+Maintain a `tail` pointer in addition to the `head` pointer.
+*   **ENQUEUE(L, x)**: Insert $x$ after the node pointed to by `tail`, then update `tail` to $x$.
+*   **DEQUEUE(L)**: Remove the node at `head` and update `head` to `head.next`.
+Both are $O(1)$ operations.
+
+**Question 7**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 10.2-5
+**Prompt**: Implement the dictionary operations INSERT, DELETE, and SEARCH using singly linked, circular lists. What are the running times of your procedures?
+**Solution**:
+*   **INSERT**: $O(1)$. Insert at the head (or tail) is constant time.
+*   **SEARCH**: $O(n)$. In the worst case, one must scan the entire list to find the key.
+*   **DELETE**: $O(n)$. To delete node $x$, we must find its predecessor to update the link. Finding the predecessor requires a scan (since it's singly linked).
+
+**Question 8**
+**Source**: *Python for Everybody*, Chapter 8 Exercise 2
+**Prompt**: Figure out which line of the above program is still not properly guarded. See if you can construct a text file which causes the program to fail and then modify the program so that the line is properly guarded.
+**Solution**:
+The code fails if the line starts with 'From' but has fewer than 3 words.
+**Guard code**:
+```python
+if len(words) < 3:
+    continue
+```
+This protects access to `words`.
+
+**Question 9**
+**Source**: *Python for Everybody*, Chapter 8 Exercise 3
+**Prompt**: Rewrite the guardian code without two if statements. Instead, use a compound logical expression using the or logical operator with a single if statement.
+**Solution**:
+```python
+if len(words) < 3 or words != 'From':
+    continue
+```
+This takes advantage of short-circuit evaluation: if the length is less than 3, the second condition is ignored, preventing the index error.
+
+**Question 10**
+**Source**: *AI Algorithms...*, Chapter 3 Exercise 4
+**Prompt**: Write the ADT Stack operators in Prolog.
+**Solution**:
+See Solved Example 4 above. `empty_stack([])` and `stack(Top, Stack, [Top|Stack])` provide the necessary abstractions for Push, Pop, and Peek operations.
+

@@ -1,1 +1,186 @@
-## Coming Soon
+# Week 5
+
+## Stacks (Linked Lists and Array Implementations)
+
+### Definitions
+
+**Stack Implementation**
+A stack is implemented by maintaining a collection of elements and a pointer (or index) to the `top`.
+*   **Array Implementation**: Uses an array $S$ and an integer $S.top$. Elements are $S[1 \dots S.top]$.
+*   **Linked List Implementation**: Uses a singly linked list. The `head` of the list acts as the stack's top.
+
+### Explanation
+
+**Array Implementation**
+*   **Push**: Increment $S.top$, then place element at $S[S.top]$. Check for overflow (if $S.top > S.length$).
+*   **Pop**: Return $S[S.top]$, then decrement $S.top$. Check for underflow (if $S.top == 0$).
+*   **Pros/Cons**: Fast ($O(1)$) but fixed size (unless dynamic arrays are used).
+
+**Linked List Implementation**
+*   **Push**: `INSERT` at the head of the list. Create new node, set its `next` to current `head`, update `head`.
+*   **Pop**: `DELETE` from the head. Save `head` value, update `head` to `head.next`.
+*   **Pros/Cons**: Dynamic size, but overhead for pointers.
+
+### Solved Examples (from the book)
+
+**Example 1: Array Stack Pseudocode**
+**Context**: Implementing stack operations.
+**Code**:
+```
+STACK-EMPTY(S)
+1 if S.top == 0 return TRUE
+2 else return FALSE
+
+PUSH(S, x)
+1 S.top = S.top + 1
+2 S[S.top] = x
+
+POP(S)
+1 if STACK-EMPTY(S) error "underflow"
+2 else S.top = S.top - 1
+3 return S[S.top + 1]
+```
+
+**Example 2: Linked List Stack (Concept)**
+**Context**: Using singly linked list $L$.
+**Push**: `LIST-INSERT(L, x)` where $x$ becomes the new head.
+**Pop**: Check if `L.head` is NIL. If not, return `L.head.key` and set `L.head = L.head.next`.
+
+**Example 3: Prolog Stack ADT**
+**Context**: Logic programming implementation.
+**Code**:
+```prolog
+empty_stack([]).
+stack(Top, Stack, [Top|Stack]).
+member_stack(E, S) :- member(E, S).
+```
+**Usage**: `stack(a, [b,c], S)` results in `S = [a,b,c]` (Push). `stack(Top, Rest, [a,b,c])` results in `Top=a, Rest=[b,c]` (Pop).
+
+**Example 4: Implementing Pointers/Objects**
+**Context**: How to implement linked structures using arrays (for languages without pointers).
+**Method**: Use three arrays: `key`, `next`, and `prev`. Or a single array with offsets.
+**Visual**: An index `x` acts as the pointer. `next[x]` holds the index of the next object.
+
+**Example 5: Stack Operations Trace (Revisit)**
+**Initial**: $S =$, top=4.
+**Ops**: `PUSH(17)`, `PUSH(3)`, `POP()`.
+**Result**:
+1. Push 17: $S=$, top=5.
+2. Push 3: $S=$, top=6.
+3. Pop: Returns 3. $S=$, top=5.
+
+### Solved Exercise Questions (from the book)
+
+**Question 1**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 10.1-2
+**Prompt**: Explain how to implement two stacks in one array $A[1 \dots n]$ in such a way that neither stack overflows unless the total number of elements in both stacks together is $n$.
+**Solution**:
+Let one stack grow from $1$ up to $n$ ($top1$ starts at 0).
+Let the other stack grow from $n$ down to $1$ ($top2$ starts at $n+1$).
+*   Stack 1 Push: increment $top1$.
+*   Stack 2 Push: decrement $top2$.
+*   Overflow condition: $top1 + 1 == top2$ (the stacks meet).
+
+**Question 2**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 10.1-4
+**Prompt**: Rewrite ENQUEUE and DEQUEUE to detect underflow and overflow of a queue.
+**Solution**:
+```
+ENQUEUE(Q, x)
+1 if Q.head == Q.tail + 1 or (Q.head == 1 and Q.tail == Q.length)
+2    error "overflow"
+3 Q[Q.tail] = x
+4 if Q.tail == Q.length
+5    Q.tail = 1
+6 else Q.tail = Q.tail + 1
+```
+(Dequeue check: `if Q.head == Q.tail error "underflow"`).
+
+**Question 3**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 10.1-5
+**Prompt**: Write four $O(1)$-time procedures to insert/delete elements from both ends of a **deque** (double-ended queue) implemented by an array.
+**Solution**:
+We need `Head-Enqueue`, `Head-Dequeue`, `Tail-Enqueue`, `Tail-Dequeue`.
+*   `Head-Enqueue`: Decrement `Q.head` (wrap to `Q.length` if 0). Check overflow. Store.
+*   `Tail-Enqueue`: Store at `Q.tail`. Increment `Q.tail`. Check overflow.
+*   `Head-Dequeue`: Standard Dequeue.
+*   `Tail-Dequeue`: Decrement `Q.tail`. Return `Q[Q.tail]`.
+All use modulo arithmetic for wrapping.
+
+**Question 4**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 10.1-6
+**Prompt**: Show how to implement a queue using two stacks. Analyze the running time.
+**Solution**:
+Use `Stack_In` and `Stack_Out`.
+*   **Enqueue**: Push onto `Stack_In`.
+*   **Dequeue**: If `Stack_Out` is empty, pop everything from `Stack_In` and push onto `Stack_Out`. Then pop `Stack_Out`.
+*   **Time**: Amortized $O(1)$ per operation (each element is pushed/popped exactly twice).
+
+**Question 5**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 10.1-7
+**Prompt**: Show how to implement a stack using two queues. Analyze the running time.
+**Solution**:
+Use `Q1` and `Q2`.
+*   **Push**: Enqueue to `Q1`.
+*   **Pop**: Dequeue all elements from `Q1` to `Q2` except the last one. Return the last one. Swap names of `Q1` and `Q2`.
+*   **Time**: Push is $O(1)$. Pop is $O(n)$ because we move all elements.
+
+**Question 6**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 10.2-7
+**Prompt**: Give a $\Theta(n)$-time nonrecursive procedure that reverses a singly linked list of $n$ elements.
+**Solution**:
+Iterate through the list using three pointers: `prev`, `current`, `next`.
+1. Initialize `prev = NIL`, `current = L.head`.
+2. While `current != NIL`:
+   `next = current.next`
+   `current.next = prev`
+   `prev = current`
+   `current = next`
+3. Set `L.head = prev`.
+
+**Question 7**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 10.2-8
+**Prompt**: Explain how to implement doubly linked lists using only one pointer value `x.np` per item instead of `next` and `prev`.
+**Solution**:
+Store `x.np = x.prev XOR x.next`.
+*   To traverse, if you are at `current` and came from `prev`:
+    `next = current.np XOR prev`.
+*   Requires bitwise XOR operations. Saves memory.
+
+**Question 8**
+**Source**: *AI Algorithms...*, Chapter 3 Exercise 4
+**Prompt**: Write and test the ADTs (Abstract Data Types) presented in Section 3.3 (Stack).
+**Solution**:
+In Prolog:
+```prolog
+% Testing empty stack
+?- empty_stack(S).
+S = [].
+
+% Testing push
+?- empty_stack(S0), stack(a, S0, S1), stack(b, S1, S2).
+S2 = [b, a].
+
+% Testing pop
+?- stack(Top, Rest, [b, a]).
+Top = b, Rest = [a].
+```
+
+**Question 9**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 10.3-1
+**Prompt**: Draw a picture of the sequence $\langle 13, 4, 8, 19, 5, 11 \rangle$ stored as a doubly linked list using the multiple-array representation.
+**Solution**:
+Arrays: `next`, `key`, `prev`.
+`L` (head) points to index containing 13.
+Index 1 (13): `next`->Index 2, `prev`->/
+Index 2 (4): `next`->Index 3, `prev`->Index 1.
+... and so on.
+Free list `Free` points to first unused index.
+
+**Question 10**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 10.3-2
+**Prompt**: Write the procedures `ALLOCATE-OBJECT` and `FREE-OBJECT` for a homogeneous collection of objects implemented by the single-array representation.
+**Solution**:
+Use a free list stack embedded in the array.
+*   **ALLOCATE**: Check if `free` is NIL. If not, `new = free`, `free = A[new].next`, return `new`.
+*   **FREE(x)**: `A[x].next = free`, `free = x`.

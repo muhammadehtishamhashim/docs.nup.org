@@ -1,1 +1,152 @@
-## Coming Soon
+# Week 6
+
+## Recursion and Analyzing Recursive Algorithms
+
+### Definitions
+
+**Recursion**
+Recursion is a technique where an algorithm calls itself to solve a smaller instance of the same problem. It typically consists of a **base case** (where the recursion bottoms out) and a **recursive case** (where the problem is broken down).
+
+**Divide-and-Conquer**
+This is a paradigm where a problem is broken into:
+1.  **Divide**: Partitioning the problem into a number of subproblems that are smaller instances of the same problem.
+2.  **Conquer**: Solving the subproblems recursively. If subproblem sizes are small enough, solve them straightforwardly.
+3.  **Combine**: Combining the solutions to the subproblems into the solution for the original problem,.
+
+**Recurrence**
+A recurrence is an equation or inequality that describes a function in terms of its value on smaller inputs. It is used to characterize the running times of recursive algorithms.
+
+### Explanation
+
+**Analyzing Divide-and-Conquer**
+When analyzing algorithms like Merge Sort, we assume the original problem size $n$ is a power of 2. If $n > 1$, the running time $T(n)$ is the sum of:
+1.  **Divide time** $D(n)$.
+2.  **Conquer time** $aT(n/b)$ (solving $a$ subproblems of size $n/b$).
+3.  **Combine time** $C(n)$.
+
+The recurrence is generally written as:
+$$
+T(n) = \begin{cases} \Theta(1) & \text{if } n \leq c \\ aT(n/b) + D(n) + C(n) & \text{otherwise} \end{cases}
+$$
+.
+
+### Solved Examples (from the book)
+
+**Example 1: Merge Sort Analysis**
+**Context**: Sorting a sequence of $n$ numbers.
+**Analysis**:
+*   **Divide**: Computing the middle of the subarray takes constant time, $D(n) = \Theta(1)$.
+*   **Conquer**: We solve two subproblems of size $n/2$, contributing $2T(n/2)$.
+*   **Combine**: Merging $n$ elements takes linear time, $C(n) = \Theta(n)$.
+**Recurrence**:
+$$
+T(n) = 2T(n/2) + \Theta(n)
+$$
+Using the Master Theorem (Case 2), the solution is $T(n) = \Theta(n \lg n)$,.
+
+**Example 2: The Maximum-Subarray Problem**
+**Problem**: Find the contiguous subarray within an array $A$ that has the largest sum.
+**Approach**: Divide array $A[low..high]$ into two. The max subarray lies entirely in the left, entirely in the right, or crosses the midpoint.
+**Algorithm (Crossing Midpoint)**:
+1.  Find max suffix of left half ending at mid.
+2.  Find max prefix of right half starting at mid+1.
+3.  Add them. This takes $\Theta(n)$ time.
+**Recurrence**:
+$$
+T(n) = 2T(n/2) + \Theta(n)
+$$
+**Result**: The divide-and-conquer solution runs in $\Theta(n \lg n)$, beating the brute-force $\Theta(n^2)$,.
+
+**Example 3: Strassen’s Algorithm for Matrix Multiplication**
+**Problem**: Multiply two $n \times n$ matrices. Standard method is $\Theta(n^3)$.
+**Approach**: Strassen’s method divides matrices into $n/2 \times n/2$ submatrices but performs only 7 recursive multiplications instead of 8.
+**Recurrence**:
+$$
+T(n) = 7T(n/2) + \Theta(n^2)
+$$
+**Solution**: Using the Master Theorem (Case 1), $n^{\log_2 7} \approx n^{2.81}$.
+**Result**: $T(n) = \Theta(n^{\lg 7})$, which is asymptotically faster than $\Theta(n^3)$,.
+
+**Example 4: Recursive Lisp List Processing**
+**Context**: Processing a list in Lisp.
+**Function**: `count-atoms` counts atoms in a nested list structure.
+**Code**:
+```lisp
+(defun count-atoms (my-list)
+  (cond ((null my-list) 0)
+        ((atom my-list) 1)
+        (t (+ (count-atoms (car my-list))
+              (count-atoms (cdr my-list))))))
+```
+**Analysis**: This is "car-cdr recursion". It recurses on both the first element and the rest of the list, effectively traversing the tree structure of the list.
+
+**Example 5: Analyzing Recursive Fibonacci**
+**Problem**: Compute the $n$-th Fibonacci number using naive recursion.
+**Recurrence**:
+$$
+T(n) = T(n-1) + T(n-2) + \Theta(1)
+$$
+**Solution**: $T(n) = \Theta(\phi^n)$, where $\phi$ is the golden ratio.
+**Insight**: This exponential time is due to repeated calculation of the same subproblems.
+
+### Solved Exercise Questions (from the book)
+
+**Question 1**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 4.1-1
+**Prompt**: What does `FIND-MAXIMUM-SUBARRAY` return when all elements of $A$ are negative?
+**Solution**:
+It returns a single element array containing the largest element (the value closest to 0, or least negative).
+This occurs because the base case checks single elements, and the combine step compares sums. If all sums are negative, the "maximum" is the single element with the greatest numeric value (e.g., -1 is greater than -5).
+
+**Question 2**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 4.3-1
+**Prompt**: Show that the solution of $T(n) = T(n-1) + n$ is $O(n^2)$.
+**Solution**:
+We guess $T(n) \leq cn^2$.
+$$
+\begin{aligned}
+T(n) & \leq c(n-1)^2 + n \\
+     & = c(n^2 - 2n + 1) + n \\
+     & = cn^2 - 2cn + c + n \\
+     & = cn^2 - (2c - 1)n + c
+\end{aligned}
+$$
+For this to be $\leq cn^2$, we need $-(2c - 1)n + c \leq 0$.
+This holds for large $n$ if $c > 1/2$. Thus $T(n) = O(n^2)$.
+
+**Question 3**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 4.5-1 (a)
+**Prompt**: Use the master method to give tight asymptotic bounds for $T(n) = 2T(n/4) + 1$.
+**Solution**:
+Here $a = 2, b = 4, f(n) = 1 = n^0$.
+Calculate $n^{\log_b a} = n^{\log_4 2} = n^{0.5} = \sqrt{n}$.
+Since $f(n) = O(n^{0.5 - \epsilon})$ with $\epsilon = 0.5$, Case 1 applies.
+**Answer**: $T(n) = \Theta(\sqrt{n})$.
+
+**Question 4**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 4.5-1 (b)
+**Prompt**: Use the master method for $T(n) = 2T(n/4) + \sqrt{n}$.
+**Solution**:
+Here $a=2, b=4, f(n) = n^{0.5}$.
+Calculate $n^{\log_4 2} = n^{0.5}$.
+Since $f(n) = \Theta(n^{\log_b a})$, Case 2 applies.
+**Answer**: $T(n) = \Theta(\sqrt{n} \lg n)$.
+
+**Question 5**
+**Source**: *Cormen Introduction to Algorithms*, Exercise 2.3-5
+**Prompt**: Write pseudocode for binary search. Argue that the worst-case running time is $\Theta(\lg n)$.
+**Solution**:
+**Pseudocode**:
+```
+BINARY-SEARCH(A, v, low, high)
+1 if low > high
+2     return NIL
+3 mid = floor((low + high) / 2)
+4 if A[mid] == v
+5     return mid
+6 elseif A[mid] > v
+7     return BINARY-SEARCH(A, v, low, mid - 1)
+8 else return BINARY-SEARCH(A, v, mid + 1, high)
+```
+**Analysis**: The recurrence is $T(n) = T(n/2) + \Theta(1)$. By the Master Theorem (Case 2), $T(n) = \Theta(\lg n)$.
+
