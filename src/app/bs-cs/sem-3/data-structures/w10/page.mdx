@@ -1,1 +1,71 @@
-## Coming Soon
+import { Bleed } from "@nextra/components";
+
+# Week 10
+
+## Bubble Sort
+
+### Definition
+
+Bubble Sort is a simple sorting algorithm that repeatedly steps through the input list element by element, comparing the current element with the one after it, and swapping their values if needed.
+
+### Explanation
+The algorithm passes through the list repeatedly. In each pass, it compares adjacent pairs (e.g., index 0 vs index 1, then index 1 vs index 2). If they are in the wrong order (the first is larger than the second), it swaps them. This causes the largest unsorted value to "bubble" up to its correct position at the end of the list with each pass. The process stops when a pass completes with zero swaps.
+
+---
+
+### Bubble Sort Video
+<Bleed>
+  <iframe
+    width="100%"
+    style={{ aspectRatio: '16/9' }}
+    src="https://www.youtube.com/embed/Dv4qLJcxus8"
+    title="Bubble Sort"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+  ></iframe>
+</Bleed>
+
+---
+
+## Heap Sort
+
+### Definitions
+
+Heap Sort is a comparison-based sorting algorithm that uses a Binary Heap data structure. It divides its input into a sorted and an unsorted region, and it iteratively shrinks the unsorted region by extracting the largest element from it and inserting it into the sorted region.
+
+### Explanation
+First, the algorithm transforms the list into a "Max Heap" (a binary tree where every parent is larger than its children). The largest item is now at the root (top) of the heap. The algorithm swaps this root with the last item in the list (effectively placing the largest number in its final sorted position). It then rebuilds the heap with the remaining items and repeats the process until the heap is empty.
+
+---
+
+### Heap Sort Video
+<Bleed>
+  <iframe
+    width="100%"
+    style={{ aspectRatio: '16/9' }}
+    src="https://www.youtube.com/embed/2DmK_H7IdTo"
+    title="Heap Sort"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+  ></iframe>
+</Bleed>
+
+### In-Depth Heap Sort Video
+<Bleed>
+  <iframe
+    width="100%"
+    style={{ aspectRatio: '16/9' }}
+    src="https://www.youtube.com/embed/HqPJF2L5h9U"
+    title="In-Depth Heap Sort"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+  ></iframe>
+</Bleed>
+
+---
+
+
+
