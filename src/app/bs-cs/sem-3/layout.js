@@ -12,7 +12,6 @@ const banner = <Banner storageKey="nup-bs-cs-sem-3">BS Computer Science Semester
 const navbar = (
   <Navbar
     logo={<b>NUP - BS Computer Science - Semester 3</b>}
-    style={{ backdropFilter: 'blur(20px)' }}
   >
     
   </Navbar>
