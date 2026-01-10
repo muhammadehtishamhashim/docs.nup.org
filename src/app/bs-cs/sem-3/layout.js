@@ -35,7 +35,7 @@ export default async function SemesterLayout({ children }) {
       banner={false}
       navbar={navbar}
       pageMap={flattenedPageMap}
-      docsRepositoryBase="https://github.com/muhammadehtisham/docs.nup.org"
+      docsRepositoryBase="https://github.com/muhammadehtishamhashim/docs.nup.org"
       footer={footer}
       search={<Search searchOptions={{ filters: { major: "bs-cs/sem-3" } }} />}
     >
