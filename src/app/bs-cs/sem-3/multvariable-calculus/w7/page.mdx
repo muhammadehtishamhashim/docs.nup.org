@@ -1,441 +1,211 @@
-# Week 14: Fourier Series (Exercises 11.2)
+# Week 7: Periodic Functions
 
-**Book:** *Differential Equations with Boundary-Value Problems* by Dennis G. Zill, 7th Edition
-**Section:** 11.2 Fourier Series
+**Book:** *A First Course in Differential Equations with Modeling Applications* by Dennis G. Zill, 11th Edition
+**Chapter:** 7. The Laplace Transform
+**Section:** 7.4.3 Transform of a Periodic Function
+
+*Note: The course guide lists Chapter 11 (Fourier Series) for this week. However, the provided source text ends at Chapter 9. The concept of Periodic Functions is covered in Section 7.4.3 of the provided text, which is presented below to address the topic.*
 
 ---
 
-### General Formulas
+## 1. Periodic Functions (7.4.3)
 
-For a function $f(x)$ defined on the interval $(-p, p)$, the Fourier series is given by:
-
+### Definition
+A function $f$ is said to be **periodic** if there exists a positive number $T$ such that
 $$
-f(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty} \left( a_n \cos \frac{n\pi}{p}x + b_n \sin \frac{n\pi}{p}x \right)
+f(t + T) = f(t)
+$$
+for all $t$ in the domain of $f$. The smallest such positive number $T$ is called the **period** of the function.
+
+### Laplace Transform of a Periodic Function
+If $f(t)$ is piecewise continuous on $[0, \infty)$, of exponential order, and periodic with period $T$, then its Laplace transform can be determined by integration over one period:
+$$
+\mathcal{L}\{f(t)\} = \frac{1}{1 - e^{-sT}} \int_0^T e^{-st} f(t) \, dt
 $$
 
-The coefficients are calculated using the following integrals:
+---
 
+## 2. Solved Examples from Book
+
+**Example 8:** Find the Laplace transform of the periodic function shown in the figure (Square Wave).
+*Description of function:* The function $E(t)$ is a square wave with period $T = 2$. It is defined for $0 \le t < 2$ as:
+$$
+E(t) = \begin{cases} 
+1, & 0 \le t < 1 \\
+0, & 1 \le t < 2
+\end{cases}
+$$
+and $E(t + 2) = E(t)$ outside this interval.
+
+**Solution:**
+Using the formula for the transform of a periodic function with $T=2$:
 $$
 \begin{aligned}
-a_0 &= \frac{1}{p} \int_{-p}^{p} f(x) \, dx \\
-a_n &= \frac{1}{p} \int_{-p}^{p} f(x) \cos \frac{n\pi}{p}x \, dx \\
-b_n &= \frac{1}{p} \int_{-p}^{p} f(x) \sin \frac{n\pi}{p}x \, dx
+\mathcal{L}\{E(t)\} &= \frac{1}{1 - e^{-2s}} \int_0^2 e^{-st} E(t) \, dt \\
+&= \frac{1}{1 - e^{-2s}} \left[ \int_0^1 e^{-st} (1) \, dt + \int_1^2 e^{-st} (0) \, dt \right] \\
+&= \frac{1}{1 - e^{-2s}} \left[ \frac{-e^{-st}}{s} \right]_0^1 \\
+&= \frac{1}{1 - e^{-2s}} \left( \frac{1 - e^{-s}}{s} \right)
 \end{aligned}
 $$
+Using the algebraic identity $1 - e^{-2s} = (1 - e^{-s})(1 + e^{-s})$, we simplify:
+$$
+\mathcal{L}\{E(t)\} = \frac{1}{s(1 + e^{-s})}
+$$
+
+<br />
+
+**Example 9:** The differential equation for the current $i(t)$ in a single-loop $LR$-series circuit is
+$$
+L \frac{di}{dt} + Ri = E(t)
+$$
+Determine the current $i(t)$ when $i(0) = 0$ and $E(t)$ is the square wave function described in Example 8.
+
+**Solution:**
+Using the result from Example 8, the Laplace transform of the differential equation is:
+$$
+L s I(s) + R I(s) = \frac{1}{s(1 + e^{-s})}
+$$
+Solving for $I(s)$:
+$$
+I(s) = \frac{1/L}{s(s + R/L)} \cdot \frac{1}{1 + e^{-s}}
+$$
+We use a geometric series to expand the term $\frac{1}{1 + e^{-s}}$:
+$$
+\frac{1}{1 + e^{-s}} = 1 - e^{-s} + e^{-2s} - e^{-3s} + \dots
+$$
+And using partial fractions for the first part:
+$$
+\frac{1/L}{s(s + R/L)} = \frac{1}{R} \left( \frac{1}{s} - \frac{1}{s + R/L} \right)
+$$
+Combining these, we get:
+$$
+I(s) = \frac{1}{R} \left( \frac{1}{s} - \frac{1}{s + R/L} \right) (1 - e^{-s} + e^{-2s} - e^{-3s} + \dots)
+$$
+By applying the second translation theorem to each term, we obtain the inverse transform:
+$$
+i(t) = \frac{1}{R} (1 - e^{-Rt/L}) + \frac{1}{R} \sum_{n=1}^{\infty} (-1)^n (1 - e^{-R(t-n)/L}) \mathcal{U}(t - n)
+$$
+where $\mathcal{U}(t-n)$ is the unit step function.
 
 ---
 
-### Solved Exercises 11.2 (Questions 1–8)
+## 3. Exercises 7.4
 
-**1. Find the Fourier series of $f(x)$ on the interval $(-\pi, \pi)$.**
-
-$$
-f(x) = \begin{cases} 
-0, & -\pi < x < 0 \\
-1, & 0 \le x < \pi 
-\end{cases}
-$$
+**53.** Find the Laplace transform of the periodic **meander function** $f(t)$ shown in Figure 7.4.6.
+*Description:* $f(t) = 1$ for $0 < t < a$ and $f(t) = -1$ for $a < t < 2a$. The period is $T = 2a$.
 
 **Solution:**
-Here, the interval is $(-\pi, \pi)$, so $p = \pi$. The terms $\frac{n\pi}{p}x$ simplify to $nx$.
-
-**Step 1: Calculate $a_0$.**
+Using Theorem 7.4.3 with $T = 2a$:
 $$
-a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \, dx = \frac{1}{\pi} \left[ \int_{-\pi}^{0} 0 \, dx + \int_{0}^{\pi} 1 \, dx \right]
+\mathcal{L}\{f(t)\} = \frac{1}{1 - e^{-2as}} \int_0^{2a} e^{-st} f(t) \, dt
 $$
+Split the integral based on the definition of $f(t)$:
 $$
-a_0 = \frac{1}{\pi} [x]_0^{\pi} = \frac{1}{\pi}(\pi - 0) = 1
+\int_0^{2a} e^{-st} f(t) \, dt = \int_0^a e^{-st}(1) \, dt + \int_a^{2a} e^{-st}(-1) \, dt
 $$
-
-**Step 2: Calculate $a_n$.**
+Evaluate the integrals:
 $$
-a_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \cos nx \, dx = \frac{1}{\pi} \int_{0}^{\pi} 1 \cdot \cos nx \, dx
+\begin{aligned}
+\int_0^a e^{-st} \, dt &= \left[ \frac{-e^{-st}}{s} \right]_0^a = \frac{1}{s}(1 - e^{-as}) \\
+\int_a^{2a} -e^{-st} \, dt &= \left[ \frac{e^{-st}}{s} \right]_a^{2a} = \frac{1}{s}(e^{-2as} - e^{-as})
+\end{aligned}
 $$
+Combine the terms:
 $$
-a_n = \frac{1}{\pi} \left[ \frac{\sin nx}{n} \right]_0^{\pi} = \frac{1}{n\pi} (\sin n\pi - \sin 0) = 0
+\text{Total Integral} = \frac{1}{s} (1 - e^{-as} + e^{-2as} - e^{-as}) = \frac{1}{s} (1 - 2e^{-as} + e^{-2as}) = \frac{1}{s} (1 - e^{-as})^2
 $$
-
-**Step 3: Calculate $b_n$.**
+Substitute back into the transform formula:
 $$
-b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \sin nx \, dx = \frac{1}{\pi} \int_{0}^{\pi} 1 \cdot \sin nx \, dx
+\mathcal{L}\{f(t)\} = \frac{1}{1 - e^{-2as}} \cdot \frac{(1 - e^{-as})^2}{s}
 $$
+Factor the denominator $1 - e^{-2as} = (1 - e^{-as})(1 + e^{-as})$:
 $$
-b_n = \frac{1}{\pi} \left[ -\frac{\cos nx}{n} \right]_0^{\pi} = -\frac{1}{n\pi} (\cos n\pi - \cos 0)
+= \frac{(1 - e^{-as})^2}{s(1 - e^{-as})(1 + e^{-as})} = \frac{1 - e^{-as}}{s(1 + e^{-as})}
 $$
-Since $\cos n\pi = (-1)^n$ and $\cos 0 = 1$:
+Using hyperbolic functions, this simplifies to:
 $$
-b_n = \frac{1 - (-1)^n}{n\pi}
-$$
-
-**Final Series:**
-$$
-f(x) = \frac{1}{2} + \sum_{n=1}^{\infty} \frac{1 - (-1)^n}{n\pi} \sin nx
+\frac{1}{s} \tanh\left(\frac{as}{2}\right)
 $$
 
----
+<br />
 
-**2. Find the Fourier series of $f(x)$ on the interval $(-\pi, \pi)$.**
-
-$$
-f(x) = \begin{cases} 
--1, & -\pi < x < 0 \\
-2, & 0 \le x < \pi 
-\end{cases}
-$$
+**54.** Find the Laplace transform of the periodic **square wave** $f(t)$ shown in Figure 7.4.7.
+*Description:* $f(t) = 1$ for $0 < t < a$, $f(t) = 0$ for $a < t < 2a$, etc. Period $T = 2a$.
 
 **Solution:**
-Here $p = \pi$.
-
-**Step 1: Calculate $a_0$.**
+This is similar to Example 8 but with a general width $a$.
 $$
-a_0 = \frac{1}{\pi} \left[ \int_{-\pi}^{0} -1 \, dx + \int_{0}^{\pi} 2 \, dx \right]
+\mathcal{L}\{f(t)\} = \frac{1}{1 - e^{-2as}} \int_0^{2a} e^{-st} f(t) \, dt
 $$
+The function is $0$ from $a$ to $2a$, so we only integrate from $0$ to $a$:
 $$
-a_0 = \frac{1}{\pi} \left( [-x]_{-\pi}^{0} + [2x]_{0}^{\pi} \right) = \frac{1}{\pi} ( (0 - \pi) + (2\pi - 0) ) = \frac{\pi}{\pi} = 1
+\int_0^a e^{-st}(1) \, dt = \left[ \frac{-e^{-st}}{s} \right]_0^a = \frac{1}{s} (1 - e^{-as})
 $$
-
-**Step 2: Calculate $a_n$.**
+Substitute into the formula:
 $$
-a_n = \frac{1}{\pi} \left[ \int_{-\pi}^{0} -\cos nx \, dx + \int_{0}^{\pi} 2 \cos nx \, dx \right]
+\mathcal{L}\{f(t)\} = \frac{1}{1 - e^{-2as}} \cdot \frac{1 - e^{-as}}{s}
 $$
+Factor the denominator:
 $$
-a_n = \frac{1}{\pi} \left( \left[ -\frac{\sin nx}{n} \right]_{-\pi}^{0} + \left[ \frac{2\sin nx}{n} \right]_{0}^{\pi} \right)
-$$
-Since $\sin(0) = \sin(n\pi) = \sin(-n\pi) = 0$, all terms vanish.
-$$
-a_n = 0
+= \frac{1 - e^{-as}}{s(1 - e^{-as})(1 + e^{-as})} = \frac{1}{s(1 + e^{-as})}
 $$
 
-**Step 3: Calculate $b_n$.**
-$$
-b_n = \frac{1}{\pi} \left[ \int_{-\pi}^{0} -\sin nx \, dx + \int_{0}^{\pi} 2 \sin nx \, dx \right]
-$$
-$$
-b_n = \frac{1}{\pi} \left( \left[ \frac{\cos nx}{n} \right]_{-\pi}^{0} + \left[ -\frac{2\cos nx}{n} \right]_{0}^{\pi} \right)
-$$
-$$
-b_n = \frac{1}{n\pi} \left( (\cos 0 - \cos(-n\pi)) - 2(\cos n\pi - \cos 0) \right)
-$$
-Using $\cos(-n\pi) = \cos n\pi = (-1)^n$ and $\cos 0 = 1$:
-$$
-b_n = \frac{1}{n\pi} \left( (1 - (-1)^n) - 2((-1)^n - 1) \right)
-$$
-$$
-b_n = \frac{1}{n\pi} ( 1 - (-1)^n - 2(-1)^n + 2 ) = \frac{3 - 3(-1)^n}{n\pi}
-$$
+<br />
 
-**Final Series:**
-$$
-f(x) = \frac{1}{2} + \sum_{n=1}^{\infty} \frac{3(1 - (-1)^n)}{n\pi} \sin nx
-$$
-
----
-
-**3. Find the Fourier series of $f(x)$ on the interval $(-1, 1)$.**
-
-$$
-f(x) = \begin{cases} 
-1, & -1 < x < 0 \\
-x, & 0 \le x < 1 
-\end{cases}
-$$
+**55.** Find the Laplace transform of the periodic **sawtooth function** $f(t)$ shown in Figure 7.4.8.
+*Description:* $f(t) = \frac{t}{b}$ for $0 < t < b$. The period is $T = b$. (Note: The figure label implies the function rises from 0 to 1 over width $b$).
 
 **Solution:**
-Here $p = 1$. The argument for sine and cosine becomes $\frac{n\pi}{1}x = n\pi x$.
-
-**Step 1: Calculate $a_0$.**
 $$
-a_0 = \frac{1}{1} \left[ \int_{-1}^{0} 1 \, dx + \int_{0}^{1} x \, dx \right]
+\mathcal{L}\{f(t)\} = \frac{1}{1 - e^{-bs}} \int_0^b e^{-st} \left(\frac{t}{b}\right) \, dt
 $$
+Use integration by parts for $\int t e^{-st} dt$: $u = t, dv = e^{-st} dt \Rightarrow du = dt, v = \frac{-e^{-st}}{s}$.
 $$
-a_0 = [x]_{-1}^{0} + \left[\frac{x^2}{2}\right]_{0}^{1} = (0 - (-1)) + (\frac{1}{2} - 0) = 1 + 0.5 = \frac{3}{2}
+\int t e^{-st} dt = \frac{-t e^{-st}}{s} - \int \frac{-e^{-st}}{s} dt = \frac{-t e^{-st}}{s} - \frac{e^{-st}}{s^2}
 $$
-
-**Step 2: Calculate $a_n$.**
+Evaluate limits $0$ to $b$:
 $$
-a_n = \int_{-1}^{0} \cos n\pi x \, dx + \int_{0}^{1} x \cos n\pi x \, dx
+\begin{aligned}
+\left[ \frac{1}{b} \left( \frac{-t e^{-st}}{s} - \frac{e^{-st}}{s^2} \right) \right]_0^b &= \frac{1}{b} \left( \left( \frac{-b e^{-bs}}{s} - \frac{e^{-bs}}{s^2} \right) - \left( 0 - \frac{1}{s^2} \right) \right) \\
+&= \frac{1}{b} \left( \frac{1}{s^2} - \frac{e^{-bs}}{s^2} - \frac{b e^{-bs}}{s} \right)
+\end{aligned}
 $$
-The first integral:
+Combine with the period factor:
 $$
-\left[ \frac{\sin n\pi x}{n\pi} \right]_{-1}^{0} = 0
+\mathcal{L}\{f(t)\} = \frac{1}{1 - e^{-bs}} \left( \frac{1 - e^{-bs}}{bs^2} - \frac{e^{-bs}}{s} \right)
 $$
-The second integral (Integration by Parts: $u=x, dv=\cos n\pi x dx$):
+Simplifying:
 $$
-\int_{0}^{1} x \cos n\pi x \, dx = \left[ \frac{x \sin n\pi x}{n\pi} \right]_0^1 - \frac{1}{n\pi} \int_0^1 \sin n\pi x \, dx
-$$
-$$
-= (0 - 0) - \frac{1}{n\pi} \left[ -\frac{\cos n\pi x}{n\pi} \right]_0^1 = \frac{1}{n^2\pi^2} (\cos n\pi - \cos 0)
-$$
-$$
-a_n = \frac{(-1)^n - 1}{n^2\pi^2}
+= \frac{1}{bs^2} - \frac{e^{-bs}}{s(1 - e^{-bs})}
 $$
 
-**Step 3: Calculate $b_n$.**
-$$
-b_n = \int_{-1}^{0} \sin n\pi x \, dx + \int_{0}^{1} x \sin n\pi x \, dx
-$$
-The first integral:
-$$
-\left[ -\frac{\cos n\pi x}{n\pi} \right]_{-1}^{0} = -\frac{1}{n\pi} (1 - \cos(-n\pi)) = \frac{(-1)^n - 1}{n\pi}
-$$
-The second integral (Integration by Parts: $u=x, dv=\sin n\pi x dx$):
-$$
-\int_{0}^{1} x \sin n\pi x \, dx = \left[ -\frac{x \cos n\pi x}{n\pi} \right]_0^1 + \frac{1}{n\pi} \int_0^1 \cos n\pi x \, dx
-$$
-$$
-= \left( -\frac{1 \cdot (-1)^n}{n\pi} - 0 \right) + \frac{1}{n^2\pi^2} [\sin n\pi x]_0^1 = -\frac{(-1)^n}{n\pi}
-$$
-Adding the two parts:
-$$
-b_n = \frac{(-1)^n - 1}{n\pi} - \frac{(-1)^n}{n\pi} = -\frac{1}{n\pi}
-$$
 
-**Final Series:**
-$$
-f(x) = \frac{3}{4} + \sum_{n=1}^{\infty} \left( \frac{(-1)^n - 1}{n^2\pi^2} \cos n\pi x - \frac{1}{n\pi} \sin n\pi x \right)
-$$
+<br />
 
----
-
-**4. Find the Fourier series of $f(x)$ on the interval $(-1, 1)$.**
-
-$$
-f(x) = \begin{cases} 
-0, & -1 < x < 0 \\
-x, & 0 \le x < 1 
-\end{cases}
-$$
+**57.** Find the Laplace transform of the **full-wave rectification of sin t**, $f(t) = |\sin t|$.
+*Description:* Period $T = \pi$. $f(t) = \sin t$ for $0 < t < \pi$.
 
 **Solution:**
-Here $p = 1$.
-
-**Step 1: Calculate $a_0$.**
 $$
-a_0 = \int_{0}^{1} x \, dx = \left[\frac{x^2}{2}\right]_0^1 = \frac{1}{2}
+\mathcal{L}\{|\sin t|\} = \frac{1}{1 - e^{-\pi s}} \int_0^\pi e^{-st} \sin t \, dt
 $$
-
-**Step 2: Calculate $a_n$.**
+Using the standard integral for $\int e^{-st} \sin t \, dt$:
 $$
-a_n = \int_{0}^{1} x \cos n\pi x \, dx
+\int e^{-st} \sin t \, dt = \frac{e^{-st}(-s \sin t - \cos t)}{s^2 + 1}
 $$
-Using the integration by parts result from Question 3:
+Evaluate limits $0$ to $\pi$:
 $$
-a_n = \frac{(-1)^n - 1}{n^2\pi^2}
+\begin{aligned}
+\text{Upper }(\pi) &: \frac{e^{-\pi s}(0 - (-1))}{s^2 + 1} = \frac{e^{-\pi s}}{s^2 + 1} \\
+\text{Lower }(0) &: \frac{1(0 - 1)}{s^2 + 1} = \frac{-1}{s^2 + 1}
+\end{aligned}
 $$
-
-**Step 3: Calculate $b_n$.**
+Integral value $= \frac{e^{-\pi s} + 1}{s^2 + 1}$.
+Substitute into the formula:
 $$
-b_n = \int_{0}^{1} x \sin n\pi x \, dx
+\mathcal{L}\{f(t)\} = \frac{1}{1 - e^{-\pi s}} \cdot \frac{1 + e^{-\pi s}}{s^2 + 1} = \frac{1 + e^{-\pi s}}{1 - e^{-\pi s}} \frac{1}{s^2 + 1}
 $$
-Using the integration by parts result from Question 3:
+Using hyperbolic functions:
 $$
-b_n = -\frac{(-1)^n}{n\pi} = \frac{(-1)^{n+1}}{n\pi}
-$$
-
-**Final Series:**
-$$
-f(x) = \frac{1}{4} + \sum_{n=1}^{\infty} \left( \frac{(-1)^n - 1}{n^2\pi^2} \cos n\pi x + \frac{(-1)^{n+1}}{n\pi} \sin n\pi x \right)
-$$
-
----
-
-**5. Find the Fourier series of $f(x)$ on the interval $(-\pi, \pi)$.**
-
-$$
-f(x) = \begin{cases} 
-0, & -\pi < x < 0 \\
-x^2, & 0 \le x < \pi 
-\end{cases}
-$$
-
-**Solution:**
-Here $p = \pi$.
-
-**Step 1: Calculate $a_0$.**
-$$
-a_0 = \frac{1}{\pi} \int_{0}^{\pi} x^2 \, dx = \frac{1}{\pi} \left[\frac{x^3}{3}\right]_0^{\pi} = \frac{\pi^2}{3}
-$$
-
-**Step 2: Calculate $a_n$.**
-$$
-a_n = \frac{1}{\pi} \int_{0}^{\pi} x^2 \cos nx \, dx
-$$
-Use integration by parts ($u=x^2, dv=\cos nx dx$) then ($u=2x, dv=\sin nx dx$):
-$$
-\int x^2 \cos nx \, dx = \frac{x^2 \sin nx}{n} + \frac{2x \cos nx}{n^2} - \frac{2 \sin nx}{n^3}
-$$
-Evaluate from $0$ to $\pi$:
-$$
-a_n = \frac{1}{\pi} \left[ \left(0 + \frac{2\pi \cos n\pi}{n^2} - 0\right) - (0 + 0 - 0) \right]
-$$
-$$
-a_n = \frac{1}{\pi} \left( \frac{2\pi (-1)^n}{n^2} \right) = \frac{2(-1)^n}{n^2}
-$$
-
-**Step 3: Calculate $b_n$.**
-$$
-b_n = \frac{1}{\pi} \int_{0}^{\pi} x^2 \sin nx \, dx
-$$
-Use integration by parts ($u=x^2, dv=\sin nx dx$) then ($u=2x, dv=\cos nx dx$):
-$$
-\int x^2 \sin nx \, dx = -\frac{x^2 \cos nx}{n} + \frac{2x \sin nx}{n^2} + \frac{2 \cos nx}{n^3}
-$$
-Evaluate from $0$ to $\pi$:
-$$
-b_n = \frac{1}{\pi} \left( \left[ -\frac{\pi^2 (-1)^n}{n} + 0 + \frac{2(-1)^n}{n^3} \right] - \left[ 0 + 0 + \frac{2}{n^3} \right] \right)
-$$
-$$
-b_n = -\frac{\pi (-1)^n}{n} + \frac{2((-1)^n - 1)}{\pi n^3} = \frac{\pi (-1)^{n+1}}{n} + \frac{2((-1)^n - 1)}{\pi n^3}
-$$
-
-**Final Series:**
-$$
-f(x) = \frac{\pi^2}{6} + \sum_{n=1}^{\infty} \left( \frac{2(-1)^n}{n^2} \cos nx + \left[ \frac{\pi (-1)^{n+1}}{n} + \frac{2((-1)^n - 1)}{\pi n^3} \right] \sin nx \right)
-$$
-
----
-
-**6. Find the Fourier series of $f(x)$ on the interval $(-\pi, \pi)$.**
-
-$$
-f(x) = \begin{cases} 
-\pi^2, & -\pi < x < 0 \\
-\pi^2 - x^2, & 0 \le x < \pi 
-\end{cases}
-$$
-
-**Solution:**
-Here $p = \pi$.
-Notice that $f(x) = \pi^2 - g(x)$, where $g(x)$ is the function from Question 5 (extended to be 0 on negative side).
-The Fourier series of the constant $\pi^2$ on $(-\pi, \pi)$ has only the $a_0$ term: $2\pi^2$ (since formula is $a_0/2$).
-However, calculating directly:
-
-**Step 1: Calculate $a_0$.**
-$$
-a_0 = \frac{1}{\pi} \left[ \int_{-\pi}^{0} \pi^2 \, dx + \int_{0}^{\pi} (\pi^2 - x^2) \, dx \right]
-$$
-$$
-= \frac{1}{\pi} \left( [\pi^2 x]_{-\pi}^0 + [\pi^2 x - \frac{x^3}{3}]_0^{\pi} \right)
-$$
-$$
-= \frac{1}{\pi} \left( \pi^3 + (\pi^3 - \frac{\pi^3}{3}) \right) = \frac{1}{\pi} \left( \frac{5\pi^3}{3} \right) = \frac{5\pi^2}{3}
-$$
-
-**Step 2: Calculate $a_n$.**
-$$
-a_n = \frac{1}{\pi} \left[ \int_{-\pi}^{0} \pi^2 \cos nx \, dx + \int_{0}^{\pi} (\pi^2 - x^2) \cos nx \, dx \right]
-$$
-The integral of the constant $\pi^2 \cos nx$ over any multiple of the period (or half period) is 0.
-Thus, $a_n = \frac{1}{\pi} \int_{0}^{\pi} -x^2 \cos nx \, dx$.
-This is the negative of the $a_n$ from Question 5:
-$$
-a_n = -\frac{2(-1)^n}{n^2} = \frac{2(-1)^{n+1}}{n^2}
-$$
-
-**Step 3: Calculate $b_n$.**
-$$
-b_n = \frac{1}{\pi} \left[ \int_{-\pi}^{0} \pi^2 \sin nx \, dx + \int_{0}^{\pi} (\pi^2 - x^2) \sin nx \, dx \right]
-$$
-Integral 1: $\pi^2 [-\frac{\cos nx}{n}]_{-\pi}^0 = -\frac{\pi^2}{n}(1 - (-1)^n)$.
-Integral 2: $\pi^2 \int \sin - \int x^2 \sin$.
-$\int_0^{\pi} \pi^2 \sin nx dx = \frac{\pi^2}{n}(1 - (-1)^n)$.
-The constant terms cancel out: $-\frac{\pi^2}{n}(1 - (-1)^n) + \frac{\pi^2}{n}(1 - (-1)^n) = 0$.
-Remaining term: $-\frac{1}{\pi} \int_0^{\pi} x^2 \sin nx \, dx$.
-This is the negative of the $b_n$ from Question 5.
-$$
-b_n = - \left[ \frac{\pi (-1)^{n+1}}{n} + \frac{2((-1)^n - 1)}{\pi n^3} \right]
-$$
-
-**Final Series:**
-$$
-f(x) = \frac{5\pi^2}{6} + \sum_{n=1}^{\infty} \left( \frac{2(-1)^{n+1}}{n^2} \cos nx - \left[ \frac{\pi (-1)^{n+1}}{n} + \frac{2((-1)^n - 1)}{\pi n^3} \right] \sin nx \right)
-$$
-
----
-
-**7. Find the Fourier series of $f(x) = x + \pi$ on $(-\pi, \pi)$.**
-
-**Solution:**
-Here $p = \pi$.
-
-**Step 1: Calculate $a_0$.**
-$$
-a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} (x + \pi) \, dx = \frac{1}{\pi} \left[ \frac{x^2}{2} + \pi x \right]_{-\pi}^{\pi}
-$$
-$$
-= \frac{1}{\pi} \left[ (\frac{\pi^2}{2} + \pi^2) - (\frac{\pi^2}{2} - \pi^2) \right] = \frac{1}{\pi} (2\pi^2) = 2\pi
-$$
-
-**Step 2: Calculate $a_n$.**
-$$
-a_n = \frac{1}{\pi} \int_{-\pi}^{\pi} (x + \pi) \cos nx \, dx
-$$
-Split into $\int x \cos nx$ and $\pi \int \cos nx$.
-$x \cos nx$ is an odd function over a symmetric interval, so the integral is 0.
-$\cos nx$ over a full period is 0.
-$$
-a_n = 0
-$$
-
-**Step 3: Calculate $b_n$.**
-$$
-b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} (x + \pi) \sin nx \, dx
-$$
-$\pi \sin nx$ is odd over symmetric interval $\to 0$.
-$x \sin nx$ is even over symmetric interval $\to 2 \int_0^{\pi} x \sin nx$.
-$$
-b_n = \frac{2}{\pi} \int_{0}^{\pi} x \sin nx \, dx
-$$
-Integration by parts: $[-\frac{x \cos nx}{n}]_0^{\pi} + \int \frac{\cos nx}{n} dx$.
-$$
-b_n = \frac{2}{\pi} \left[ -\frac{\pi (-1)^n}{n} - 0 \right] = -\frac{2(-1)^n}{n} = \frac{2(-1)^{n+1}}{n}
-$$
-
-**Final Series:**
-$$
-f(x) = \pi + \sum_{n=1}^{\infty} \frac{2(-1)^{n+1}}{n} \sin nx
-$$
-
----
-
-**8. Find the Fourier series of $f(x) = 3 - 2x$ on $(-\pi, \pi)$.**
-
-**Solution:**
-Here $p = \pi$.
-
-**Step 1: Calculate $a_0$.**
-$$
-a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} (3 - 2x) \, dx = \frac{1}{\pi} \left[ 3x - x^2 \right]_{-\pi}^{\pi}
-$$
-$$
-= \frac{1}{\pi} \left[ (3\pi - \pi^2) - (-3\pi - \pi^2) \right] = \frac{1}{\pi} (6\pi) = 6
-$$
-
-**Step 2: Calculate $a_n$.**
-$$
-a_n = \frac{1}{\pi} \int_{-\pi}^{\pi} (3 - 2x) \cos nx \, dx
-$$
-$3 \cos nx$ integrates to 0.
-$-2x \cos nx$ is odd, integrates to 0.
-$$
-a_n = 0
-$$
-
-**Step 3: Calculate $b_n$.**
-$$
-b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} (3 - 2x) \sin nx \, dx
-$$
-$3 \sin nx$ is odd, integrates to 0.
-$-2x \sin nx$ is even.
-$$
-b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} -2x \sin nx \, dx = -\frac{4}{\pi} \int_{0}^{\pi} x \sin nx \, dx
-$$
-Using the integration result from Question 7 ($\int_0^{\pi} x \sin nx dx = -\frac{\pi (-1)^n}{n}$):
-$$
-b_n = -\frac{4}{\pi} \left( -\frac{\pi (-1)^n}{n} \right) = \frac{4(-1)^n}{n}
-$$
-
-**Final Series:**
-$$
-f(x) = 3 + \sum_{n=1}^{\infty} \frac{4(-1)^n}{n} \sin nx
+= \frac{1}{s^2 + 1} \coth\left(\frac{\pi s}{2}\right)
 $$
