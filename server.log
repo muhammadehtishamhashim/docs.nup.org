@@ -1,0 +1,46 @@
+
+> docs.nup.org@0.1.0 dev
+> next dev --turbopack
+
+▲ Next.js 16.1.0 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+- Experiments (use with caution):
+  · optimizePackageImports
+
+✓ Starting...
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+✓ Ready in 996ms
+- [33mwarn[0m [nextra] The repository is shallow cloned, so the latest modified time will not be presented.
+○ Compiling /bs-cs/sem-3/multvariable-calculus/w1 ...
+✓ Finished writing to filesystem cache in 11.3s
+
+<--- Last few GCs --->
+
+[2743:0x83c2000]   130565 ms: Mark-Compact (reduce) 3973.3 (4016.7) -> 3973.3 (4009.4) MB, pooled: 0 MB, 97.59 / 0.00 ms  (+ 0.2 ms in 0 steps since start of marking, biggest step 0.0 ms, walltime since start of marking 107 ms) (average mu = 0.296, curren[2743:0x83c2000]   130661 ms: Mark-Compact 3974.3 (4010.4) -> 3974.3 (4013.4) MB, pooled: 0 MB, 94.07 / 0.00 ms  (average mu = 0.166, current mu = 0.020) allocation failure; scavenge might not succeed
+
+
+<--- JS stacktrace --->
+
+FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory
+----- Native stack trace -----
+
+ 1: 0xe40d2e node::OOMErrorHandler(char const*, v8::OOMDetails const&) [next-server (v16.1.0)]
+ 2: 0x12167b0 v8::Utils::ReportOOMFailure(v8::internal::Isolate*, char const*, v8::OOMDetails const&) [next-server (v16.1.0)]
+ 3: 0x1216a87 v8::internal::V8::FatalProcessOutOfMemory(v8::internal::Isolate*, char const*, v8::OOMDetails const&) [next-server (v16.1.0)]
+ 4: 0x1444365  [next-server (v16.1.0)]
+ 5: 0x145dbf9 v8::internal::Heap::CollectGarbage(v8::internal::AllocationSpace, v8::internal::GarbageCollectionReason, v8::GCCallbackFlags) [next-server (v16.1.0)]
+ 6: 0x14322a8 v8::internal::HeapAllocator::AllocateRawWithLightRetrySlowPath(int, v8::internal::AllocationType, v8::internal::AllocationOrigin, v8::internal::AllocationAlignment) [next-server (v16.1.0)]
+ 7: 0x14331d5 v8::internal::HeapAllocator::AllocateRawWithRetryOrFailSlowPath(int, v8::internal::AllocationType, v8::internal::AllocationOrigin, v8::internal::AllocationAlignment) [next-server (v16.1.0)]
+ 8: 0x140b5ce v8::internal::Factory::AllocateRaw(int, v8::internal::AllocationType, v8::internal::AllocationAlignment) [next-server (v16.1.0)]
+ 9: 0x13fa6c4 v8::internal::FactoryBase<v8::internal::Factory>::AllocateRawWithImmortalMap(int, v8::internal::AllocationType, v8::internal::Tagged<v8::internal::Map>, v8::internal::AllocationAlignment) [next-server (v16.1.0)]
+10: 0x13fbb8e v8::internal::FactoryBase<v8::internal::Factory>::NewRawOneByteString(int, v8::internal::AllocationType) [next-server (v16.1.0)]
+11: 0x1572f5d v8::internal::JsonParser<unsigned short>::MakeString(v8::internal::JsonString const&, v8::internal::Handle<v8::internal::String>) [next-server (v16.1.0)]
+12: 0x1579a2e  [next-server (v16.1.0)]
+13: 0x157bedd v8::internal::JsonParser<unsigned short>::ParseJson(v8::internal::Handle<v8::internal::Object>) [next-server (v16.1.0)]
+14: 0x129391c v8::internal::Builtin_JsonParse(int, unsigned long*, v8::internal::Isolate*) [next-server (v16.1.0)]
+15: 0x7fb2ff2ac3b6
