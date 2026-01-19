@@ -1,4 +1,5 @@
 import { Bleed }from "nextra/components";
+import MathWrapper from '../../../../../components/MathWrapper'
 
 # Multiple Integrals
 
@@ -12,16 +13,20 @@ import { Bleed }from "nextra/components";
 
 ### Definition
 The **double integral** of $f$ over the rectangle $R$ is
+<MathWrapper>
 $$
 \iint_R f(x, y) \, dA = \lim_{m, n \to \infty} \sum_{i=1}^m \sum_{j=1}^n f(x_{ij}^*, y_{ij}^*) \, \Delta A
 $$
+</MathWrapper>
 if this limit exists.
 
 ### Fubini's Theorem
 If $f$ is continuous on the rectangle $R = [a, b] \times [c, d]$, then
+<MathWrapper>
 $$
 \iint_R f(x, y) \, dA = \int_a^b \int_c^d f(x, y) \, dy \, dx = \int_c^d \int_a^b f(x, y) \, dx \, dy
 $$
+</MathWrapper>
 More generally, this is true if we assume that $f$ is bounded on $R$, $f$ is discontinuous only on a finite number of smooth curves, and the iterated integrals exist.
 
 ### Solved Example from Book
@@ -31,43 +36,54 @@ More generally, this is true if we assume that $f$ is bounded on $R$, $f$ is dis
 
 **Solution:**
 **(a)** Regarding $x$ as a constant:
+<MathWrapper>
 $$
 \begin{aligned}
 \int_1^2 x^2 y \, dy &= \left[ x^2 \frac{y^2}{2} \right]_{y=1}^{y=2} \\
 &= x^2 \left( \frac{2^2}{2} - \frac{1^2}{2} \right) = x^2 \left( 2 - \frac{1}{2} \right) = \frac{3}{2} x^2
 \end{aligned}
 $$
+</MathWrapper>
 Now integrate with respect to $x$:
+<MathWrapper>
 $$
 \begin{aligned}
 \int_0^3 \int_1^2 x^2 y \, dy \, dx &= \int_0^3 \frac{3}{2} x^2 \, dx \\
 &= \left[ \frac{3}{2} \frac{x^3}{3} \right]_0^3 = \left[ \frac{x^3}{2} \right]_0^3 = \frac{27}{2}
 \end{aligned}
 $$
+</MathWrapper>
 
 **(b)** Regarding $y$ as a constant:
+<MathWrapper>
 $$
 \begin{aligned}
 \int_0^3 x^2 y \, dx &= \left[ \frac{x^3}{3} y \right]_{x=0}^{x=3} \\
 &= \left( \frac{27}{3} y - 0 \right) = 9y
 \end{aligned}
 $$
+</MathWrapper>
 Now integrate with respect to $y$:
+<MathWrapper>
 $$
 \begin{aligned}
 \int_1^2 \int_0^3 x^2 y \, dx \, dy &= \int_1^2 9y \, dy \\
 &= \left[ \frac{9y^2}{2} \right]_1^2 = \frac{9}{2} (4 - 1) = \frac{27}{2}
 \end{aligned}
 $$
+</MathWrapper>
 (Notice that the order of integration did not change the result).
 
 ### Exercises 15.1
 
 **15.** Calculate the iterated integral.
+<MathWrapper>
 $$
 \int_1^4 \int_0^2 (6x^2y - 2x) \, dy \, dx
 $$
+</MathWrapper>
 **Solution:**
+<MathWrapper>
 $$
 \begin{aligned}
 \int_0^2 (6x^2y - 2x) \, dy &= \left[ 3x^2y^2 - 2xy \right]_{y=0}^{y=2} \\
@@ -75,6 +91,8 @@ $$
 &= 12x^2 - 4x
 \end{aligned}
 $$
+</MathWrapper>
+<MathWrapper>
 $$
 \begin{aligned}
 \int_1^4 (12x^2 - 4x) \, dx &= \left[ 4x^3 - 2x^2 \right]_1^4 \\
@@ -83,15 +101,19 @@ $$
 &= 222
 \end{aligned}
 $$
+</MathWrapper>
 **Answer:** $222$
 
 <br/>
 
 **18.** Calculate the iterated integral.
+<MathWrapper>
 $$
 \int_{-3}^1 \int_1^2 (x^2 + y^{-2}) \, dy \, dx
 $$
+</MathWrapper>
 **Solution:**
+<MathWrapper>
 $$
 \begin{aligned}
 \int_1^2 (x^2 + y^{-2}) \, dy &= \left[ x^2y - y^{-1} \right]_1^2 \\
@@ -99,6 +121,8 @@ $$
 &= x^2 + \frac{1}{2}
 \end{aligned}
 $$
+</MathWrapper>
+<MathWrapper>
 $$
 \begin{aligned}
 \int_{-3}^1 \left( x^2 + \frac{1}{2} \right) \, dx &= \left[ \frac{x^3}{3} + \frac{x}{2} \right]_{-3}^1 \\
@@ -108,81 +132,114 @@ $$
 &= \frac{68}{6} = \frac{34}{3}
 \end{aligned}
 $$
+</MathWrapper>
 **Answer:** $\frac{34}{3}$
 
 <br/>
 
 **20.** Calculate the iterated integral.
+<MathWrapper>
 $$
 \int_1^3 \int_1^5 \frac{\ln y}{xy} \, dy \, dx
 $$
+</MathWrapper>
 **Solution:**
 Separate variables (Equation 11 in text):
+<MathWrapper>
 $$
 = \left( \int_1^3 \frac{1}{x} \, dx \right) \left( \int_1^5 \frac{\ln y}{y} \, dy \right)
 $$
+</MathWrapper>
+<MathWrapper>
 $$
 \int_1^3 \frac{1}{x} \, dx = [\ln x]_1^3 = \ln 3 - 0 = \ln 3
 $$
+</MathWrapper>
 For the $y$ integral, let $u = \ln y$, $du = \frac{1}{y} dy$. Limits: $y=1 \to u=0$, $y=5 \to u=\ln 5$.
+<MathWrapper>
 $$
 \int_0^{\ln 5} u \, du = \left[ \frac{u^2}{2} \right]_0^{\ln 5} = \frac{(\ln 5)^2}{2}
 $$
+</MathWrapper>
+<MathWrapper>
 $$
 \text{Total} = (\ln 3) \cdot \frac{(\ln 5)^2}{2}
 $$
+</MathWrapper>
 **Answer:** $\frac{(\ln 3)(\ln 5)^2}{2}$
 
 <br/>
 
 **22.** Calculate the iterated integral.
+<MathWrapper>
 $$
 \int_0^1 \int_0^1 y e^{xy} \, dx \, dy
 $$
+</MathWrapper>
 **Solution:**
 Integrate with respect to $x$ first:
+<MathWrapper>
 $$
 \int_0^1 y e^{xy} \, dx = \left[ e^{xy} \right]_{x=0}^{x=1} \quad (\text{since } \frac{d}{dx} e^{xy} = y e^{xy})
 $$
+</MathWrapper>
+<MathWrapper>
 $$
 = e^{y} - e^{0} = e^y - 1
 $$
+</MathWrapper>
 Now integrate with respect to $y$:
+<MathWrapper>
 $$
 \int_0^1 (e^y - 1) \, dy = [e^y - y]_0^1
 $$
+</MathWrapper>
+<MathWrapper>
 $$
 = (e^1 - 1) - (e^0 - 0) = e - 1 - 1 = e - 2
 $$
+</MathWrapper>
 **Answer:** $e - 2$
 
 <br/>
 
 **32.** Calculate the double integral.
+<MathWrapper>
 $$
 \iint_R \frac{x}{1+xy} \, dA, \quad R = \times
 $$
+</MathWrapper>
 **Solution:**
 Choose to integrate $y$ first ($\int \frac{1}{1+xy} dy$ looks like $\ln$ form).
+<MathWrapper>
 $$
 \int_0^1 \int_0^1 \frac{x}{1+xy} \, dy \, dx
 $$
+</MathWrapper>
 Let $u = 1+xy$, then $du = x \, dy$ (treating $x$ as constant).
+<MathWrapper>
 $$
 \int_0^1 \frac{x}{1+xy} \, dy = [\ln|1+xy|]_{y=0}^{y=1} = \ln(1+x) - \ln(1) = \ln(1+x)
 $$
+</MathWrapper>
 Now integrate $x$:
+<MathWrapper>
 $$
 \int_0^1 \ln(1+x) \, dx
 $$
+</MathWrapper>
 Use integration by parts: $u = \ln(1+x)$, $dv = dx$. Then $du = \frac{1}{1+x} dx$, $v = x$.
 Ideally, use substitution $w = 1+x$, $dw=dx$, limits $1$ to $2$.
+<MathWrapper>
 $$
 \int_1^2 \ln w \, dw = [w \ln w - w]_1^2
 $$
+</MathWrapper>
+<MathWrapper>
 $$
 = (2 \ln 2 - 2) - (1 \ln 1 - 1) = 2 \ln 2 - 2 - (0 - 1) = 2 \ln 2 - 1
 $$
+</MathWrapper>
 **Answer:** $2 \ln 2 - 1$
 
 ---
@@ -191,22 +248,30 @@ $$
 
 ### Definition (Type I and Type II)
 **Type I**: A plane region $D$ is said to be of type I if it lies between the graphs of two continuous functions of $x$:
+<MathWrapper>
 $$
 D = \{ (x, y) \mid a \le x \le b, g_1(x) \le y \le g_2(x) \}
 $$
+</MathWrapper>
 Then
+<MathWrapper>
 $$
 \iint_D f(x, y) \, dA = \int_a^b \int_{g_1(x)}^{g_2(x)} f(x, y) \, dy \, dx
 $$
+</MathWrapper>
 
 **Type II**:
+<MathWrapper>
 $$
 D = \{ (x, y) \mid c \le y \le d, h_1(y) \le x \le h_2(y) \}
 $$
+</MathWrapper>
 Then
+<MathWrapper>
 $$
 \iint_D f(x, y) \, dA = \int_c^d \int_{h_1(y)}^{h_2(y)} f(x, y) \, dx \, dy
 $$
+</MathWrapper>
 
 ### Solved Example from Book
 **Example 1:** Evaluate $\iint_D (x + 2y) \, dA$, where $D$ is the region bounded by the parabolas $y = 2x^2$ and $y = 1 + x^2$.
@@ -214,6 +279,7 @@ $$
 **Solution:**
 Find intersection points: $2x^2 = 1 + x^2 \Rightarrow x^2 = 1 \Rightarrow x = \pm 1$.
 $D$ is a Type I region: $-1 \le x \le 1$ and $2x^2 \le y \le 1+x^2$.
+<MathWrapper>
 $$
 \begin{aligned}
 \iint_D (x + 2y) \, dA &= \int_{-1}^1 \int_{2x^2}^{1+x^2} (x + 2y) \, dy \, dx \\
@@ -225,16 +291,20 @@ $$
 &= \frac{32}{15}
 \end{aligned}
 $$
+</MathWrapper>
 
 ### Exercises 15.2
 
 **19.** Evaluate the double integral.
+<MathWrapper>
 $$
 \iint_D y \, dA, \quad D \text{ is bounded by } y = x - 2, x = y^2
 $$
+</MathWrapper>
 **Solution:**
 Find intersections: $y^2 = y + 2 \Rightarrow y^2 - y - 2 = 0 \Rightarrow (y-2)(y+1)=0$. $y = 2, -1$.
 Treat as Type II region (integrating $x$ first): $y$ goes from $-1$ to $2$. $x$ goes from $y^2$ (left curve) to $y+2$ (right line).
+<MathWrapper>
 $$
 \begin{aligned}
 \int_{-1}^2 \int_{y^2}^{y+2} y \, dx \, dy &= \int_{-1}^2 y [x]_{y^2}^{y+2} \, dy \\
@@ -245,19 +315,23 @@ $$
 &= \frac{8}{3} - \left( \frac{-4 + 12 - 3}{12} \right) = \frac{32}{12} - \frac{5}{12} = \frac{27}{12} = \frac{9}{4}
 \end{aligned}
 $$
+</MathWrapper>
 **Answer:** $\frac{9}{4}$
 
 <br/>
 
 **25.** Evaluate the double integral.
+<MathWrapper>
 $$
 \iint_D y^2 \, dA, \quad D \text{ is the triangle with vertices } (0, 1), (1, 2), (4, 1)
 $$
+</MathWrapper>
 **Solution:**
 Line from $(0,1)$ to $(1,2)$: $y-1 = \frac{2-1}{1-0}(x-0) \Rightarrow y = x+1$ or $x = y-1$.
 Line from $(1,2)$ to $(4,1)$: $y-1 = \frac{1-2}{4-1}(x-4) \Rightarrow y-1 = -\frac{1}{3}(x-4) \Rightarrow x-4 = -3(y-1) \Rightarrow x = 7-3y$.
 Line from $(0,1)$ to $(4,1)$: $y=1$.
 Treat as Type II: $y$ ranges from $1$ to $2$. $x$ ranges from $y-1$ to $7-3y$.
+<MathWrapper>
 $$
 \begin{aligned}
 \int_1^2 \int_{y-1}^{7-3y} y^2 \, dx \, dy &= \int_1^2 y^2 [x]_{y-1}^{7-3y} \, dy \\
@@ -269,48 +343,60 @@ $$
 &= \frac{56}{3} - 15 = \frac{56 - 45}{3} = \frac{11}{3}
 \end{aligned}
 $$
+</MathWrapper>
 **Answer:** $\frac{11}{3}$
 
 <br/>
 
 **55.** Evaluate the integral by reversing the order of integration.
+<MathWrapper>
 $$
 \int_0^1 \int_{3y}^3 e^{x^2} \, dx \, dy
 $$
+</MathWrapper>
 **Solution:**
 Region $D$: $0 \le y \le 1$, $3y \le x \le 3$.
 Limits for $x$: $0 \le x \le 3$. From $x=3y$, we get $y=x/3$.
 New limits: $0 \le x \le 3$, $0 \le y \le x/3$.
+<MathWrapper>
 $$
 \begin{aligned}
 \int_0^3 \int_0^{x/3} e^{x^2} \, dy \, dx &= \int_0^3 e^{x^2} [y]_0^{x/3} \, dx \\
 &= \int_0^3 e^{x^2} \frac{x}{3} \, dx
 \end{aligned}
 $$
+</MathWrapper>
 Let $u = x^2$, $du = 2x \, dx$. Limits $0$ to $9$.
+<MathWrapper>
 $$
 = \frac{1}{3} \int_0^9 e^u \frac{du}{2} = \frac{1}{6} [e^u]_0^9 = \frac{1}{6} (e^9 - 1)
 $$
+</MathWrapper>
 **Answer:** $\frac{1}{6}(e^9 - 1)$
 
 <br/>
 
 **57.** Evaluate the integral by reversing the order of integration.
+<MathWrapper>
 $$
 \int_0^1 \int_{\arcsin y}^{\pi/2} \cos x \sqrt{1+\cos^2 x} \, dx \, dy
 $$
+</MathWrapper>
 **Solution:**
 Region: $0 \le y \le 1$, $\arcsin y \le x \le \pi/2$.
 Curves: $x = \arcsin y \Rightarrow y = \sin x$. $x = \pi/2$.
 New limits: $x$ goes from $0$ to $\pi/2$. $y$ goes from $0$ to $\sin x$.
+<MathWrapper>
 $$
 \begin{aligned}
 \int_0^{\pi/2} \int_0^{\sin x} \cos x \sqrt{1+\cos^2 x} \, dy \, dx &= \int_0^{\pi/2} \cos x \sqrt{1+\cos^2 x} [y]_0^{\sin x} \, dx \\
 &= \int_0^{\pi/2} \sin x \cos x \sqrt{1+\cos^2 x} \, dx
 \end{aligned}
 $$
+</MathWrapper>
 Let $u = 1 + \cos^2 x$, $du = -2 \cos x \sin x \, dx$.
 Limits: $x=0 \to u=2$, $x=\pi/2 \to u=1$.
+<MathWrapper>
 $$
 \begin{aligned}
 \int_2^1 \sqrt{u} \frac{du}{-2} &= \frac{1}{2} \int_1^2 u^{1/2} \, du \\
@@ -318,6 +404,7 @@ $$
 &= \frac{1}{3} (2^{3/2} - 1) = \frac{1}{3} (2\sqrt{2} - 1)
 \end{aligned}
 $$
+</MathWrapper>
 **Answer:** $\frac{1}{3} (2\sqrt{2} - 1)$
 
 ---
@@ -326,9 +413,11 @@ $$
 
 ### Definition
 If $f$ is continuous on a polar rectangle $R$ given by $0 \le a \le r \le b$, $\alpha \le \theta \le \beta$, then
+<MathWrapper>
 $$
 \iint_R f(x, y) \, dA = \int_{\alpha}^{\beta} \int_a^b f(r \cos \theta, r \sin \theta) \, r \, dr \, d\theta
 $$
+</MathWrapper>
 Note the extra factor of **$r$** in $r \, dr \, d\theta$.
 
 ### Solved Example from Book
@@ -336,6 +425,7 @@ Note the extra factor of **$r$** in $r \, dr \, d\theta$.
 
 **Solution:**
 Region $R$: $1 \le r \le 2$, $0 \le \theta \le \pi$.
+<MathWrapper>
 $$
 \begin{aligned}
 \iint_R (3x + 4y^2) \, dA &= \int_0^{\pi} \int_1^2 (3r \cos \theta + 4r^2 \sin^2 \theta) r \, dr \, d\theta \\
@@ -347,15 +437,19 @@ $$
 &= 0 + \frac{15\pi}{2} - 0 - 0 = \frac{15\pi}{2}
 \end{aligned}
 $$
+</MathWrapper>
 
 ### Exercises 15.3
 
 **9.** Evaluate the given integral by changing to polar coordinates.
+<MathWrapper>
 $$
 \iint_D x^2 y \, dA, \quad D \text{ is the top half of the disk with center the origin and radius } 5
 $$
+</MathWrapper>
 **Solution:**
 Limits: $0 \le r \le 5$, $0 \le \theta \le \pi$.
+<MathWrapper>
 $$
 \begin{aligned}
 \int_0^{\pi} \int_0^5 (r \cos \theta)^2 (r \sin \theta) \, r \, dr \, d\theta &= \int_0^{\pi} \int_0^5 r^4 \cos^2 \theta \sin \theta \, dr \, d\theta \\
@@ -365,17 +459,21 @@ $$
 &= 625 \left( \frac{1}{3} + \frac{1}{3} \right) = \frac{1250}{3}
 \end{aligned}
 $$
+</MathWrapper>
 **Answer:** $\frac{1250}{3}$
 
 <br/>
 
 **13.** Evaluate the given integral by changing to polar coordinates.
+<MathWrapper>
 $$
 \iint_D e^{-x^2-y^2} \, dA, \quad D \text{ is the region bounded by } x = \sqrt{4-y^2} \text{ and the y-axis}
 $$
+</MathWrapper>
 **Solution:**
 $x = \sqrt{4-y^2}$ is the right semicircle of radius 2. Region is the right half of the disk.
 Limits: $0 \le r \le 2$, $-\pi/2 \le \theta \le \pi/2$.
+<MathWrapper>
 $$
 \begin{aligned}
 \int_{-\pi/2}^{\pi/2} \int_0^2 e^{-r^2} r \, dr \, d\theta &= \left( \int_{-\pi/2}^{\pi/2} d\theta \right) \left( \int_0^2 r e^{-r^2} \, dr \right) \\
@@ -384,14 +482,17 @@ $$
 &= \frac{\pi}{2} (1 - e^{-4})
 \end{aligned}
 $$
+</MathWrapper>
 **Answer:** $\frac{\pi}{2} (1 - e^{-4})$
 
 <br/>
 
 **41.** Evaluate the iterated integral by converting to polar coordinates.
+<MathWrapper>
 $$
 \int_0^{1/\sqrt{2}} \int_y^{\sqrt{1-y^2}} xy^2 \, dx \, dy
 $$
+</MathWrapper>
 **Solution:**
 Region: $0 \le y \le 1/\sqrt{2}$, $y \le x \le \sqrt{1-y^2}$.
 This is the region inside circle $r=1$, bounded below by $y=0$ (implicit in lower limit range? No, lower limit for y is 0), bounded below by $x=y$ (line $\theta = \pi/4$), bounded right by circle.
@@ -401,6 +502,7 @@ $x = \sqrt{1-y^2}$ corresponds to circle edge.
 $y$ starts at 0. So region is a wedge from $\theta=0$ (since at $y=0$, $x$ goes $0$ to $1$) to $\theta=\pi/4$.
 Limits: $0 \le \theta \le \pi/4$, $0 \le r \le 1$.
 Integrand: $xy^2 = (r \cos \theta)(r \sin \theta)^2 = r^3 \cos \theta \sin^2 \theta$.
+<MathWrapper>
 $$
 \begin{aligned}
 \int_0^{\pi/4} \int_0^1 (r^3 \cos \theta \sin^2 \theta) r \, dr \, d\theta &= \int_0^{\pi/4} \cos \theta \sin^2 \theta \, d\theta \int_0^1 r^4 \, dr \\
@@ -409,6 +511,7 @@ $$
 &= \frac{1}{15} \left( \frac{2\sqrt{2}}{8} \right) = \frac{1}{15} \frac{\sqrt{2}}{4} = \frac{\sqrt{2}}{60}
 \end{aligned}
 $$
+</MathWrapper>
 **Answer:** $\frac{\sqrt{2}}{60}$
 
 ---
@@ -417,16 +520,20 @@ $$
 
 ### Definition
 The **triple integral** of $f$ over the box $B$ is
+<MathWrapper>
 $$
 \iiint_B f(x, y, z) \, dV = \lim_{l, m, n \to \infty} \sum_{i=1}^l \sum_{j=1}^m \sum_{k=1}^n f(x_{ijk}^*, y_{ijk}^*, z_{ijk}^*) \, \Delta V
 $$
+</MathWrapper>
 if this limit exists.
 
 ### Fubini's Theorem for Triple Integrals
 If $f$ is continuous on the rectangular box $B = [a, b] \times [c, d] \times [r, s]$, then
+<MathWrapper>
 $$
 \iiint_B f(x, y, z) \, dV = \int_r^s \int_c^d \int_a^b f(x, y, z) \, dx \, dy \, dz
 $$
+</MathWrapper>
 
 ### Solved Example from Book
 **Example 2:** Evaluate $\iiint_E z \, dV$, where $E$ is the solid in the first octant bounded by the surface $z = 12xy$ and the planes $y = x$ and $x = 1$.
@@ -434,9 +541,12 @@ $$
 **Solution:**
 The solid $E$ is bounded below by the plane $z=0$ and above by the surface $z=12xy$. Its projection $D$ onto the $xy$-plane is the triangle bounded by the lines $y=x$, $x=1$, and the x-axis ($y=0$).
 We can describe $E$ as a type 1 region:
+<MathWrapper>
 $$
 E = \{(x, y, z) \mid 0 \le x \le 1, 0 \le y \le x, 0 \le z \le 12xy \}
 $$
+</MathWrapper>
+<MathWrapper>
 $$
 \begin{aligned}
 \iiint_E z \, dV &= \int_0^1 \int_0^x \int_0^{12xy} z \, dz \, dy \, dx \\
@@ -448,16 +558,20 @@ $$
 &= \left[ 4x^6 \right]_0^1 = 4
 \end{aligned}
 $$
+</MathWrapper>
 
 ---
 
 ### Exercises 15.6
 
 **3.** Evaluate the iterated integral.
+<MathWrapper>
 $$
 \int_0^2 \int_0^{z^2} \int_0^{y-z} (2x - y) \, dx \, dy \, dz
 $$
+</MathWrapper>
 **Solution:**
+<MathWrapper>
 $$
 \begin{aligned}
 \int_0^{y-z} (2x - y) \, dx &= \left[ x^2 - xy \right]_0^{y-z} \\
@@ -466,6 +580,8 @@ $$
 &= z^2 - yz
 \end{aligned}
 $$
+</MathWrapper>
+<MathWrapper>
 $$
 \begin{aligned}
 \int_0^{z^2} (z^2 - yz) \, dy &= \left[ z^2y - \frac{1}{2}yz^2 \right]_0^{z^2} \\
@@ -473,21 +589,27 @@ $$
 &= z^4 - \frac{1}{2}z^4 = \frac{1}{2}z^4
 \end{aligned}
 $$
+</MathWrapper>
+<MathWrapper>
 $$
 \begin{aligned}
 \int_0^2 \frac{1}{2}z^4 \, dz &= \left[ \frac{1}{10}z^5 \right]_0^2 \\
 &= \frac{32}{10} = \frac{16}{5}
 \end{aligned}
 $$
+</MathWrapper>
 **Answer:** $16/5$
 
 <br/>
 
 **5.** Evaluate the iterated integral.
+<MathWrapper>
 $$
 \int_1^2 \int_0^{2z} \int_0^{\ln x} xe^{-y} \, dy \, dx \, dz
 $$
+</MathWrapper>
 **Solution:**
+<MathWrapper>
 $$
 \begin{aligned}
 \int_0^{\ln x} xe^{-y} \, dy &= x \left[ -e^{-y} \right]_0^{\ln x} \\
@@ -495,12 +617,16 @@ $$
 &= x (-\frac{1}{x} + 1) = -1 + x
 \end{aligned}
 $$
+</MathWrapper>
+<MathWrapper>
 $$
 \begin{aligned}
 \int_0^{2z} (x - 1) \, dx &= \left[ \frac{1}{2}x^2 - x \right]_0^{2z} \\
 &= \frac{1}{2}(4z^2) - 2z = 2z^2 - 2z
 \end{aligned}
 $$
+</MathWrapper>
+<MathWrapper>
 $$
 \begin{aligned}
 \int_1^2 (2z^2 - 2z) \, dz &= \left[ \frac{2}{3}z^3 - z^2 \right]_1^2 \\
@@ -508,17 +634,21 @@ $$
 &= \frac{4}{3} + \frac{1}{3} = \frac{5}{3}
 \end{aligned}
 $$
+</MathWrapper>
 **Answer:** $5/3$
 
 <br/>
 
 **13.** Evaluate the triple integral.
+<MathWrapper>
 $$
 \iiint_E y \, dV
 $$
+</MathWrapper>
 where $E$ is the solid defined by $0 \le x \le 3$, $0 \le y \le x$, $x - y \le z \le x + y$.
 
 **Solution:**
+<MathWrapper>
 $$
 \begin{aligned}
 \int_0^3 \int_0^x \int_{x-y}^{x+y} y \, dz \, dy \, dx &= \int_0^3 \int_0^x y [z]_{x-y}^{x+y} \, dy \, dx \\
@@ -531,27 +661,35 @@ $$
 &= \frac{1}{6} (81) = \frac{27}{2}
 \end{aligned}
 $$
+</MathWrapper>
 **Answer:** $27/2$
 
 <br/>
 
 **21.** Evaluate the triple integral.
+<MathWrapper>
 $$
 \iiint_E x \, dV
 $$
+</MathWrapper>
 where $E$ is bounded by the paraboloid $x = 4y^2 + 4z^2$ and the plane $x = 4$.
 
 **Solution:**
 The projection of $E$ onto the $yz$-plane is the region bounded by $4y^2 + 4z^2 \le 4$, which simplifies to $y^2 + z^2 \le 1$.
 The limits for $x$ are $4(y^2+z^2) \le x \le 4$.
+<MathWrapper>
 $$
 \iiint_E x \, dV = \iint_D \left[ \int_{4(y^2+z^2)}^4 x \, dx \right] dA
 $$
+</MathWrapper>
 Inner integral:
+<MathWrapper>
 $$
 \left[ \frac{1}{2}x^2 \right]_{4(y^2+z^2)}^4 = \frac{1}{2} [16 - 16(y^2+z^2)^2] = 8[1 - (y^2+z^2)^2]
 $$
+</MathWrapper>
 Now use polar coordinates for the double integral over the disk $D$: $y = r \cos \theta$, $z = r \sin \theta$.
+<MathWrapper>
 $$
 \begin{aligned}
 \int_0^{2\pi} \int_0^1 8(1 - r^4) r \, dr \, d\theta &= 8(2\pi) \int_0^1 (r - r^5) \, dr \\
@@ -559,14 +697,17 @@ $$
 &= 16\pi (\frac{1}{2} - \frac{1}{6}) = 16\pi (\frac{1}{3}) = \frac{16\pi}{3}
 \end{aligned}
 $$
+</MathWrapper>
 **Answer:** $16\pi/3$
 
 <br/>
 
 **22.** Evaluate the triple integral.
+<MathWrapper>
 $$
 \iiint_E z \, dV
 $$
+</MathWrapper>
 where $E$ is bounded by the cylinder $y^2 + z^2 = 9$ and the planes $x = 0$, $y = 3x$, and $z = 0$ in the first octant.
 
 **Solution:**
@@ -574,6 +715,7 @@ The solid is bounded by $x=0$ and the plane $y=3x$ (which implies $x=y/3$).
 In the $yz$-plane, the region $D$ is bounded by the circle $y^2+z^2=9$ in the first quadrant ($y \ge 0, z \ge 0$).
 So $0 \le y \le 3$ and $0 \le z \le \sqrt{9-y^2}$.
 The range for $x$ is $0 \le x \le y/3$.
+<MathWrapper>
 $$
 \begin{aligned}
 \iiint_E z \, dV &= \int_0^3 \int_0^{\sqrt{9-y^2}} \int_0^{y/3} z \, dx \, dz \, dy \\
@@ -586,6 +728,7 @@ $$
 &= \frac{1}{6} \left( \frac{81}{4} \right) = \frac{27}{8}
 \end{aligned}
 $$
+</MathWrapper>
 **Answer:** $27/8$
 
 <br/>
@@ -597,6 +740,7 @@ The tetrahedron enclosed by the coordinate planes and the plane $2x + y + z = 4$
 Set $z=0$ to find the projection $D$ on the $xy$-plane: $2x + y = 4$, bounded by $x=0, y=0$.
 Limits: $0 \le x \le 2$, $0 \le y \le 4 - 2x$.
 $z$ ranges from $0$ to $4 - 2x - y$.
+<MathWrapper>
 $$
 \begin{aligned}
 V &= \int_0^2 \int_0^{4-2x} \int_0^{4-2x-y} dz \, dy \, dx \\
@@ -610,6 +754,7 @@ V &= \int_0^2 \int_0^{4-2x} \int_0^{4-2x-y} dz \, dy \, dx \\
 &= 2 (0 - (-\frac{8}{3})) = \frac{16}{3}
 \end{aligned}
 $$
+</MathWrapper>
 **Answer:** $16/3$
 
 <br/>
@@ -621,6 +766,7 @@ The surfaces intersect when $z^2 = x^2 + y^2$ is substituted into the sphere equ
 $z^2 + z^2 = 2 \implies 2z^2 = 2 \implies z = 1$.
 Since $z = r$, the radius of intersection is $r=1$.
 We use cylindrical coordinates: $0 \le r \le 1$, $r \le z \le \sqrt{2 - r^2}$.
+<MathWrapper>
 $$
 \begin{aligned}
 V &= \int_0^{2\pi} \int_0^1 \int_r^{\sqrt{2-r^2}} r \, dz \, dr \, d\theta \\
@@ -628,13 +774,16 @@ V &= \int_0^{2\pi} \int_0^1 \int_r^{\sqrt{2-r^2}} r \, dz \, dr \, d\theta \\
 &= 2\pi \left( \int_0^1 r(2-r^2)^{1/2} \, dr - \int_0^1 r^2 \, dr \right)
 \end{aligned}
 $$
+</MathWrapper>
 First integral: let $u = 2 - r^2$, $du = -2r dr$.
 $\int r(2-r^2)^{1/2} dr = -\frac{1}{2} \int u^{1/2} du = -\frac{1}{3} u^{3/2} = -\frac{1}{3}(2-r^2)^{3/2}$.
 Evaluate at limits: $-\frac{1}{3}(1)^{3/2} - (-\frac{1}{3}(2)^{3/2}) = \frac{1}{3}(2\sqrt{2} - 1)$.
 Second integral: $[\frac{r^3}{3}]_0^1 = \frac{1}{3}$.
+<MathWrapper>
 $$
 V = 2\pi \left( \frac{2\sqrt{2} - 1}{3} - \frac{1}{3} \right) = \frac{2\pi}{3} (2\sqrt{2} - 2) = \frac{4\pi}{3}(\sqrt{2} - 1)
 $$
+</MathWrapper>
 **Answer:** $\frac{4\pi}{3}(\sqrt{2} - 1)$
 
 <br/>
@@ -645,6 +794,7 @@ $$
 Find intersection: $24 - r^2 = 2r \implies r^2 + 2r - 24 = 0 \implies (r+6)(r-4)=0$.
 So intersection is at $r=4$.
 The solid lies above the cone ($z=2r$) and below the paraboloid ($z=24-r^2$) for $0 \le r \le 4$.
+<MathWrapper>
 $$
 \begin{aligned}
 V &= \int_0^{2\pi} \int_0^4 \int_{2r}^{24-r^2} r \, dz \, dr \, d\theta \\
@@ -657,6 +807,7 @@ V &= \int_0^{2\pi} \int_0^4 \int_{2r}^{24-r^2} r \, dz \, dr \, d\theta \\
 &= 2\pi \left( \frac{256}{3} \right) = \frac{512\pi}{3}
 \end{aligned}
 $$
+</MathWrapper>
 **Answer:** $512\pi/3$
 
 <br/>
@@ -668,10 +819,13 @@ The equation $y = 4 - x^2 - 4z^2$ represents a paraboloid opening in the negativ
 The solid is bounded by this paraboloid and the $xz$-plane ($y=0$).
 Projection on $xz$-plane ($y=0$): $0 = 4 - x^2 - 4z^2 \implies x^2 + 4z^2 = 4$, which is an ellipse.
 Order $dy dx dz$:
+<MathWrapper>
 $$
 \int_{-1}^1 \int_{-2\sqrt{1-z^2}}^{2\sqrt{1-z^2}} \int_0^{4-x^2-4z^2} 1 \, dy \, dx \, dz
 $$
+</MathWrapper>
 Since the problem asks for volume, we evaluate:
+<MathWrapper>
 $$
 \begin{aligned}
 V &= \iint_D (4 - x^2 - 4z^2) \, dA \quad (D \text{ is ellipse } x^2/4 + z^2/1 \le 1) \\
@@ -681,6 +835,7 @@ V &= \iint_D (4 - x^2 - 4z^2) \, dA \quad (D \text{ is ellipse } x^2/4 + z^2/1 \
 &= 2\pi [4r^2 - 2r^4]_0^1 = 2\pi (4 - 2) = 4\pi
 \end{aligned}
 $$
+</MathWrapper>
 **Answer:** $4\pi$
 
 <br/>
@@ -692,6 +847,7 @@ The solid lies above the parabolic region in the $xy$-plane bounded by $y=x^2$ a
 Limits: $-2 \le x \le 2$ (since $x^2=4$).
 $y$ goes from $x^2$ to $4$.
 $z$ goes from $0$ to $(4-y)/2 = 2 - y/2$.
+<MathWrapper>
 $$
 \begin{aligned}
 V &= \int_{-2}^2 \int_{x^2}^4 \int_0^{2 - y/2} dz \, dy \, dx \\
@@ -705,6 +861,7 @@ V &= \int_{-2}^2 \int_{x^2}^4 \int_0^{2 - y/2} dz \, dy \, dx \\
 &= 2 \left( 8 - 5.333 + 1.6 \right) = 2 (4.266...) = \frac{128}{15}
 \end{aligned}
 $$
+</MathWrapper>
 **Answer:** $128/15$
 
 ---

@@ -1,3 +1,5 @@
+import MathWrapper from '../../../../../components/MathWrapper'
+
 # Week 7: Periodic Functions
 
 **Book:** *A First Course in Differential Equations with Modeling Applications* by Dennis G. Zill, 11th Edition
@@ -12,16 +14,20 @@
 
 ### Definition
 A function $f$ is said to be **periodic** if there exists a positive number $T$ such that
+<MathWrapper>
 $$
 f(t + T) = f(t)
 $$
+</MathWrapper>
 for all $t$ in the domain of $f$. The smallest such positive number $T$ is called the **period** of the function.
 
 ### Laplace Transform of a Periodic Function
 If $f(t)$ is piecewise continuous on $[0, \infty)$, of exponential order, and periodic with period $T$, then its Laplace transform can be determined by integration over one period:
+<MathWrapper>
 $$
 \mathcal{L}\{f(t)\} = \frac{1}{1 - e^{-sT}} \int_0^T e^{-st} f(t) \, dt
 $$
+</MathWrapper>
 
 ---
 
@@ -29,16 +35,19 @@ $$
 
 **Example 8:** Find the Laplace transform of the periodic function shown in the figure (Square Wave).
 *Description of function:* The function $E(t)$ is a square wave with period $T = 2$. It is defined for $0 \le t < 2$ as:
+<MathWrapper>
 $$
 E(t) = \begin{cases} 
 1, & 0 \le t < 1 \\
 0, & 1 \le t < 2
 \end{cases}
 $$
+</MathWrapper>
 and $E(t + 2) = E(t)$ outside this interval.
 
 **Solution:**
 Using the formula for the transform of a periodic function with $T=2$:
+<MathWrapper>
 $$
 \begin{aligned}
 \mathcal{L}\{E(t)\} &= \frac{1}{1 - e^{-2s}} \int_0^2 e^{-st} E(t) \, dt \\
@@ -47,44 +56,61 @@ $$
 &= \frac{1}{1 - e^{-2s}} \left( \frac{1 - e^{-s}}{s} \right)
 \end{aligned}
 $$
+</MathWrapper>
 Using the algebraic identity $1 - e^{-2s} = (1 - e^{-s})(1 + e^{-s})$, we simplify:
+<MathWrapper>
 $$
 \mathcal{L}\{E(t)\} = \frac{1}{s(1 + e^{-s})}
 $$
+</MathWrapper>
 
 <br />
 
 **Example 9:** The differential equation for the current $i(t)$ in a single-loop $LR$-series circuit is
+<MathWrapper>
 $$
 L \frac{di}{dt} + Ri = E(t)
 $$
+</MathWrapper>
 Determine the current $i(t)$ when $i(0) = 0$ and $E(t)$ is the square wave function described in Example 8.
 
 **Solution:**
 Using the result from Example 8, the Laplace transform of the differential equation is:
+<MathWrapper>
 $$
 L s I(s) + R I(s) = \frac{1}{s(1 + e^{-s})}
 $$
+</MathWrapper>
 Solving for $I(s)$:
+<MathWrapper>
 $$
 I(s) = \frac{1/L}{s(s + R/L)} \cdot \frac{1}{1 + e^{-s}}
 $$
+</MathWrapper>
 We use a geometric series to expand the term $\frac{1}{1 + e^{-s}}$:
+<MathWrapper>
 $$
 \frac{1}{1 + e^{-s}} = 1 - e^{-s} + e^{-2s} - e^{-3s} + \dots
 $$
+</MathWrapper>
 And using partial fractions for the first part:
+<MathWrapper>
 $$
 \frac{1/L}{s(s + R/L)} = \frac{1}{R} \left( \frac{1}{s} - \frac{1}{s + R/L} \right)
 $$
+</MathWrapper>
 Combining these, we get:
+<MathWrapper>
 $$
 I(s) = \frac{1}{R} \left( \frac{1}{s} - \frac{1}{s + R/L} \right) (1 - e^{-s} + e^{-2s} - e^{-3s} + \dots)
 $$
+</MathWrapper>
 By applying the second translation theorem to each term, we obtain the inverse transform:
+<MathWrapper>
 $$
 i(t) = \frac{1}{R} (1 - e^{-Rt/L}) + \frac{1}{R} \sum_{n=1}^{\infty} (-1)^n (1 - e^{-R(t-n)/L}) \mathcal{U}(t - n)
 $$
+</MathWrapper>
 where $\mathcal{U}(t-n)$ is the unit step function.
 
 ---
@@ -96,36 +122,50 @@ where $\mathcal{U}(t-n)$ is the unit step function.
 
 **Solution:**
 Using Theorem 7.4.3 with $T = 2a$:
+<MathWrapper>
 $$
 \mathcal{L}\{f(t)\} = \frac{1}{1 - e^{-2as}} \int_0^{2a} e^{-st} f(t) \, dt
 $$
+</MathWrapper>
 Split the integral based on the definition of $f(t)$:
+<MathWrapper>
 $$
 \int_0^{2a} e^{-st} f(t) \, dt = \int_0^a e^{-st}(1) \, dt + \int_a^{2a} e^{-st}(-1) \, dt
 $$
+</MathWrapper>
 Evaluate the integrals:
+<MathWrapper>
 $$
 \begin{aligned}
 \int_0^a e^{-st} \, dt &= \left[ \frac{-e^{-st}}{s} \right]_0^a = \frac{1}{s}(1 - e^{-as}) \\
 \int_a^{2a} -e^{-st} \, dt &= \left[ \frac{e^{-st}}{s} \right]_a^{2a} = \frac{1}{s}(e^{-2as} - e^{-as})
 \end{aligned}
 $$
+</MathWrapper>
 Combine the terms:
+<MathWrapper>
 $$
 \text{Total Integral} = \frac{1}{s} (1 - e^{-as} + e^{-2as} - e^{-as}) = \frac{1}{s} (1 - 2e^{-as} + e^{-2as}) = \frac{1}{s} (1 - e^{-as})^2
 $$
+</MathWrapper>
 Substitute back into the transform formula:
+<MathWrapper>
 $$
 \mathcal{L}\{f(t)\} = \frac{1}{1 - e^{-2as}} \cdot \frac{(1 - e^{-as})^2}{s}
 $$
+</MathWrapper>
 Factor the denominator $1 - e^{-2as} = (1 - e^{-as})(1 + e^{-as})$:
+<MathWrapper>
 $$
 = \frac{(1 - e^{-as})^2}{s(1 - e^{-as})(1 + e^{-as})} = \frac{1 - e^{-as}}{s(1 + e^{-as})}
 $$
+</MathWrapper>
 Using hyperbolic functions, this simplifies to:
+<MathWrapper>
 $$
 \frac{1}{s} \tanh\left(\frac{as}{2}\right)
 $$
+</MathWrapper>
 
 <br />
 
@@ -134,21 +174,29 @@ $$
 
 **Solution:**
 This is similar to Example 8 but with a general width $a$.
+<MathWrapper>
 $$
 \mathcal{L}\{f(t)\} = \frac{1}{1 - e^{-2as}} \int_0^{2a} e^{-st} f(t) \, dt
 $$
+</MathWrapper>
 The function is $0$ from $a$ to $2a$, so we only integrate from $0$ to $a$:
+<MathWrapper>
 $$
 \int_0^a e^{-st}(1) \, dt = \left[ \frac{-e^{-st}}{s} \right]_0^a = \frac{1}{s} (1 - e^{-as})
 $$
+</MathWrapper>
 Substitute into the formula:
+<MathWrapper>
 $$
 \mathcal{L}\{f(t)\} = \frac{1}{1 - e^{-2as}} \cdot \frac{1 - e^{-as}}{s}
 $$
+</MathWrapper>
 Factor the denominator:
+<MathWrapper>
 $$
 = \frac{1 - e^{-as}}{s(1 - e^{-as})(1 + e^{-as})} = \frac{1}{s(1 + e^{-as})}
 $$
+</MathWrapper>
 
 <br />
 
@@ -156,28 +204,38 @@ $$
 *Description:* $f(t) = \frac{t}{b}$ for $0 < t < b$. The period is $T = b$. (Note: The figure label implies the function rises from 0 to 1 over width $b$).
 
 **Solution:**
+<MathWrapper>
 $$
 \mathcal{L}\{f(t)\} = \frac{1}{1 - e^{-bs}} \int_0^b e^{-st} \left(\frac{t}{b}\right) \, dt
 $$
+</MathWrapper>
 Use integration by parts for $\int t e^{-st} dt$: $u = t, dv = e^{-st} dt \Rightarrow du = dt, v = \frac{-e^{-st}}{s}$.
+<MathWrapper>
 $$
 \int t e^{-st} dt = \frac{-t e^{-st}}{s} - \int \frac{-e^{-st}}{s} dt = \frac{-t e^{-st}}{s} - \frac{e^{-st}}{s^2}
 $$
+</MathWrapper>
 Evaluate limits $0$ to $b$:
+<MathWrapper>
 $$
 \begin{aligned}
 \left[ \frac{1}{b} \left( \frac{-t e^{-st}}{s} - \frac{e^{-st}}{s^2} \right) \right]_0^b &= \frac{1}{b} \left( \left( \frac{-b e^{-bs}}{s} - \frac{e^{-bs}}{s^2} \right) - \left( 0 - \frac{1}{s^2} \right) \right) \\
 &= \frac{1}{b} \left( \frac{1}{s^2} - \frac{e^{-bs}}{s^2} - \frac{b e^{-bs}}{s} \right)
 \end{aligned}
 $$
+</MathWrapper>
 Combine with the period factor:
+<MathWrapper>
 $$
 \mathcal{L}\{f(t)\} = \frac{1}{1 - e^{-bs}} \left( \frac{1 - e^{-bs}}{bs^2} - \frac{e^{-bs}}{s} \right)
 $$
+</MathWrapper>
 Simplifying:
+<MathWrapper>
 $$
 = \frac{1}{bs^2} - \frac{e^{-bs}}{s(1 - e^{-bs})}
 $$
+</MathWrapper>
 
 
 <br />
@@ -186,26 +244,36 @@ $$
 *Description:* Period $T = \pi$. $f(t) = \sin t$ for $0 < t < \pi$.
 
 **Solution:**
+<MathWrapper>
 $$
 \mathcal{L}\{|\sin t|\} = \frac{1}{1 - e^{-\pi s}} \int_0^\pi e^{-st} \sin t \, dt
 $$
+</MathWrapper>
 Using the standard integral for $\int e^{-st} \sin t \, dt$:
+<MathWrapper>
 $$
 \int e^{-st} \sin t \, dt = \frac{e^{-st}(-s \sin t - \cos t)}{s^2 + 1}
 $$
+</MathWrapper>
 Evaluate limits $0$ to $\pi$:
+<MathWrapper>
 $$
 \begin{aligned}
 \text{Upper }(\pi) &: \frac{e^{-\pi s}(0 - (-1))}{s^2 + 1} = \frac{e^{-\pi s}}{s^2 + 1} \\
 \text{Lower }(0) &: \frac{1(0 - 1)}{s^2 + 1} = \frac{-1}{s^2 + 1}
 \end{aligned}
 $$
+</MathWrapper>
 Integral value $= \frac{e^{-\pi s} + 1}{s^2 + 1}$.
 Substitute into the formula:
+<MathWrapper>
 $$
 \mathcal{L}\{f(t)\} = \frac{1}{1 - e^{-\pi s}} \cdot \frac{1 + e^{-\pi s}}{s^2 + 1} = \frac{1 + e^{-\pi s}}{1 - e^{-\pi s}} \frac{1}{s^2 + 1}
 $$
+</MathWrapper>
 Using hyperbolic functions:
+<MathWrapper>
 $$
 = \frac{1}{s^2 + 1} \coth\left(\frac{\pi s}{2}\right)
 $$
+</MathWrapper>
