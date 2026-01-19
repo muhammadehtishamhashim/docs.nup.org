@@ -1,4 +1,4 @@
-# Week 10: Fourier Series
+# Week 10: Fourier Series of any period P-2L
 
 **Book:** *Differential Equations with Boundary-Value Problems* by Dennis G. Zill, 7th Edition
 **Chapter:** 11. Orthogonal Functions and Fourier Series
@@ -6,402 +6,10 @@
 
 ---
 
-### Definitions
-
-**Fourier Series**
-The Fourier series of a function $f$ defined on the interval $(-p, p)$ is given by the trigonometric series:
-$$
-f(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty} \left( a_n \cos \frac{n\pi}{p}x + b_n \sin \frac{n\pi}{p}x \right)
-$$
-
-
-**Fourier Coefficients**
-The coefficients $a_0$, $a_n$, and $b_n$ are determined by the following integrals:
-$$
-a_0 = \frac{1}{p} \int_{-p}^{p} f(x) \, dx
-$$
-$$
-a_n = \frac{1}{p} \int_{-p}^{p} f(x) \cos \frac{n\pi}{p}x \, dx
-$$
-$$
-b_n = \frac{1}{p} \int_{-p}^{p} f(x) \sin \frac{n\pi}{p}x \, dx
-$$
-
-
----
-
-### Explanation
-
-The Fourier series is an expansion of a function $f(x)$ in terms of an infinite orthogonal set of trigonometric functions:
-$$
-\left\{ 1, \cos \frac{\pi}{p}x, \cos \frac{2\pi}{p}x, \dots, \sin \frac{\pi}{p}x, \sin \frac{2\pi}{p}x, \dots \right\}
-$$
-This set is orthogonal on the interval $[-p, p]$. The expansion allows us to represent piecewise continuous functions (even those with discontinuities) as a sum of sines and cosines.
-
-**Convergence:**
-If $f$ and $f'$ are piecewise continuous on $(-p, p)$, the series converges to $f(x)$ at points of continuity. At a point of discontinuity $x$, the series converges to the average:
-$$
-\frac{f(x+) + f(x-)}{2}
-$$
-
-
-**Periodic Extension:**
-Although defined on $(-p, p)$, the Fourier series converges to the periodic extension of $f$ with period $2p$ outside this interval.
-
----
-
 ### Solved Examples (from the Book)
 
-**Example 1: Expansion in a Fourier Series**
-Expand the following function in a Fourier series:
-$$
-f(x) = \begin{cases} 
-0, & -\pi < x < 0 \\
-\pi - x, & 0 \le x < \pi 
-\end{cases}
-$$
-**Solution:**
-Here the interval is $(-\pi, \pi)$, so $p = \pi$.
+**11. Find the Fourier series of $f(x)$ on the interval $(-2, 2)$.**
 
-**Step 1: Calculate $a_0$.**
-$$
-a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \, dx = \frac{1}{\pi} \left[ \int_{-\pi}^{0} 0 \, dx + \int_{0}^{\pi} (\pi - x) \, dx \right]
-$$
-$$
-= \frac{1}{\pi} \left[ \pi x - \frac{x^2}{2} \right]_0^{\pi} = \frac{1}{\pi} \left( \pi^2 - \frac{\pi^2}{2} \right) = \frac{\pi}{2}
-$$
-
-**Step 2: Calculate $a_n$.**
-$$
-a_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \cos nx \, dx = \frac{1}{\pi} \left[ \int_{0}^{\pi} (\pi - x) \cos nx \, dx \right]
-$$
-Using integration by parts with $u = \pi - x$ and $dv = \cos nx \, dx$:
-$$
-= \frac{1}{\pi} \left[ (\pi - x) \frac{\sin nx}{n} \Big|_0^{\pi} + \frac{1}{n} \int_{0}^{\pi} \sin nx \, dx \right]
-$$
-The first term is zero because $\sin n\pi = 0$ and $\sin 0 = 0$.
-$$
-= \frac{1}{\pi n} \left[ -\frac{\cos nx}{n} \right]_0^{\pi} = -\frac{1}{\pi n^2} (\cos n\pi - \cos 0)
-$$
-Since $\cos n\pi = (-1)^n$:
-$$
-a_n = \frac{1 - (-1)^n}{n^2 \pi}
-$$
-
-**Step 3: Calculate $b_n$.**
-$$
-b_n = \frac{1}{\pi} \int_{0}^{\pi} (\pi - x) \sin nx \, dx
-$$
-Using integration by parts:
-$$
-= \frac{1}{\pi} \left[ -(\pi - x) \frac{\cos nx}{n} \Big|_0^{\pi} - \frac{1}{n} \int_{0}^{\pi} \cos nx \, dx \right]
-$$
-$$
-= \frac{1}{\pi} \left[ (0 - (-\pi \cdot \frac{1}{n})) - \frac{1}{n} \left[ \frac{\sin nx}{n} \right]_0^{\pi} \right]
-$$
-$$
-= \frac{1}{\pi} \left( \frac{\pi}{n} \right) = \frac{1}{n}
-$$
-
-**Final Series:**
-$$
-f(x) = \frac{\pi}{4} + \sum_{n=1}^{\infty} \left\{ \frac{1 - (-1)^n}{n^2 \pi} \cos nx + \frac{1}{n} \sin nx \right\}
-$$
-
-
----
-
-### Solved Exercise Questions (11.2)
-
-**1.** Find the Fourier series of $f$ on the given interval.
-$$
-f(x) = \begin{cases} 
-0, & -\pi < x < 0 \\
-1, & 0 \le x < \pi 
-\end{cases}
-$$
-**Solution:**
-Here $p = \pi$.
-$$
-a_0 = \frac{1}{\pi} \int_{0}^{\pi} 1 \, dx = \frac{1}{\pi} [x]_0^{\pi} = 1
-$$
-$$
-a_n = \frac{1}{\pi} \int_{0}^{\pi} 1 \cdot \cos nx \, dx = \frac{1}{\pi} \left[ \frac{\sin nx}{n} \right]_0^{\pi} = 0
-$$
-$$
-b_n = \frac{1}{\pi} \int_{0}^{\pi} 1 \cdot \sin nx \, dx = \frac{1}{\pi} \left[ \frac{-\cos nx}{n} \right]_0^{\pi} 
-$$
-$$
-= -\frac{1}{n\pi} (\cos n\pi - \cos 0) = \frac{1 - (-1)^n}{n\pi}
-$$
-**Answer:** $f(x) = \frac{1}{2} + \sum_{n=1}^{\infty} \frac{1 - (-1)^n}{n\pi} \sin nx$
-
-<br />
-
-**2.** Find the Fourier series of $f$.
-$$
-f(x) = \begin{cases} 
--1, & -\pi < x < 0 \\
-2, & 0 \le x < \pi 
-\end{cases}
-$$
-**Solution:**
-$p = \pi$.
-$$
-a_0 = \frac{1}{\pi} \left[ \int_{-\pi}^{0} -1 \, dx + \int_{0}^{\pi} 2 \, dx \right] = \frac{1}{\pi} [-\pi + 2\pi] = 1
-$$
-$$
-a_n = \frac{1}{\pi} \left[ \int_{-\pi}^{0} -\cos nx \, dx + \int_{0}^{\pi} 2 \cos nx \, dx \right] 
-$$
-$$
-= \frac{1}{\pi} \left[ -\frac{\sin nx}{n} \Big|_{-\pi}^0 + \frac{2\sin nx}{n} \Big|_0^{\pi} \right] = 0
-$$
-$$
-b_n = \frac{1}{\pi} \left[ \int_{-\pi}^{0} -\sin nx \, dx + \int_{0}^{\pi} 2 \sin nx \, dx \right] 
-$$
-$$
-= \frac{1}{\pi} \left[ \left( \frac{\cos nx}{n} \right)_{-\pi}^0 + 2 \left( \frac{-\cos nx}{n} \right)_0^{\pi} \right]
-$$
-$$
-= \frac{1}{n\pi} [ (1 - (-1)^n) - 2((-1)^n - 1) ] = \frac{3(1 - (-1)^n)}{n\pi}
-$$
-**Answer:** $f(x) = \frac{1}{2} + \sum_{n=1}^{\infty} \frac{3(1 - (-1)^n)}{n\pi} \sin nx$
-
-<br />
-
-**3.** Find the Fourier series of $f$.
-$$
-f(x) = \begin{cases} 
-1, & -1 < x < 0 \\
-x, & 0 \le x < 1 
-\end{cases}
-$$
-**Solution:**
-Here $p = 1$. The basis functions are $\cos n\pi x$ and $\sin n\pi x$.
-$$
-a_0 = \frac{1}{1} \left[ \int_{-1}^{0} 1 \, dx + \int_{0}^{1} x \, dx \right] = [x]_{-1}^0 + [\frac{x^2}{2}]_0^1 = 1 + \frac{1}{2} = \frac{3}{2}
-$$
-$$
-a_n = \int_{-1}^{0} \cos n\pi x \, dx + \int_{0}^{1} x \cos n\pi x \, dx
-$$
-Integral 1: $[\frac{\sin n\pi x}{n\pi}]_{-1}^0 = 0$.
-Integral 2 (by parts): $[\frac{x \sin n\pi x}{n\pi}]_0^1 - \int_0^1 \frac{\sin n\pi x}{n\pi} dx = 0 - [\frac{-\cos n\pi x}{n^2\pi^2}]_0^1 = \frac{(-1)^n - 1}{n^2\pi^2}$.
-$$
-b_n = \int_{-1}^{0} \sin n\pi x \, dx + \int_{0}^{1} x \sin n\pi x \, dx
-$$
-Integral 1: $[\frac{-\cos n\pi x}{n\pi}]_{-1}^0 = \frac{-1 - (-(-1)^n)}{n\pi} = \frac{(-1)^n - 1}{n\pi}$.
-Integral 2 (by parts): $[\frac{-x \cos n\pi x}{n\pi}]_0^1 + \int_0^1 \frac{\cos n\pi x}{n\pi} dx = \frac{-(-1)^n}{n\pi}$.
-Total $b_n = \frac{(-1)^n - 1 - (-1)^n}{n\pi} = -\frac{1}{n\pi}$.
-**Answer:** $f(x) = \frac{3}{4} + \sum_{n=1}^{\infty} \left[ \frac{(-1)^n - 1}{n^2\pi^2} \cos n\pi x - \frac{1}{n\pi} \sin n\pi x \right]$
-
-<br />
-
-**4.** Find the Fourier series of $f$.
-$$
-f(x) = \begin{cases} 
-0, & -1 < x < 0 \\
-x, & 0 \le x < 1 
-\end{cases}
-$$
-**Solution:**
-$p = 1$.
-$$
-a_0 = \int_{0}^{1} x \, dx = \frac{1}{2}
-$$
-$$
-a_n = \int_{0}^{1} x \cos n\pi x \, dx = \frac{(-1)^n - 1}{n^2\pi^2} \quad \text{(see Q3)}
-$$
-$$
-b_n = \int_{0}^{1} x \sin n\pi x \, dx = \frac{-(-1)^n}{n\pi} = \frac{(-1)^{n+1}}{n\pi} \quad \text{(see Q3)}
-$$
-**Answer:** $f(x) = \frac{1}{4} + \sum_{n=1}^{\infty} \left[ \frac{(-1)^n - 1}{n^2\pi^2} \cos n\pi x + \frac{(-1)^{n+1}}{n\pi} \sin n\pi x \right]$
-
-<br />
-
-**5.** Find the Fourier series of $f$.
-$$
-f(x) = \begin{cases} 
-0, & -\pi < x < 0 \\
-x^2, & 0 \le x < \pi 
-\end{cases}
-$$
-**Solution:**
-$p = \pi$.
-$$
-a_0 = \frac{1}{\pi} \int_{0}^{\pi} x^2 \, dx = \frac{1}{\pi} [\frac{x^3}{3}]_0^{\pi} = \frac{\pi^2}{3}
-$$
-$$
-a_n = \frac{1}{\pi} \int_{0}^{\pi} x^2 \cos nx \, dx
-$$
-Integration by parts twice:
-$$
-\int x^2 \cos nx \, dx = \frac{x^2 \sin nx}{n} - \frac{2}{n} \int x \sin nx \, dx
-$$
-$$
-= \frac{x^2 \sin nx}{n} - \frac{2}{n} \left[ -\frac{x \cos nx}{n} + \frac{\sin nx}{n^2} \right]
-$$
-Evaluated at $\pi$: $\frac{2\pi \cos n\pi}{n^2} = \frac{2\pi (-1)^n}{n^2}$.
-$$
-a_n = \frac{1}{\pi} \frac{2\pi (-1)^n}{n^2} = \frac{2(-1)^n}{n^2}
-$$
-$$
-b_n = \frac{1}{\pi} \int_{0}^{\pi} x^2 \sin nx \, dx
-$$
-By parts twice:
-$$
-\int x^2 \sin nx \, dx = -\frac{x^2 \cos nx}{n} + \frac{2}{n} \int x \cos nx \, dx
-$$
-$$
-= -\frac{x^2 \cos nx}{n} + \frac{2}{n} \left[ \frac{x \sin nx}{n} + \frac{\cos nx}{n^2} \right]
-$$
-Evaluated at $\pi$: $-\frac{\pi^2 (-1)^n}{n} + \frac{2}{n^3}((-1)^n - 1)$.
-$$
-b_n = \frac{1}{\pi} \left[ -\frac{\pi^2 (-1)^n}{n} + \frac{2((-1)^n - 1)}{n^3} \right] = \frac{\pi (-1)^{n+1}}{n} + \frac{2((-1)^n - 1)}{\pi n^3}
-$$
-**Answer:** $f(x) = \frac{\pi^2}{6} + \sum_{n=1}^{\infty} \left[ \frac{2(-1)^n}{n^2} \cos nx + \left( \frac{\pi (-1)^{n+1}}{n} + \frac{2((-1)^n - 1)}{\pi n^3} \right) \sin nx \right]$
-
-<br />
-
-**6.** Find the Fourier series of $f$.
-$$
-f(x) = \begin{cases} 
-\pi^2, & -\pi < x < 0 \\
-\pi^2 - x^2, & 0 \le x < \pi 
-\end{cases}
-$$
-**Solution:**
-This is $\pi^2$ minus the function in Q5 (extended to be 0 on negative side).
-Let $g(x)$ be the function in Q5. Then $f(x) = \pi^2 - g(x)$ for $x>0$ and $f(x)=\pi^2$ for $x<0$.
-This equals $\pi^2 - (\text{Fourier Series of } g(x))$? No, be careful with the domains.
-Let's compute directly. $p = \pi$.
-$$
-a_0 = \frac{1}{\pi} (\int_{-\pi}^0 \pi^2 dx + \int_0^\pi (\pi^2 - x^2) dx) = \frac{1}{\pi} (\pi^3 + \pi^3 - \frac{\pi^3}{3}) = \frac{5\pi^2}{3}
-$$
-$$
-a_n = \frac{1}{\pi} (\int_{-\pi}^0 \pi^2 \cos nx dx + \int_0^\pi (\pi^2 - x^2) \cos nx dx)
-$$
-First integral is 0. Second integral: $\int \pi^2 \cos nx = 0$. So we integrate $-\int x^2 \cos nx dx$.
-Using Q5 result: $a_n = -(\frac{2(-1)^n}{n^2})$.
-$$
-b_n = \frac{1}{\pi} (\int_{-\pi}^0 \pi^2 \sin nx dx + \int_0^\pi (\pi^2 - x^2) \sin nx dx)
-$$
-Integral 1: $\pi^2 [\frac{-\cos nx}{n}]_{-\pi}^0 = \frac{\pi^2}{n} (-1 + (-1)^n)$.
-Integral 2: $\pi^2 \int \sin nx - \int x^2 \sin nx$.
-$\pi^2 \int \sin nx = \frac{\pi^2}{n} (1 - (-1)^n)$.
-Sum of constant parts: $\frac{\pi^2}{n}(-1 + (-1)^n + 1 - (-1)^n) = 0$.
-Remaining part is $-\int x^2 \sin nx$. Using Q5 result:
-$b_n = - [ \frac{\pi (-1)^{n+1}}{n} + \frac{2((-1)^n - 1)}{\pi n^3} ]$.
-**Answer:** $f(x) = \frac{5\pi^2}{6} + \sum_{n=1}^{\infty} \left[ \frac{2(-1)^{n+1}}{n^2} \cos nx + \left( \frac{\pi (-1)^{n}}{n} + \frac{2(1 - (-1)^n)}{\pi n^3} \right) \sin nx \right]$
-
-<br />
-
-**7.** Find the Fourier series of $f(x) = x + \pi$, $-\pi < x < \pi$.
-**Solution:**
-$p = \pi$.
-$$
-a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} (x + \pi) \, dx = \frac{1}{\pi} [\frac{x^2}{2} + \pi x]_{-\pi}^{\pi} = \frac{1}{\pi} (2\pi^2) = 2\pi
-$$
-$$
-a_n = \frac{1}{\pi} \int_{-\pi}^{\pi} (x + \pi) \cos nx \, dx
-$$
-Split: $\int x \cos nx = 0$ (odd*even). $\pi \int \cos nx = 0$. So $a_n = 0$.
-$$
-b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} (x + \pi) \sin nx \, dx
-$$
-Split: $\pi \int \sin nx = 0$ (even*odd).
-$\int_{-\pi}^{\pi} x \sin nx \, dx = 2 \int_{0}^{\pi} x \sin nx \, dx$.
-Using parts: $2 [ -\frac{x \cos nx}{n} ]_0^{\pi} = 2 [ -\frac{\pi (-1)^n}{n} ] = \frac{2\pi (-1)^{n+1}}{n}$.
-$b_n = \frac{1}{\pi} (\frac{2\pi (-1)^{n+1}}{n}) = \frac{2(-1)^{n+1}}{n}$.
-**Answer:** $f(x) = \pi + \sum_{n=1}^{\infty} \frac{2(-1)^{n+1}}{n} \sin nx$
-
-<br />
-
-**8.** Find the Fourier series of $f(x) = 3 - 2x$, $-\pi < x < \pi$.
-**Solution:**
-$p = \pi$.
-$$
-a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} (3 - 2x) \, dx = \frac{1}{\pi} [3x - x^2]_{-\pi}^{\pi} = 6
-$$
-$$
-a_n = \frac{1}{\pi} \int (3 - 2x) \cos nx \, dx = 0 \quad \text{(3 cos is 0, 2x cos is odd)}
-$$
-$$
-b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} (3 - 2x) \sin nx \, dx = \frac{1}{\pi} \int -2x \sin nx \, dx
-$$
-$$
-= -\frac{4}{\pi} \int_{0}^{\pi} x \sin nx \, dx = -\frac{4}{\pi} [\frac{-\pi (-1)^n}{n}] = \frac{4(-1)^n}{n}
-$$
-**Answer:** $f(x) = 3 + \sum_{n=1}^{\infty} \frac{4(-1)^n}{n} \sin nx$
-
-<br />
-
-**9.** Find the Fourier series of $f$.
-$$
-f(x) = \begin{cases} 
-0, & -\pi < x < 0 \\
-\sin x, & 0 \le x < \pi 
-\end{cases}
-$$
-**Solution:**
-$p = \pi$.
-$$
-a_0 = \frac{1}{\pi} \int_{0}^{\pi} \sin x \, dx = \frac{2}{\pi}
-$$
-$$
-a_n = \frac{1}{\pi} \int_{0}^{\pi} \sin x \cos nx \, dx = \frac{1}{2\pi} \int_{0}^{\pi} (\sin(1+n)x + \sin(1-n)x) \, dx
-$$
-If $n=1$: $\int \sin 2x = 0$. $a_1 = 0$.
-If $n > 1$:
-$$
-= \frac{1}{2\pi} \left[ \frac{-\cos(1+n)x}{1+n} - \frac{\cos(1-n)x}{1-n} \right]_0^{\pi}
-$$
-$$
-= \frac{1}{2\pi} \left[ \frac{-(-1)^{n+1} + 1}{1+n} - \frac{(-1)^{n-1} - 1}{1-n} \right] = \frac{1 + (-1)^n}{\pi(1 - n^2)}
-$$
-$$
-b_n = \frac{1}{\pi} \int_{0}^{\pi} \sin x \sin nx \, dx
-$$
-If $n=1$: $\frac{1}{\pi} \int \sin^2 x = \frac{1}{\pi} (\frac{\pi}{2}) = \frac{1}{2}$.
-If $n > 1$: Orthogonality of sines on $[0, \pi]$ implies 0? No, that's for $2\pi$.
-$\int \sin x \sin nx = \frac{1}{2} \int (\cos(1-n)x - \cos(1+n)x) = 0$.
-So $b_1 = \frac{1}{2}$, others 0.
-**Answer:** $f(x) = \frac{1}{\pi} + \frac{1}{2} \sin x + \sum_{n=2}^{\infty} \frac{1 + (-1)^n}{\pi(1 - n^2)} \cos nx$
-
-<br />
-
-**10.** Find the Fourier series of $f$.
-$$
-f(x) = \begin{cases} 
-0, & -\pi/2 < x < 0 \\
-\cos x, & 0 \le x < \pi/2 
-\end{cases}
-$$
-**Solution:**
-$p = \pi/2$. Basis: $\cos \frac{n\pi x}{\pi/2} = \cos 2nx$.
-$$
-a_0 = \frac{1}{\pi/2} \int_{0}^{\pi/2} \cos x \, dx = \frac{2}{\pi} = \frac{2}{\pi}
-$$
-$$
-a_n = \frac{2}{\pi} \int_{0}^{\pi/2} \cos x \cos 2nx \, dx = \frac{1}{\pi} \int (\cos(2n+1)x + \cos(2n-1)x)
-$$
-$$
-= \frac{1}{\pi} [\frac{\sin(2n+1)\frac{\pi}{2}}{2n+1} + \frac{\sin(2n-1)\frac{\pi}{2}}{2n-1}]
-$$
-Using $\sin(n\pi + \pi/2) = (-1)^n$:
-$$
-= \frac{1}{\pi} [ \frac{(-1)^n}{2n+1} + \frac{(-1)^{n-1}}{2n-1} ] = \frac{(-1)^n}{\pi} [ \frac{1}{2n+1} - \frac{1}{2n-1} ] = \frac{(-1)^n}{\pi} \frac{-2}{4n^2-1}
-$$
-$$
-b_n = \frac{2}{\pi} \int_{0}^{\pi/2} \cos x \sin 2nx \, dx = \frac{1}{\pi} \int (\sin(2n+1)x + \sin(2n-1)x)
-$$
-$$
-= \frac{1}{\pi} [ \frac{1 - \cos(2n+1)\frac{\pi}{2}}{2n+1} + \frac{1 - \cos(2n-1)\frac{\pi}{2}}{2n-1} ] = \frac{1}{\pi} [ \frac{1}{2n+1} + \frac{1}{2n-1} ] = \frac{4n}{\pi(4n^2-1)}
-$$
-**Answer:** $f(x) = \frac{1}{\pi} + \sum_{n=1}^{\infty} \left[ \frac{2(-1)^{n+1}}{\pi(4n^2-1)} \cos 2nx + \frac{4n}{\pi(4n^2-1)} \sin 2nx \right]$
-
-<br />
-
-**11.** Find the Fourier series of the function defined piecewise on $(-2, 2)$.
 $$
 f(x) = \begin{cases} 
 0, & -2 < x < -1 \\
@@ -410,34 +18,56 @@ f(x) = \begin{cases}
 0, & 1 \le x < 2 
 \end{cases}
 $$
+
 **Solution:**
-$p = 2$.
-$$
-a_0 = \frac{1}{2} [ \int_{-1}^0 -2 + \int_0^1 1 ] = \frac{1}{2} [-2 + 1] = -\frac{1}{2}
-$$
-$$
-a_n = \frac{1}{2} [ \int_{-1}^0 -2 \cos \frac{n\pi x}{2} + \int_0^1 1 \cos \frac{n\pi x}{2} ]
-$$
-$$
-= \frac{1}{2} [ -2 \frac{2}{n\pi} [\sin \frac{n\pi x}{2}]_{-1}^0 + \frac{2}{n\pi} [\sin \frac{n\pi x}{2}]_0^1 ]
-$$
-$$
-= \frac{1}{n\pi} [ -2(0 - (-\sin \frac{n\pi}{2})) + \sin \frac{n\pi}{2} ] = \frac{-2 \sin \frac{n\pi}{2} + \sin \frac{n\pi}{2}}{n\pi} = -\frac{1}{n\pi} \sin \frac{n\pi}{2}
-$$
-$$
-b_n = \frac{1}{2} [ \int_{-1}^0 -2 \sin \frac{n\pi x}{2} + \int_0^1 1 \sin \frac{n\pi x}{2} ]
-$$
-$$
-= \frac{1}{2} [ 2 \frac{2}{n\pi} [\cos \frac{n\pi x}{2}]_{-1}^0 + \frac{-2}{n\pi} [\cos \frac{n\pi x}{2}]_0^1 ]
-$$
-$$
-= \frac{1}{n\pi} [ 2(1 - \cos \frac{n\pi}{2}) - (\cos \frac{n\pi}{2} - 1) ] = \frac{3}{n\pi} (1 - \cos \frac{n\pi}{2})
-$$
-**Answer:** $f(x) = -\frac{1}{4} + \sum_{n=1}^{\infty} \left[ -\frac{1}{n\pi} \sin \frac{n\pi}{2} \cos \frac{n\pi x}{2} + \frac{3}{n\pi} (1 - \cos \frac{n\pi}{2}) \sin \frac{n\pi x}{2} \right]$
+Here $p = 2$. Basis functions: $\cos \frac{n\pi x}{2}, \sin \frac{n\pi x}{2}$.
 
-<br />
+**Step 1: Calculate $a_0$.**
+$$
+a_0 = \frac{1}{2} \left[ \int_{-1}^{0} -2 \, dx + \int_{0}^{1} 1 \, dx \right]
+$$
+$$
+a_0 = \frac{1}{2} ( -2(1) + 1(1) ) = -\frac{1}{2}
+$$
 
-**12.** Find the Fourier series of $f$.
+**Step 2: Calculate $a_n$.**
+$$
+a_n = \frac{1}{2} \left[ \int_{-1}^{0} -2 \cos \frac{n\pi x}{2} \, dx + \int_{0}^{1} 1 \cos \frac{n\pi x}{2} \, dx \right]
+$$
+$$
+a_n = \frac{1}{2} \left[ -2 \frac{2}{n\pi} \sin \frac{n\pi x}{2} \Big|_{-1}^0 + \frac{2}{n\pi} \sin \frac{n\pi x}{2} \Big|_0^1 \right]
+$$
+$$
+a_n = \frac{1}{n\pi} \left[ -2(0 - \sin \frac{-n\pi}{2}) + (\sin \frac{n\pi}{2} - 0) \right]
+$$
+Since $\sin(-A) = -\sin A$:
+$$
+a_n = \frac{1}{n\pi} (-2\sin \frac{n\pi}{2} + \sin \frac{n\pi}{2}) = -\frac{1}{n\pi} \sin \frac{n\pi}{2}
+$$
+
+**Step 3: Calculate $b_n$.**
+$$
+b_n = \frac{1}{2} \left[ \int_{-1}^{0} -2 \sin \frac{n\pi x}{2} \, dx + \int_{0}^{1} 1 \sin \frac{n\pi x}{2} \, dx \right]
+$$
+$$
+b_n = \frac{1}{2} \left[ -2 \frac{-2}{n\pi} \cos \frac{n\pi x}{2} \Big|_{-1}^0 + \frac{-2}{n\pi} \cos \frac{n\pi x}{2} \Big|_0^1 \right]
+$$
+$$
+b_n = \frac{1}{n\pi} \left[ 2(1 - \cos \frac{-n\pi}{2}) - (\cos \frac{n\pi}{2} - 1) \right]
+$$
+$$
+b_n = \frac{1}{n\pi} (2 - 2\cos \frac{n\pi}{2} - \cos \frac{n\pi}{2} + 1) = \frac{3}{n\pi} \left( 1 - \cos \frac{n\pi}{2} \right)
+$$
+
+**Final Series:**
+$$
+f(x) = -\frac{1}{4} + \sum_{n=1}^{\infty} \left[ -\frac{1}{n\pi} \sin \frac{n\pi}{2} \cos \frac{n\pi x}{2} + \frac{3}{n\pi} \left( 1 - \cos \frac{n\pi}{2} \right) \sin \frac{n\pi x}{2} \right]
+$$
+
+---
+
+**12. Find the Fourier series of $f(x)$ on the interval $(-2, 2)$.**
+
 $$
 f(x) = \begin{cases} 
 0, & -2 < x < 0 \\
@@ -445,103 +75,260 @@ x, & 0 \le x < 1 \\
 1, & 1 \le x < 2 
 \end{cases}
 $$
+
 **Solution:**
-$p = 2$.
-$$
-a_0 = \frac{1}{2} [ \int_0^1 x \, dx + \int_1^2 1 \, dx ] = \frac{1}{2} [\frac{1}{2} + 1] = \frac{3}{4}
-$$
-$$
-a_n = \frac{1}{2} [ \int_0^1 x \cos \frac{n\pi x}{2} \, dx + \int_1^2 \cos \frac{n\pi x}{2} \, dx ]
-$$
-Int 1: $\frac{4}{n^2\pi^2} \cos \frac{n\pi x}{2} + \frac{2x}{n\pi} \sin \frac{n\pi x}{2} \Big|_0^1 = \frac{4}{n^2\pi^2} (\cos \frac{n\pi}{2} - 1) + \frac{2}{n\pi} \sin \frac{n\pi}{2}$.
-Int 2: $\frac{2}{n\pi} [\sin \frac{n\pi x}{2}]_1^2 = \frac{2}{n\pi} (0 - \sin \frac{n\pi}{2})$.
-Sum ($a_n$): $\frac{1}{2} [ \frac{4}{n^2\pi^2} (\cos \frac{n\pi}{2} - 1) ] = \frac{2}{n^2\pi^2} (\cos \frac{n\pi}{2} - 1)$.
-$$
-b_n = \frac{1}{2} [ \int_0^1 x \sin \frac{n\pi x}{2} \, dx + \int_1^2 \sin \frac{n\pi x}{2} \, dx ]
-$$
-Int 1: $\frac{4}{n^2\pi^2} \sin \frac{n\pi x}{2} - \frac{2x}{n\pi} \cos \frac{n\pi x}{2} \Big|_0^1 = \frac{4}{n^2\pi^2} \sin \frac{n\pi}{2} - \frac{2}{n\pi} \cos \frac{n\pi}{2}$.
-Int 2: $\frac{-2}{n\pi} [\cos \frac{n\pi x}{2}]_1^2 = \frac{-2}{n\pi} ((-1)^n - \cos \frac{n\pi}{2})$.
-Sum ($b_n$): $\frac{2}{n^2\pi^2} \sin \frac{n\pi}{2} - \frac{1}{n\pi} \cos \frac{n\pi}{2} - \frac{1}{n\pi} (-1)^n + \frac{1}{n\pi} \cos \frac{n\pi}{2} = \frac{2}{n^2\pi^2} \sin \frac{n\pi}{2} - \frac{(-1)^n}{n\pi}$.
-**Answer:** $f(x) = \frac{3}{8} + \sum_{n=1}^{\infty} \left[ a_n \cos \frac{n\pi x}{2} + b_n \sin \frac{n\pi x}{2} \right]$ (coeffs above)
+Here $p = 2$.
 
-<br />
+**Step 1: Calculate $a_0$.**
+$$
+a_0 = \frac{1}{2} \left[ \int_{0}^{1} x \, dx + \int_{1}^{2} 1 \, dx \right]
+$$
+$$
+a_0 = \frac{1}{2} \left( [\frac{x^2}{2}]_0^1 + [x]_1^2 \right) = \frac{1}{2} (\frac{1}{2} + 1) = \frac{3}{4}
+$$
 
-**13.** Find the Fourier series of $f$.
+**Step 2: Calculate $a_n$.**
+$$
+a_n = \frac{1}{2} \left[ \int_{0}^{1} x \cos \frac{n\pi x}{2} \, dx + \int_{1}^{2} 1 \cdot \cos \frac{n\pi x}{2} \, dx \right]
+$$
+Integration by parts for the first integral ($u=x, dv=\cos \dots$):
+$$
+\int x \cos \frac{n\pi x}{2} dx = \frac{2x}{n\pi} \sin \frac{n\pi x}{2} + \frac{4}{n^2\pi^2} \cos \frac{n\pi x}{2}
+$$
+Evaluate limits for first part ($0$ to $1$):
+$$
+\frac{2}{n\pi} \sin \frac{n\pi}{2} + \frac{4}{n^2\pi^2} (\cos \frac{n\pi}{2} - 1)
+$$
+Evaluate second integral ($1$ to $2$):
+$$
+\left[ \frac{2}{n\pi} \sin \frac{n\pi x}{2} \right]_1^2 = \frac{2}{n\pi} (\sin n\pi - \sin \frac{n\pi}{2}) = -\frac{2}{n\pi} \sin \frac{n\pi}{2}
+$$
+Summing these and multiplying by $1/2$:
+$$
+a_n = \frac{1}{2} \left[ \frac{2}{n\pi} \sin \frac{n\pi}{2} + \frac{4}{n^2\pi^2} (\cos \frac{n\pi}{2} - 1) - \frac{2}{n\pi} \sin \frac{n\pi}{2} \right]
+$$
+$$
+a_n = \frac{2}{n^2\pi^2} \left( \cos \frac{n\pi}{2} - 1 \right)
+$$
+
+**Step 3: Calculate $b_n$.**
+$$
+b_n = \frac{1}{2} \left[ \int_{0}^{1} x \sin \frac{n\pi x}{2} \, dx + \int_{1}^{2} \sin \frac{n\pi x}{2} \, dx \right]
+$$
+Integration by parts for first term:
+$$
+\int x \sin \frac{n\pi x}{2} dx = -\frac{2x}{n\pi} \cos \frac{n\pi x}{2} + \frac{4}{n^2\pi^2} \sin \frac{n\pi x}{2}
+$$
+Evaluate limits ($0$ to $1$):
+$$
+-\frac{2}{n\pi} \cos \frac{n\pi}{2} + \frac{4}{n^2\pi^2} \sin \frac{n\pi}{2}
+$$
+Second term limits ($1$ to $2$):
+$$
+\left[ -\frac{2}{n\pi} \cos \frac{n\pi x}{2} \right]_1^2 = -\frac{2}{n\pi} (\cos n\pi - \cos \frac{n\pi}{2})
+$$
+Summing and multiplying by $1/2$:
+$$
+b_n = \frac{1}{2} \left[ -\frac{2}{n\pi} \cos \frac{n\pi}{2} + \frac{4}{n^2\pi^2} \sin \frac{n\pi}{2} - \frac{2}{n\pi} (-1)^n + \frac{2}{n\pi} \cos \frac{n\pi}{2} \right]
+$$
+$$
+b_n = \frac{2}{n^2\pi^2} \sin \frac{n\pi}{2} - \frac{(-1)^n}{n\pi}
+$$
+
+**Final Series:**
+$$
+f(x) = \frac{3}{8} + \sum_{n=1}^{\infty} \left[ \frac{2}{n^2\pi^2} (\cos \frac{n\pi}{2} - 1) \cos \frac{n\pi x}{2} + \left( \frac{2}{n^2\pi^2} \sin \frac{n\pi}{2} - \frac{(-1)^n}{n\pi} \right) \sin \frac{n\pi x}{2} \right]
+$$
+
+---
+
+**13. Find the Fourier series of $f(x)$ on the interval $(-5, 5)$.**
+
 $$
 f(x) = \begin{cases} 
 1, & -5 < x < 0 \\
-1 + x, & 0 \le x < 5 
+1+x, & 0 \le x < 5 
 \end{cases}
 $$
+
 **Solution:**
-$p = 5$.
-$$
-a_0 = \frac{1}{5} [ \int_{-5}^0 1 + \int_0^5 (1+x) ] = \frac{1}{5} [ 5 + 5 + \frac{25}{2} ] = \frac{1}{5} \frac{45}{2} = \frac{9}{2}
-$$
-$$
-a_n = \frac{1}{5} [ \int_{-5}^0 \cos \frac{n\pi x}{5} + \int_0^5 (1+x) \cos \frac{n\pi x}{5} ]
-$$
-Combine $1 \cdot \cos$: $\int_{-5}^5 \cos = 0$.
-Remaining: $\frac{1}{5} \int_0^5 x \cos \frac{n\pi x}{5}$.
-Integration by parts: $\frac{1}{5} [ \frac{25}{n^2\pi^2} (\cos n\pi - 1) ] = \frac{5}{n^2\pi^2} ((-1)^n - 1)$.
-$$
-b_n = \frac{1}{5} [ \int_{-5}^0 \sin \frac{n\pi x}{5} + \int_0^5 (1+x) \sin \frac{n\pi x}{5} ]
-$$
-Combine $1 \cdot \sin$: $\int_{-5}^5 \sin = 0$.
-Remaining: $\frac{1}{5} \int_0^5 x \sin \frac{n\pi x}{5}$.
-Integration by parts: $\frac{1}{5} [ -\frac{25}{n\pi} \cos n\pi ] = -\frac{5}{n\pi} (-1)^n = \frac{5(-1)^{n+1}}{n\pi}$.
-**Answer:** $f(x) = \frac{9}{4} + \sum_{n=1}^{\infty} \left[ \frac{5((-1)^n - 1)}{n^2\pi^2} \cos \frac{n\pi x}{5} + \frac{5(-1)^{n+1}}{n\pi} \sin \frac{n\pi x}{5} \right]$
+Here $p = 5$.
 
-<br />
+**Step 1: Calculate $a_0$.**
+$$
+a_0 = \frac{1}{5} \left[ \int_{-5}^{0} 1 \, dx + \int_{0}^{5} (1+x) \, dx \right]
+$$
+$$
+a_0 = \frac{1}{5} \left[ 5 + (5 + \frac{25}{2}) \right] = \frac{1}{5} \left( \frac{45}{2} \right) = \frac{9}{2}
+$$
 
-**14.** Find the Fourier series of $f$.
+**Step 2: Calculate $a_n$.**
+$$
+a_n = \frac{1}{5} \left[ \int_{-5}^{0} \cos \frac{n\pi x}{5} \, dx + \int_{0}^{5} (1+x) \cos \frac{n\pi x}{5} \, dx \right]
+$$
+Combine the constant terms $1 \cdot \cos$:
+$$
+\int_{-5}^{5} \cos \frac{n\pi x}{5} \, dx = 0 \quad (\text{full period})
+$$
+So we just evaluate:
+$$
+a_n = \frac{1}{5} \int_{0}^{5} x \cos \frac{n\pi x}{5} \, dx
+$$
+By parts ($u=x, dv=\cos \dots$):
+$$
+a_n = \frac{1}{5} \left[ \frac{5x}{n\pi} \sin \frac{n\pi x}{5} + \frac{25}{n^2\pi^2} \cos \frac{n\pi x}{5} \right]_0^5
+$$
+Sine term at 5 is $\sin n\pi = 0$. Sine term at 0 is 0.
+$$
+a_n = \frac{1}{5} \left[ \frac{25}{n^2\pi^2} (\cos n\pi - 1) \right] = \frac{5}{n^2\pi^2} ((-1)^n - 1)
+$$
+
+**Step 3: Calculate $b_n$.**
+$$
+b_n = \frac{1}{5} \left[ \int_{-5}^{0} \sin \frac{n\pi x}{5} \, dx + \int_{0}^{5} (1+x) \sin \frac{n\pi x}{5} \, dx \right]
+$$
+Combine constant terms $1 \cdot \sin$:
+$$
+\int_{-5}^{5} \sin \frac{n\pi x}{5} \, dx = 0
+$$
+Remaining term:
+$$
+b_n = \frac{1}{5} \int_{0}^{5} x \sin \frac{n\pi x}{5} \, dx
+$$
+By parts:
+$$
+b_n = \frac{1}{5} \left[ -\frac{5x}{n\pi} \cos \frac{n\pi x}{5} + \frac{25}{n^2\pi^2} \sin \frac{n\pi x}{5} \right]_0^5
+$$
+$$
+b_n = \frac{1}{5} \left[ -\frac{25}{n\pi} \cos n\pi + 0 - (0 + 0) \right] = -\frac{5}{n\pi} (-1)^n = \frac{5}{n\pi} (-1)^{n+1}
+$$
+
+**Final Series:**
+$$
+f(x) = \frac{9}{4} + \sum_{n=1}^{\infty} \left[ \frac{5((-1)^n - 1)}{n^2\pi^2} \cos \frac{n\pi x}{5} + \frac{5(-1)^{n+1}}{n\pi} \sin \frac{n\pi x}{5} \right]
+$$
+
+---
+
+**14. Find the Fourier series of $f(x)$ on the interval $(-2, 2)$.**
+
 $$
 f(x) = \begin{cases} 
-2 + x, & -2 < x < 0 \\
+2+x, & -2 < x < 0 \\
 2, & 0 \le x < 2 
 \end{cases}
 $$
-**Solution:**
-$p = 2$.
-$$
-a_0 = \frac{1}{2} [ \int_{-2}^0 (2+x) + \int_0^2 2 ] = \frac{1}{2} [ (4 - 2) + 4 ] = 3
-$$
-$$
-a_n = \frac{1}{2} [ \int_{-2}^0 (2+x) \cos \frac{n\pi x}{2} + \int_0^2 2 \cos \frac{n\pi x}{2} ]
-$$
-Combine $2 \cos$: 0.
-Remaining: $\frac{1}{2} \int_{-2}^0 x \cos \frac{n\pi x}{2}$.
-Let $u=-x$: $\frac{1}{2} \int_{2}^0 -u \cos (-\frac{n\pi u}{2}) (-du) = -\frac{1}{2} \int_0^2 u \cos \frac{n\pi u}{2}$.
-Using Q13 logic (limits 0 to $p$): $- \frac{1}{2} [ \frac{4}{n^2\pi^2} ((-1)^n - 1) ] = \frac{2}{n^2\pi^2} (1 - (-1)^n)$.
-$$
-b_n = \frac{1}{2} \int_{-2}^0 x \sin \frac{n\pi x}{2}
-$$
-$= \frac{1}{2} [ -\frac{2x}{n\pi} \cos \frac{n\pi x}{2} ]_{-2}^0 - \dots = \frac{1}{2} [ 0 - (- \frac{-4}{n\pi} \cos(-n\pi)) ] = \frac{1}{2} [ - \frac{4}{n\pi} (-1)^n ] = -\frac{2}{n\pi} (-1)^n$.
-**Answer:** $f(x) = \frac{3}{2} + \sum_{n=1}^{\infty} \left[ \frac{2(1 - (-1)^n)}{n^2\pi^2} \cos \frac{n\pi x}{2} + \frac{2(-1)^{n+1}}{n\pi} \sin \frac{n\pi x}{2} \right]$
 
-<br />
-
-**15.** Find the Fourier series of $f(x) = e^x$, $-\pi < x < \pi$.
 **Solution:**
-$p = \pi$.
+Here $p = 2$.
+
+**Step 1: Calculate $a_0$.**
 $$
-a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} e^x \, dx = \frac{e^{\pi} - e^{-\pi}}{\pi} = \frac{2 \sinh \pi}{\pi}
+a_0 = \frac{1}{2} \left[ \int_{-2}^{0} (2+x) \, dx + \int_{0}^{2} 2 \, dx \right]
 $$
+$$
+a_0 = \frac{1}{2} \left( [2x + \frac{x^2}{2}]_{-2}^0 + 4 \right) = \frac{1}{2} ( (0 - (-4 + 2)) + 4 ) = \frac{1}{2} (2+4) = 3
+$$
+
+**Step 2: Calculate $a_n$.**
+$$
+a_n = \frac{1}{2} \left[ \int_{-2}^{0} (2+x) \cos \frac{n\pi x}{2} \, dx + \int_{0}^{2} 2 \cos \frac{n\pi x}{2} \, dx \right]
+$$
+The constant 2 integrates to 0 over the full period.
+$$
+a_n = \frac{1}{2} \int_{-2}^{0} x \cos \frac{n\pi x}{2} \, dx
+$$
+Let $x = -t$. Limits become $2$ to $0$. $dx = -dt$.
+$$
+a_n = \frac{1}{2} \int_{2}^{0} (-t) \cos \frac{-n\pi t}{2} (-dt) = -\frac{1}{2} \int_{0}^{2} t \cos \frac{n\pi t}{2} dt
+$$
+This integral is similar to Q13 (using $p=2$).
+$$
+\int_{0}^{2} t \cos \frac{n\pi t}{2} dt = \frac{4}{n^2\pi^2} ((-1)^n - 1)
+$$
+So,
+$$
+a_n = -\frac{1}{2} \left( \frac{4}{n^2\pi^2} ((-1)^n - 1) \right) = \frac{2}{n^2\pi^2} (1 - (-1)^n)
+$$
+
+**Step 3: Calculate $b_n$.**
+$$
+b_n = \frac{1}{2} \int_{-2}^{0} x \sin \frac{n\pi x}{2} \, dx
+$$
+(Constants vanished). Let $x = -t$.
+$$
+b_n = \frac{1}{2} \int_{2}^{0} (-t) \sin \frac{-n\pi t}{2} (-dt) = \frac{1}{2} \int_{0}^{2} -t \sin \frac{n\pi t}{2} dt
+$$
+$$
+b_n = -\frac{1}{2} \left[ -\frac{2t}{n\pi} \cos \frac{n\pi t}{2} \right]_0^2 \quad \text{(Sine part is 0)}
+$$
+$$
+b_n = -\frac{1}{2} \left( -\frac{4}{n\pi} \cos n\pi \right) = \frac{2}{n\pi} (-1)^n
+$$
+*Correction*: Check calculation.
+$\int_0^2 t \sin \frac{n\pi t}{2} dt = [-\frac{2t}{n\pi} \cos] + \frac{4}{n^2\pi^2} \sin$.
+Boundary 2: $-\frac{4}{n\pi} (-1)^n$. Boundary 0: 0.
+So $b_n = -\frac{1}{2} (-\frac{4}{n\pi} (-1)^n) = \frac{2}{n\pi} (-1)^n$.
+However, in $f(x)$, $x$ is on $(-2, 0)$. Let's check logic.
+$f(x) = 2$ (even) $+ x$ (odd on negative side).
+The even part gives 0 for $b_n$.
+The odd part (function $g(x) = x$ on $(-2, 0)$ and $0$ on $(0, 2)$).
+Direct calculation: $\int_{-2}^0 x \sin \frac{n\pi x}{2} dx$.
+$= [-\frac{2x}{n\pi} \cos]_ {-2}^0 + \int_{-2}^0 \dots$
+$= (0 - (-\frac{-4}{n\pi} \cos(-n\pi))) = -\frac{4}{n\pi} (-1)^n$.
+Divide by $p=2$ gives $-\frac{2}{n\pi}(-1)^n$.
+Wait, substitution $t=-x$ gave $+$.
+$\sin(-A) = -\sin A$. Three negatives in $-t \sin(-..) (-dt)$. Yes, negative.
+So $b_n = -\frac{2}{n\pi}(-1)^n = \frac{2}{n\pi}(-1)^{n+1}$.
+
+**Final Series:**
+$$
+f(x) = \frac{3}{2} + \sum_{n=1}^{\infty} \left[ \frac{2(1 - (-1)^n)}{n^2\pi^2} \cos \frac{n\pi x}{2} + \frac{2(-1)^{n+1}}{n\pi} \sin \frac{n\pi x}{2} \right]
+$$
+
+---
+
+**15. Find the Fourier series of $f(x) = e^x$ on $(-\pi, \pi)$.**
+
+**Solution:**
+Here $p = \pi$.
+
+**Step 1: Calculate $a_0$.**
+$$
+a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} e^x \, dx = \frac{1}{\pi} (e^{\pi} - e^{-\pi}) = \frac{2\sinh \pi}{\pi}
+$$
+
+**Step 2: Calculate $a_n$.**
 $$
 a_n = \frac{1}{\pi} \int_{-\pi}^{\pi} e^x \cos nx \, dx
 $$
-Formula: $\int e^{ax} \cos bx = \frac{e^{ax}}{a^2+b^2}(a \cos bx + b \sin bx)$. Here $a=1, b=n$.
+Using the standard integral formula $\int e^{ax} \cos bx \, dx = \frac{e^{ax}}{a^2+b^2}(a \cos bx + b \sin bx)$:
 $$
-= \frac{1}{\pi} \left[ \frac{e^x}{1+n^2} (\cos nx + n \sin nx) \right]_{-\pi}^{\pi}
+a_n = \frac{1}{\pi} \left[ \frac{e^x}{1+n^2} (\cos nx + n \sin nx) \right]_{-\pi}^{\pi}
 $$
 $$
-= \frac{1}{\pi(1+n^2)} [ e^{\pi} (-1)^n - e^{-\pi} (-1)^n ] = \frac{(-1)^n (e^{\pi} - e^{-\pi})}{\pi(1+n^2)} = \frac{2(-1)^n \sinh \pi}{\pi(1+n^2)}
+a_n = \frac{1}{\pi(1+n^2)} [ e^{\pi}(\cos n\pi + 0) - e^{-\pi}(\cos(-n\pi) + 0) ]
 $$
+$$
+a_n = \frac{(-1)^n}{\pi(1+n^2)} (e^{\pi} - e^{-\pi}) = \frac{2 \sinh \pi (-1)^n}{\pi(1+n^2)}
+$$
+
+**Step 3: Calculate $b_n$.**
 $$
 b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} e^x \sin nx \, dx
 $$
-Formula: $\frac{e^x}{1+n^2} (\sin nx - n \cos nx)$.
+Using $\int e^{ax} \sin bx \, dx = \frac{e^{ax}}{a^2+b^2}(a \sin bx - b \cos bx)$:
 $$
-= \frac{1}{\pi(1+n^2)} [ e^{\pi} (-n(-1)^n) - e^{-\pi} (-n(-1)^n) ] = \frac{-n(-1)^n (e^{\pi} - e^{-\pi})}{\pi(1+n^2)} = \frac{2n(-1)^{n+1} \sinh \pi}{\pi(1+n^2)}
+b_n = \frac{1}{\pi} \left[ \frac{e^x}{1+n^2} (\sin nx - n \cos nx) \right]_{-\pi}^{\pi}
 $$
-**Answer:** $f(x) = \frac{\sinh \pi}{\pi} + \frac{2 \sinh \pi}{\pi} \sum_{n=1}^{\infty} \frac{(-1)^n}{1+n^2} (\cos nx - n \sin nx)$
+$$
+b_n = \frac{1}{\pi(1+n^2)} [ e^{\pi}(0 - n(-1)^n) - e^{-\pi}(0 - n(-1)^n) ]
+$$
+$$
+b_n = \frac{-n(-1)^n}{\pi(1+n^2)} (e^{\pi} - e^{-\pi}) = \frac{2n \sinh \pi (-1)^{n+1}}{\pi(1+n^2)}
+$$
+
+**Final Series:**
+$$
+f(x) = \frac{\sinh \pi}{\pi} + \frac{2 \sinh \pi}{\pi} \sum_{n=1}^{\infty} \left[ \frac{(-1)^n}{1+n^2} \cos nx + \frac{n(-1)^{n+1}}{1+n^2} \sin nx \right]
+$$
