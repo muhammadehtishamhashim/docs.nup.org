@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind",
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "dev": "next dev",
+    "build": "NODE_OPTIONS='--max-old-space-size=4096' next build",
     "start": "next start",
     "lint": "eslint"
   },
