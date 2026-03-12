@@ -1,10 +1,13 @@
 import Link from 'next/link';
+import { useMemo } from 'react';
 
 export function SemesterGrid({ semesters, activeSemesters = [], majorId }) {
+  const activeSet = useMemo(() => new Set(activeSemesters), [activeSemesters]);
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
       {semesters.map((sem) => {
-        const isActive = activeSemesters.includes(sem.id);
+        const isActive = activeSet.has(sem.id);
         const href = `/${majorId}/sem-${sem.id}`;
 
         return (
