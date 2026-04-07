@@ -1,11 +1,14 @@
 import Link from 'next/link';
+import { useMemo } from 'react';
 
 export function MajorGrid({ items, activeIds = [] }) {
+  const activeIdsSet = useMemo(() => new Set(activeIds), [activeIds]);
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {items.map((item) => {
-        const isActive = activeIds.includes(item.id);
-        
+        const isActive = activeIdsSet.has(item.id);
+
         return (
           <div
             key={item.id}
